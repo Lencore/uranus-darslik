@@ -250,7 +250,8 @@ html,body{margin:0;min-height:100%;background:#04060c}
   if(VIDEO_URL){ box.innerHTML=embed(VIDEO_URL); }
   [].forEach.call(document.querySelectorAll('#ur-cta,#ur-cta2'),function(b){b.addEventListener('click',function(e){
     e.preventDefault(); urTrack('cta_trading_basic');
-    if(CTA_URL && CTA_URL!=='#'){ location.href=CTA_URL; }
+    /* небольшая пауза, чтобы Метрика и Meta успели отправить событие до перехода */
+    if(CTA_URL && CTA_URL!=='#'){ setTimeout(function(){ location.href=CTA_URL; },350); }
   })});
 })();
 </script>

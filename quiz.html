@@ -1,3 +1,10 @@
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-PM2C6VRG');</script>
+<!-- End Google Tag Manager -->
 <!-- Uranus: квиз «Подходит ли вам трейдинг». Tilda: блок T123 «HTML» -->
 <meta charset="utf-8">
 <!-- Yandex.Metrika counter -->
@@ -147,9 +154,12 @@ html,body{margin:0;padding:0;background:#04060c}
 .ur-lp .fail{display:none;color:#ff8080;font-size:13.5px;text-align:center;margin-top:12px}
 .ur-lp .qcard .btn{margin-top:10px}
 .ur-lp .res .tagline{display:inline-flex;margin-bottom:16px}
-.ur-lp .res .rescard{background:linear-gradient(180deg,rgba(19,27,52,.5),rgba(8,12,26,.64));border:1px solid rgba(120,160,255,.24);border-radius:22px;padding:26px 22px 24px;position:relative;overflow:hidden;box-shadow:0 24px 60px -30px rgba(0,0,0,.8);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.ur-lp .res .rescard::before{content:"";position:absolute;inset:-20%;background:radial-gradient(40% 50% at 85% 6%,rgba(91,141,251,.26),transparent 70%),radial-gradient(38% 42% at 4% 98%,rgba(255,178,86,.16),transparent 72%);pointer-events:none;z-index:0}
-.ur-lp .res .rescard::after{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(120,150,230,.09) 1px,transparent 1px),linear-gradient(90deg,rgba(120,150,230,.09) 1px,transparent 1px);background-size:32px 32px;-webkit-mask-image:radial-gradient(ellipse 95% 85% at 75% 15%,#000 20%,transparent 78%);mask-image:radial-gradient(ellipse 95% 85% at 75% 15%,#000 20%,transparent 78%);pointer-events:none;z-index:0}
+.ur-lp .res{position:relative}
+.ur-lp .res::before{content:"";position:absolute;top:-10px;left:-24px;right:-24px;bottom:-10px;background:radial-gradient(42% 55% at 90% 0%,rgba(91,141,251,.22),transparent 70%),radial-gradient(38% 45% at 0% 100%,rgba(255,178,86,.15),transparent 72%);pointer-events:none;z-index:0}
+.ur-lp .res .rescandles{position:absolute;top:-10px;left:-24px;right:-24px;height:220px;opacity:.22;z-index:0;pointer-events:none;-webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 100%);mask-image:linear-gradient(180deg,#000 0%,transparent 100%)}
+.ur-lp .res .chipbadge,.ur-lp .res .qt,.ur-lp .res .rescard{position:relative;z-index:1}
+.ur-lp .res .rescard{background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.16);border-radius:22px;padding:26px 22px 24px;position:relative;overflow:hidden;box-shadow:0 20px 50px -28px rgba(0,0,0,.7);backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%)}
+.ur-lp .res .rescard::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.4),transparent);pointer-events:none}
 .ur-lp .res .rl{display:grid;gap:0;margin:0 0 22px;list-style:none;position:relative;z-index:1}
 .ur-lp .res .rl li{display:flex;gap:14px;align-items:flex-start;padding:13px 0;position:relative}
 .ur-lp .res .rl li:not(:last-child)::after{content:"";position:absolute;left:15px;top:42px;bottom:-4px;width:1px;background:linear-gradient(180deg,rgba(120,160,255,.45),rgba(120,160,255,.04))}
@@ -177,6 +187,11 @@ html,body{margin:0;padding:0;background:#04060c}
 @media(max-width:420px){.ur-lp .scopy h1{font-size:27px}.ur-lp .spic{height:380px}.ur-lp .qt{font-size:22px}}
 </style>
 <div class="ur-lp" id="ur-quiz">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PM2C6VRG"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
   <div class="bgfx"></div><div class="grain"></div>
   <div class="bgcandles"><svg class="cndl" viewBox="0 0 1440 340" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
 <defs><linearGradient id="lgq2" x1="0" x2="1"><stop offset="0" stop-color="#2f6ff0" stop-opacity="0"/><stop offset=".6" stop-color="#5b8dfb" stop-opacity=".7"/><stop offset="1" stop-color="#8fb0ff" stop-opacity=".95"/></linearGradient></defs>
@@ -290,7 +305,7 @@ html,body{margin:0;padding:0;background:#04060c}
     body.innerHTML=h;
     var hd=document.getElementById('q-h'); if(hd&&phase!=='quiz'){try{hd.focus({preventScroll:true})}catch(e){}}
     if(phase==='contact') bindForm();
-    if(phase==='result'){var g=document.getElementById('q-lesson');if(g)g.addEventListener('click',function(){urTrack('quiz_to_lesson');location.href=withUtm(LESSON_URL)})}
+    if(phase==='result'){var g=document.getElementById('q-lesson');if(g)g.addEventListener('click',function(){urTrack('quiz_to_lesson');var __dest=withUtm(LESSON_URL);__dest+=(__dest.indexOf('?')>-1?'&':'?')+'quiz=basic';location.href=__dest})}
   }
 
   body.addEventListener('click',function(e){
@@ -327,7 +342,7 @@ html,body{margin:0;padding:0;background:#04060c}
       Q.forEach(function(q,i){p.set('q'+(i+1),q.o[ans[i]]||'')});
       p.set('quiz_result',resultKey());
       Object.keys(utm).forEach(function(k){if(utm[k])p.set(k,utm[k])});
-      urTrack('lead_submit',{source:'quiz'}); try{if(window.fbq)window.fbq('track','Lead')}catch(x){}
+      urTrack('quiz_lead_submit',{source:'quiz'}); try{if(window.fbq)window.fbq('track','Lead',{content_name:'quiz_basic'})}catch(x){}
       var done=false, fin=function(){if(done)return;done=true;phase='result';sending=false;render();toTop()};
       if(!QUIZ_WEBHOOK){fin();return}
       var t=setTimeout(fin,3500);
@@ -356,7 +371,7 @@ html,body{margin:0;padding:0;background:#04060c}
       'Ajoyib, hech narsa xalaqit bermayapti: darhol birinchi qadamga o‘tish mumkin.'
     ][ans[7]];
     li.push(stop);
-    var h='<div class="qstep res"><span class="chipbadge tagline"><i></i>Sizning natijangiz</span><h2 class="qt sm hf" id="q-h" tabindex="-1">Sizning birinchi qadamingiz: ochiq videodars</h2><div class="rescard"><ul class="rl">';
+    var h='<div class="qstep res"><span class="chipbadge tagline"><i></i>Sizning natijangiz</span><svg class="rescandles" viewBox="0 0 460 220" preserveAspectRatio="xMidYMin slice" aria-hidden="true"><line x1="20" y1="75" x2="20" y2="150" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="14" y="81" width="12" height="59" rx="2" fill="#5b8dfb" fill-opacity="0.4"/><line x1="40" y1="109" x2="40" y2="153" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="34" y="121" width="12" height="27" rx="2" fill="#2f6ff0" fill-opacity="0.4"/><line x1="60" y1="105" x2="60" y2="149" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="54" y="117" width="12" height="25" rx="2" fill="#2f6ff0" fill-opacity="0.4"/><line x1="80" y1="96" x2="80" y2="181" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="74" y="101" width="12" height="73" rx="2" fill="#2f6ff0" fill-opacity="0.4"/><line x1="100" y1="112" x2="100" y2="202" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="94" y="125" width="12" height="72" rx="2" fill="#5b8dfb" fill-opacity="0.4"/><line x1="120" y1="126" x2="120" y2="174" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="114" y="139" width="12" height="25" rx="2" fill="#2f6ff0" fill-opacity="0.4"/><line x1="140" y1="140" x2="140" y2="204" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="134" y="152" width="12" height="46" rx="2" fill="#2f6ff0" fill-opacity="0.4"/><line x1="160" y1="125" x2="160" y2="179" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="154" y="130" width="12" height="36" rx="2" fill="#2f6ff0" fill-opacity="0.4"/><line x1="180" y1="140" x2="180" y2="207" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="174" y="153" width="12" height="41" rx="2" fill="#5b8dfb" fill-opacity="0.4"/><line x1="200" y1="117" x2="200" y2="209" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="194" y="129" width="12" height="65" rx="2" fill="#2f6ff0" fill-opacity="0.4"/><line x1="220" y1="129" x2="220" y2="172" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="214" y="136" width="12" height="25" rx="2" fill="#5b8dfb" fill-opacity="0.4"/><line x1="240" y1="70" x2="240" y2="162" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="234" y="79" width="12" height="72" rx="2" fill="#5b8dfb" fill-opacity="0.4"/><line x1="260" y1="93" x2="260" y2="184" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="254" y="101" width="12" height="76" rx="2" fill="#5b8dfb" fill-opacity="0.4"/><line x1="280" y1="133" x2="280" y2="203" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="274" y="146" width="12" height="49" rx="2" fill="#5b8dfb" fill-opacity="0.4"/><line x1="300" y1="82" x2="300" y2="162" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="294" y="93" width="12" height="61" rx="2" fill="#5b8dfb" fill-opacity="0.4"/><line x1="320" y1="154" x2="320" y2="203" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="314" y="166" width="12" height="27" rx="2" fill="#2f6ff0" fill-opacity="0.4"/><line x1="340" y1="119" x2="340" y2="201" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="334" y="130" width="12" height="61" rx="2" fill="#2f6ff0" fill-opacity="0.4"/><line x1="360" y1="113" x2="360" y2="165" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="354" y="125" width="12" height="27" rx="2" fill="#5b8dfb" fill-opacity="0.4"/><line x1="380" y1="106" x2="380" y2="188" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="374" y="121" width="12" height="58" rx="2" fill="#5b8dfb" fill-opacity="0.4"/><line x1="400" y1="115" x2="400" y2="204" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="394" y="120" width="12" height="76" rx="2" fill="#5b8dfb" fill-opacity="0.4"/><line x1="420" y1="156" x2="420" y2="212" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="414" y="171" width="12" height="26" rx="2" fill="#2f6ff0" fill-opacity="0.4"/><line x1="440" y1="92" x2="440" y2="192" stroke="#5b8dfb" stroke-opacity="0.35" stroke-width="1.6"/><rect x="434" y="107" width="12" height="75" rx="2" fill="#5b8dfb" fill-opacity="0.4"/></svg><h2 class="qt sm hf" id="q-h" tabindex="-1">Sizning birinchi qadamingiz: ochiq videodars</h2><div class="rescard"><ul class="rl">';
     li.forEach(function(t){h+='<li><span class="num"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span><span>'+esc(t)+'</span></li>'});
     h+='</ul><p class="next">Feruzbek Aliev noldan birinchi bitimgacha yo‘l qanday o‘tilishini aytib beradi: nimadan boshlash, qanday tartibda o‘rganish va qanday xatolardan qochish kerak.</p><button type="button" class="btn" id="q-lesson">Ochiq darsni ko‘rish <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div>';
     return h;

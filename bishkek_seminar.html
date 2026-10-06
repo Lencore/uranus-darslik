@@ -631,9 +631,8 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
 <script>
 // Форма регистрации на семинар + попап «Спасибо» + события пикселя
 (function () {
-  // ВАЖНО: сюда вставить ссылку-вебхук (куда уходят заявки: Make, CRM и т.п.).
-  // Пока пусто: на боевом сайте форма покажет ошибку, чтобы заявки не терялись молча.
-  var WEBHOOK = '';
+  // Адрес приёма заявок: Google Таблица (Apps Script). Если оставить пустым, форма покажет ошибку, чтобы заявки не терялись молча.
+  var WEBHOOK = 'https://script.google.com/macros/s/AKfycbxd0_8IuqEcl-j21Efw5v9Tv1JSgDZWGFDBipnseY-fnaSJCacaokDaiTr063lITyv6/exec';
   var TAG = 'seminar_bishkek_2026-10-25';
   var IS_LOCAL = /^(localhost|127\.0\.0\.1|)$/.test(location.hostname);
 

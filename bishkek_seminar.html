@@ -8,6 +8,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Onest:wght@400;500;600;700&family=Mrs+Saint+Delafield&display=swap" rel="stylesheet">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '744594559402525');
+fbq('track', 'PageView');
+</script>
+<!-- End Meta Pixel Code -->
 <style>
 /* ===== База: цвета, шрифты, шапка, кнопки ===== */
 :root{
@@ -279,9 +293,89 @@ h1 em{font-style:normal;color:var(--green);text-shadow:0 0 34px rgba(53,229,140,
   }
 @media (max-width:520px){.perks-in{grid-template-columns:1fr}.city-bg{left:-30%;top:-70px;width:115%;opacity:.5}}
 
+/* ===== Попап «Спасибо за регистрацию»: та же гамма, что и лендинг (красное/зелёное свечение), главный акцент голубой Telegram ===== */
+html.modal-open{overflow:hidden}
+.modal{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px;overflow-y:auto;opacity:0;transition:opacity .22s ease}
+.modal[hidden]{display:none}
+.modal.is-open{opacity:1}
+.modal__veil{position:fixed;inset:0;background:radial-gradient(60% 50% at 20% 20%,rgba(255,60,80,.18),transparent 70%),radial-gradient(60% 50% at 80% 80%,rgba(40,230,130,.18),transparent 70%),rgba(3,7,10,.78);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+
+.modal__card{position:relative;isolation:isolate;width:min(520px,100%);padding:44px 36px 30px;text-align:center;outline:none;
+  border-radius:28px;border:1px solid rgba(53,229,140,.38);
+  background:linear-gradient(170deg,rgba(13,24,21,.97),rgba(6,10,12,.98));
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.9),0 0 80px -20px rgba(53,229,140,.45),inset 0 1px 0 rgba(255,255,255,.08);
+  transform:translateY(18px) scale(.97);transition:transform .32s cubic-bezier(.2,.8,.2,1)}
+.modal.is-open .modal__card{transform:none}
+.modal__glow{position:absolute;z-index:-1;border-radius:50%;filter:blur(46px);pointer-events:none}
+.modal__glow--r{left:-80px;top:-70px;width:260px;height:240px;background:radial-gradient(closest-side,rgba(255,72,98,.34),transparent)}
+.modal__glow--g{right:-90px;bottom:-80px;width:300px;height:260px;background:radial-gradient(closest-side,rgba(50,235,145,.3),transparent)}
+
+.modal__x{position:absolute;top:14px;right:14px;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:var(--t2);background:rgba(255,255,255,.04);border:1px solid var(--line);cursor:pointer;transition:color .2s,background .2s,border-color .2s}
+.modal__x svg{width:18px;height:18px}
+.modal__x:hover{color:#fff;background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25)}
+
+/* значок-галочка: кольцо рисуется при открытии */
+.ty-badge{position:relative;width:76px;height:76px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;color:var(--green);
+  background:radial-gradient(closest-side,rgba(53,229,140,.28),rgba(53,229,140,.06));box-shadow:0 0 0 1px rgba(53,229,140,.5),0 0 40px rgba(53,229,140,.45)}
+.ty-badge svg{width:36px;height:36px;stroke-width:2.6;stroke-dasharray:30;stroke-dashoffset:30;filter:drop-shadow(0 0 8px rgba(53,229,140,.8))}
+.modal.is-open .ty-badge svg{animation:draw .55s .25s ease-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+.ty-title{font-size:clamp(30px,6vw,38px);letter-spacing:.01em;margin-bottom:8px}
+.ty-thanks{max-width:360px;margin:0 auto 20px;color:#e6edf5;font-size:17px;line-height:1.5}
+.ty-thanks span{color:#fff;font-weight:700}
+
+/* два шага: первый выполнен, второй впереди */
+.ty-steps{list-style:none;display:flex;align-items:center;justify-content:center;gap:10px;margin:0 auto 20px;font-size:13.5px;font-weight:600}
+.ty-steps li{display:inline-flex;align-items:center;gap:9px;padding:7px 14px 7px 8px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--t2);white-space:nowrap}
+.ty-steps i{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:700 12px 'Onest',Arial,sans-serif;font-style:normal;background:rgba(255,255,255,.08);color:#fff}
+.ty-steps svg{width:14px;height:14px;stroke-width:3}
+.ty-steps .is-done{color:#bff5d9;border-color:rgba(53,229,140,.4);background:rgba(53,229,140,.1)}
+.ty-steps .is-done i{background:var(--green);color:#04140b}
+.ty-steps .is-now{color:#d7efff;border-color:rgba(42,171,238,.55);background:rgba(42,171,238,.12);box-shadow:0 0 22px -4px rgba(42,171,238,.55)}
+.ty-steps .is-now i{background:#2aabee;color:#fff}
+
+.ty-cta-text{max-width:400px;margin:0 auto 24px;color:#c9d3df;font-size:16px;line-height:1.55}
+.ty-cta-text b{color:#fff}
+
+/* главная кнопка: светящаяся голубая, перевод в Telegram-канал */
+.tg-btn{position:relative;display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:19px 24px;border-radius:16px;
+  font:700 17px 'Onest',Arial,sans-serif;color:#fff;text-decoration:none;
+  background:linear-gradient(180deg,#43c0ff,#1b8fd6 70%,#1778b8);
+  box-shadow:0 18px 40px -12px rgba(42,171,238,.85),0 0 34px rgba(42,171,238,.55),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);
+  transition:transform .18s,box-shadow .18s;isolation:isolate}
+.tg-btn svg{width:26px;height:26px;flex:none;filter:drop-shadow(0 2px 4px rgba(0,50,90,.4))}
+.tg-btn::before{content:"";position:absolute;inset:-5px;z-index:-1;border-radius:20px;border:2px solid rgba(66,190,255,.7);animation:tgpulse 2.2s ease-out infinite}
+.tg-btn::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;border-radius:16px;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);animation:shine 3.4s infinite;pointer-events:none}
+.tg-btn:hover{transform:translateY(-2px);box-shadow:0 24px 48px -12px rgba(42,171,238,1),0 0 48px rgba(42,171,238,.75),inset 0 1px 0 rgba(255,255,255,.6),inset 0 -2px 0 rgba(0,0,0,.12)}
+.tg-btn:focus-visible{outline:3px solid #fff;outline-offset:4px}
+@keyframes tgpulse{0%{opacity:.9;transform:scale(.985)}100%{opacity:0;transform:scale(1.08)}}
+.ty-hint{margin-top:12px;color:var(--tm);font-size:12.5px}
+
+/* короткая ссылка в карточке формы, если попап закрыли */
+.ok-link{display:inline-block;margin-top:16px;padding:12px 20px;border-radius:12px;font-weight:600;color:#d7efff;background:rgba(42,171,238,.14);border:1px solid rgba(42,171,238,.5);box-shadow:0 0 22px -6px rgba(42,171,238,.6);transition:background .2s}
+.ok-link:hover{background:rgba(42,171,238,.26)}
+
+@media (max-width:520px){
+  .modal{padding:14px;align-items:end}
+  .modal__card{padding:40px 20px 24px;border-radius:24px}
+  .ty-steps{flex-direction:column;gap:8px}
+  .ty-steps li{width:100%;justify-content:flex-start}
+  .tg-btn{padding:18px 16px;font-size:16px}
+}
+@media (prefers-reduced-motion:reduce){
+  .modal,.modal__card{transition:none}
+  .modal.is-open .ty-badge svg{animation:none;stroke-dashoffset:0}
+  .tg-btn::before,.tg-btn::after{animation:none}
+}
+
 </style>
 </head>
 <body>
+<!-- Meta Pixel (noscript) -->
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
+/></noscript>
 
 <!-- Общие «детали» графиков: свечи используются в фоне главного экрана -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
@@ -383,8 +477,9 @@ h1 em{font-style:normal;color:var(--green);text-shadow:0 0 34px rgba(53,229,140,
       </form>
       <div class="ok" id="ok" hidden>
         <div class="ok-ic"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-        <h3 class="hf">Вы в списке!</h3>
-        <p>Мы напишем вам в Telegram, чтобы подтвердить участие и добавить вас в канал семинара. Ждём вас <b>25 октября</b> в Orion Hotel, регистрация с 15:00.</p>
+        <h3 class="hf">Заявка принята!</h3>
+        <p>Остался один шаг: чтобы попасть на семинар и быть в курсе новостей, подпишитесь на канал мероприятия в Telegram.</p>
+        <a class="ok-link" href="https://t.me/+7LTjENp80N0zZTEy" target="_blank" rel="noopener noreferrer" data-tg="card">Открыть канал в Telegram</a>
       </div>
     </aside>
   </section>
@@ -440,7 +535,7 @@ h1 em{font-style:normal;color:var(--green);text-shadow:0 0 34px rgba(53,229,140,
     <div class="wrap final-in">
       <h2 class="hf">Только <em>200 мест</em>, и они закончатся</h2>
       <p>Зал вмещает 200 человек. Оставьте имя и телефон, чтобы занять место: подтверждение и все новости пришлём в Telegram.</p>
-      <a class="btn btn-inline" href="#reg"><span>Занять место</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <a class="btn btn-inline" href="#reg" data-cta="final_take_a_seat"><span>Занять место</span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
     </div>
   </section>
 
@@ -463,11 +558,81 @@ h1 em{font-style:normal;color:var(--green);text-shadow:0 0 34px rgba(53,229,140,
 
 </div><!-- /page -->
 
+
+<!-- ===== ПОПАП: спасибо за регистрацию ===== -->
+<div class="modal" id="thanks" role="dialog" aria-modal="true" aria-labelledby="ty-title" aria-describedby="ty-text" hidden>
+  <div class="modal__veil" data-close></div>
+  <div class="modal__card" tabindex="-1">
+    <i class="modal__glow modal__glow--r" aria-hidden="true"></i><i class="modal__glow modal__glow--g" aria-hidden="true"></i>
+    <button class="modal__x" type="button" data-close aria-label="Закрыть окно"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="ty-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
+    <h2 class="hf ty-title" id="ty-title">Заявка принята!</h2>
+    <p class="ty-thanks"><span id="ty-name">Спасибо!</span> Мы получили вашу заявку на семинар в Бишкеке.</p>
+    <ol class="ty-steps" aria-label="Шаги регистрации">
+      <li class="is-done"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9"/></svg></i>Заявка отправлена</li>
+      <li class="is-now"><i aria-hidden="true">2</i>Подписка на канал</li>
+    </ol>
+    <p class="ty-cta-text" id="ty-text"><b>Остался один шаг.</b> Чтобы попасть на семинар и быть в курсе всех новостей, обязательно подпишитесь на канал мероприятия в Telegram.</p>
+    <a class="tg-btn" href="https://t.me/+7LTjENp80N0zZTEy" target="_blank" rel="noopener noreferrer" data-tg="popup">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.4L2.9 11.6c-.9.4-.9 1.1-.2 1.3l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.5 0 .7-.2 1-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3-14.5c.3-1.3-.5-1.9-1.5-1.5z" fill="currentColor" stroke="none"/><path d="M8.2 14.2l9.4-5.9" stroke="#1d8fcb" stroke-width="1.4" fill="none"/></svg>
+      <span>Подписаться на канал в Telegram</span>
+    </a>
+    <p class="ty-hint">Канал откроется в новой вкладке</p>
+  </div>
+</div>
+
 <script>
-// Форма регистрации на семинар
+// Единый трекер событий: Meta Pixel (fbq) + dataLayer (для GTM, если подключат позже).
+// Все события называются с префиксом BishkekSeminar_, чтобы не пересекаться с другими событиями в этом пикселе.
 (function () {
-  // ВАЖНО: сюда вставить ссылку-вебхук CRM (куда уходят заявки).
-  // Пока пусто — на боевом сайте форма покажет ошибку, чтобы заявки не терялись молча.
+  var PREFIX = 'BishkekSeminar_';
+  var BASE = { content_name: 'Seminar Bishkek 2026-10-25', content_category: 'seminar' };
+  var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+
+  // UTM-метки из ссылки: запоминаем на время визита, чтобы они шли во все события
+  function utm() {
+    var out = {}, q = new URLSearchParams(location.search);
+    UTM.forEach(function (k) {
+      var v = q.get(k);
+      try { if (v) sessionStorage.setItem(k, v); else v = sessionStorage.getItem(k); } catch (e) {}
+      if (v) out[k] = v;
+    });
+    return out;
+  }
+
+  // trackEvent('FormStart', {параметры}, 'необязательный id для дедупликации с серверными событиями')
+  window.trackEvent = function (name, params, eventId) {
+    var full = PREFIX + name;
+    var data = Object.assign({}, BASE, utm(), params || {});
+    try { (window.dataLayer = window.dataLayer || []).push(Object.assign({ event: full }, data)); } catch (e) {}
+    if (window.__noTrack) return;                       // режим предпросмотра попапа: в пиксель ничего не шлём
+    try {
+      if (!window.fbq) return;
+      if (eventId) window.fbq('trackCustom', full, data, { eventID: eventId });
+      else window.fbq('trackCustom', full, data);
+    } catch (e) {}
+  };
+
+  // Клики по кнопкам-призывам (всё, где указан data-cta)
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-cta]');
+    if (el) window.trackEvent('CTAClick', { cta_name: el.dataset.cta, cta_text: (el.textContent || '').trim().slice(0, 40) });
+  });
+
+  // Переход в Telegram-канал (кнопка в попапе и ссылка в карточке)
+  function tg(e) {
+    var el = e.target.closest('[data-tg]');
+    if (el) window.trackEvent('TelegramJoinClick', { click_location: el.dataset.tg, destination: 't.me channel' });
+  }
+  document.addEventListener('click', tg);
+  document.addEventListener('auxclick', tg);          // клик средней кнопкой мыши
+})();
+</script>
+<script>
+// Форма регистрации на семинар + попап «Спасибо» + события пикселя
+(function () {
+  // ВАЖНО: сюда вставить ссылку-вебхук (куда уходят заявки: Make, CRM и т.п.).
+  // Пока пусто: на боевом сайте форма покажет ошибку, чтобы заявки не терялись молча.
   var WEBHOOK = '';
   var TAG = 'seminar_bishkek_2026-10-25';
   var IS_LOCAL = /^(localhost|127\.0\.0\.1|)$/.test(location.hostname);
@@ -476,16 +641,16 @@ h1 em{font-style:normal;color:var(--green);text-shadow:0 0 34px rgba(53,229,140,
   var okBox = document.getElementById('ok');
   var failBox = document.getElementById('fail');
   var btn = form.querySelector('.btn');
-  var sending = false;
+  var modal = document.getElementById('thanks');
+  var sending = false, started = false, lastFocus = null;
 
   function setErr(name, on) {
     form.querySelector('[data-f="' + name + '"]').classList.toggle('err', on);
   }
-
-  // оставляем только цифры (плюс в начале не считаем)
   function digits(v) { return String(v).replace(/\D/g, ''); }
+  function track(name, params, id) { if (window.trackEvent) window.trackEvent(name, params, id); }
 
-  // UTM-метки и click id из ссылки — чтобы в CRM было видно, откуда пришёл человек
+  // UTM-метки и click id из ссылки: чтобы в заявке было видно, откуда пришёл человек
   function utmParams() {
     var src = new URLSearchParams(location.search), out = {};
     ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'].forEach(function (k) {
@@ -494,23 +659,55 @@ h1 em{font-style:normal;color:var(--green);text-shadow:0 0 34px rgba(53,229,140,
     return out;
   }
 
-  // события для GTM / Meta Pixel / Метрики (работают, если эти счётчики подключены)
-  function track(name) {
-    try { (window.dataLayer = window.dataLayer || []).push({ event: name, seminar: TAG }); } catch (e) {}
-    try { if (window.fbq) window.fbq('track', 'Lead', { content_name: TAG }); } catch (e) {}
+  // ===== Попап «Спасибо за регистрацию» =====
+  var focusables = function () { return modal.querySelectorAll('button:not([disabled]), a[href]'); };
+  function openThanks(name, leadId) {
+    var who = document.getElementById('ty-name');
+    who.textContent = name ? 'Спасибо, ' + name + '!' : 'Спасибо!';
+    lastFocus = document.activeElement;
+    modal.hidden = false;
+    document.documentElement.classList.add('modal-open');
+    requestAnimationFrame(function () { modal.classList.add('is-open'); });
+    modal.querySelector('.modal__card').focus({ preventScroll: true });
+    track('ThankYouView', { lead_id: leadId || '', form_id: 'seminar_registration' }, leadId ? leadId + '_ty' : undefined);
   }
+  function closeThanks() {
+    modal.classList.remove('is-open');
+    document.documentElement.classList.remove('modal-open');
+    setTimeout(function () { modal.hidden = true; }, 220);
+    if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
+  }
+  modal.addEventListener('click', function (e) { if (e.target.closest('[data-close]')) closeThanks(); });
+  document.addEventListener('keydown', function (e) {
+    if (modal.hidden) return;
+    if (e.key === 'Escape') { closeThanks(); return; }
+    if (e.key !== 'Tab') return;                       // удерживаем Tab внутри окна
+    var f = focusables(); if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && (document.activeElement === first || document.activeElement === modal.querySelector('.modal__card'))) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
 
-  function success() {
-    track('seminar_lead_submit');
+  // ===== Успешная отправка =====
+  function success(name, leadId) {
     form.hidden = true;
-    form.previousElementSibling.hidden = true; // линия-«надрыв» билета
+    form.previousElementSibling.hidden = true;          // линия-«надрыв» билета
     okBox.hidden = false;
-    okBox.tabIndex = -1; okBox.focus(); // фокус на сообщение, чтобы клавиатура и диктор не «потерялись»
+    track('RegistrationComplete', { lead_id: leadId, form_id: 'seminar_registration' }, leadId);  // КОНВЕРСИЯ
+    openThanks(name, leadId);
   }
-
   function fail() {
     sending = false; btn.disabled = false; failBox.hidden = false;
+    track('FormError', { form_id: 'seminar_registration', error_type: 'send_failed' });
   }
+
+  // ===== События формы =====
+  form.addEventListener('focusin', function () {
+    if (!started) { started = true; track('FormStart', { form_id: 'seminar_registration' }); }
+  });
+  btn.addEventListener('click', function () {
+    track('SubmitClick', { form_id: 'seminar_registration', button_text: 'Зарегистрироваться' });
+  });
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -521,23 +718,27 @@ h1 em{font-style:normal;color:var(--green);text-shadow:0 0 34px rgba(53,229,140,
     var okName = name.length >= 2;
     var okPhone = phone.length >= 11 && phone.length <= 15;
     setErr('name', !okName); setErr('phone', !okPhone);
-    if (!okName || !okPhone) return;
-
-    sending = true; btn.disabled = true; failBox.hidden = true;
-
-    var p = new URLSearchParams(utmParams());
-    p.set('name', name); p.set('phone', phone);
-    p.set('tag', TAG); p.set('landing_url', location.href.split('#')[0]);
-
-    if (!WEBHOOK) {
-      console.warn('WEBHOOK не задан в form.js — заявка никуда не отправлена');
-      if (IS_LOCAL) success(); else fail(); // локально можно посмотреть «успех», на сайте — нет
+    if (!okName || !okPhone) {
+      track('FormError', { form_id: 'seminar_registration', error_type: 'validation', fields: (okName ? '' : 'name') + (okName || okPhone ? '' : ',') + (okPhone ? '' : 'phone') });
       return;
     }
 
-    // страховка: если ответ не пришёл за 4 секунды — считаем отправленным (запрос уже ушёл)
+    sending = true; btn.disabled = true; failBox.hidden = true;
+    var leadId = 'L' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+
+    var p = new URLSearchParams(utmParams());
+    p.set('name', name); p.set('phone', phone); p.set('lead_id', leadId);
+    p.set('tag', TAG); p.set('landing_url', location.href.split('#')[0]);
+
+    if (!WEBHOOK) {
+      console.warn('WEBHOOK не задан в form.js: заявка никуда не отправлена');
+      if (IS_LOCAL) success(name, leadId); else fail();   // локально можно посмотреть «успех», на сайте нет
+      return;
+    }
+
+    // страховка: если ответ не пришёл за 4 секунды, считаем отправленным (запрос уже ушёл)
     var done = false;
-    var finish = function () { if (!done) { done = true; success(); } };
+    var finish = function () { if (!done) { done = true; success(name, leadId); } };
     var timer = setTimeout(finish, 4000);
     fetch(WEBHOOK + '?' + p.toString(), { method: 'GET', mode: 'no-cors', keepalive: true })
       .then(function () { clearTimeout(timer); finish(); })
@@ -547,6 +748,9 @@ h1 em{font-style:normal;color:var(--green);text-shadow:0 0 34px rgba(53,229,140,
   ['name', 'phone'].forEach(function (n) {
     form.elements[n].addEventListener('input', function () { setErr(n, false); });
   });
+
+  // Предпросмотр попапа без отправки событий: добавьте к адресу #preview-thanks
+  if (location.hash === '#preview-thanks') { window.__noTrack = true; openThanks('Алия', ''); }
 })();
 
 // Плавный переход по ссылкам-якорям (вместо CSS scroll-behavior, который в Safari мешает вернуться наверх)

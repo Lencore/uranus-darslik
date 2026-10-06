@@ -732,7 +732,8 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
 
     if (!WEBHOOK) {
       console.warn('WEBHOOK не задан в form.js: заявка никуда не отправлена');
-      if (IS_LOCAL) success(name, leadId); else fail();   // локально можно посмотреть «успех», на сайте нет
+      // Тестовый режим: добавьте к адресу #demo, и форма «успешно отправится» без сохранения заявки
+      if (IS_LOCAL || location.hash === '#demo') success(name, leadId); else fail();
       return;
     }
 

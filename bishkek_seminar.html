@@ -16,10 +16,10 @@
   --t:#fff; --t2:#b4bcc9; --tm:#7a8596; --err:#ff7b7b;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:12px}
+html{background:var(--bg);-webkit-text-size-adjust:100%;scroll-padding-top:12px}
 body{
   background:var(--bg);
-  color:var(--t);font:400 16px/1.55 'Onest',Arial,sans-serif;overflow-x:hidden;
+  color:var(--t);font:400 16px/1.55 'Onest',Arial,sans-serif;
 }
 a{color:inherit;text-decoration:none}
 img{display:block;max-width:100%}
@@ -29,8 +29,10 @@ svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-l
 .hf{font-family:'Oswald',Arial,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.012em;line-height:1.05}
 
 /* фон всей страницы: красное слева и зелёное справа идут сверху вниз */
-.page{position:relative;overflow:hidden;isolation:isolate}
-.page-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;
+.page{position:relative;overflow:hidden;overflow:clip;isolation:isolate}
+/* низ страницы плавно уходит в цвет фона: любой отскок прокрутки или высокое окно не покажут обрыва свечения */
+.page::after{content:"";position:absolute;left:0;right:0;bottom:0;height:260px;z-index:-1;pointer-events:none;background:linear-gradient(180deg,transparent,var(--bg) 92%)}
+.page-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;overflow:clip;
   background:
     radial-gradient(closest-side,rgba(255,60,80,.30),transparent) left -32% top 520px/64% 1000px repeat-y,
     radial-gradient(closest-side,rgba(40,230,130,.26),transparent) right -32% top 980px/64% 1000px repeat-y,
@@ -59,7 +61,7 @@ svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-l
 .logo{height:32px;width:auto}
 
 /* ===== Кнопка ===== */
-.btn{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:18px 28px;font:700 17px 'Onest',Arial,sans-serif;color:#04140b;border:0;border-radius:14px;cursor:pointer;
+.btn{position:relative;overflow:hidden;overflow:clip;display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:18px 28px;font:700 17px 'Onest',Arial,sans-serif;color:#04140b;border:0;border-radius:14px;cursor:pointer;
   background:linear-gradient(180deg,#5cf5a6,var(--green-d));box-shadow:0 16px 34px -12px rgba(40,230,130,.75),inset 0 1px 0 rgba(255,255,255,.45);transition:transform .18s,box-shadow .18s}
 .btn::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:shine 3.6s infinite}
 .btn:hover{transform:translateY(-2px);box-shadow:0 22px 40px -12px rgba(40,230,130,.9),inset 0 1px 0 rgba(255,255,255,.45)}
@@ -73,11 +75,11 @@ svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-l
 @keyframes rise{to{opacity:1;transform:none}}
 @keyframes pulse{70%{box-shadow:0 0 0 10px rgba(53,229,140,0)}100%{box-shadow:0 0 0 0 rgba(53,229,140,0)}}
 @keyframes shine{0%,60%{left:-60%}100%{left:130%}}
-@media (prefers-reduced-motion:reduce){.rise{animation:none;opacity:1;transform:none}.btn::after,.dot,.num{animation:none}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){.rise{animation:none;opacity:1;transform:none}.btn::after,.dot,.num{animation:none}}
 
 /* ===== Главный экран: фон, текст, фото, форма ===== */
 .hero{position:relative;isolation:isolate}
-.hero-bg{position:absolute;inset:0 0 -140px;z-index:-1;pointer-events:none;overflow:hidden;-webkit-mask-image:linear-gradient(#000 52%,rgba(0,0,0,.5) 72%,rgba(0,0,0,.12) 88%,transparent 97%);mask-image:linear-gradient(#000 52%,rgba(0,0,0,.5) 72%,rgba(0,0,0,.12) 88%,transparent 97%)}
+.hero-bg{position:absolute;inset:0 0 -140px;z-index:-1;pointer-events:none;overflow:hidden;overflow:clip;-webkit-mask-image:linear-gradient(#000 52%,rgba(0,0,0,.5) 72%,rgba(0,0,0,.12) 88%,transparent 97%);mask-image:linear-gradient(#000 52%,rgba(0,0,0,.5) 72%,rgba(0,0,0,.12) 88%,transparent 97%)}
 .glow-b{left:40%;top:6%;width:38%;height:62%;background:radial-gradient(closest-side,rgba(130,205,255,.22),rgba(60,170,200,.08) 55%,transparent);filter:blur(30px);mix-blend-mode:screen}
 /* плотные светящиеся свечи, линия роста и боке: слой с прозрачностью */
 .hero-candles{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;mix-blend-mode:screen;opacity:.92;-webkit-mask-image:linear-gradient(180deg,transparent 4%,#000 30%);mask-image:linear-gradient(180deg,transparent 4%,#000 30%)}
@@ -197,7 +199,7 @@ h1 em{font-style:normal;color:var(--green);text-shadow:0 0 34px rgba(53,229,140,
 .cards p{color:var(--t2);font-size:15px}
 
 /* бонус от брокера: неоновый подарок рисуется кодом, «$30» живой текст */
-.bonus{display:grid;gap:20px;align-items:center;margin-block:24px;padding:26px 28px;overflow:hidden;border-radius:24px;border:1px solid rgba(53,229,140,.34);
+.bonus{display:grid;gap:20px;align-items:center;margin-block:24px;padding:26px 28px;overflow:hidden;overflow:clip;border-radius:24px;border:1px solid rgba(53,229,140,.34);
   background:radial-gradient(520px 300px at 22% 55%,rgba(40,230,130,.26),transparent 70%),radial-gradient(400px 220px at 100% 0%,rgba(255,70,90,.10),transparent 70%),linear-gradient(160deg,#0b1814,#070b0d)}
 .bonus-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:200px}
 .bonus-art::before{content:"";position:absolute;left:50%;top:50%;width:520px;height:340px;transform:translate(-50%,-50%);background:radial-gradient(closest-side,rgba(53,229,140,.32),rgba(53,229,140,.08) 60%,transparent);filter:blur(10px);pointer-events:none}
@@ -211,7 +213,7 @@ h1 em{font-style:normal;color:var(--green);text-shadow:0 0 34px rgba(53,229,140,
 
 /* только 200 мест: зал со зрителями, лучи света и спикер со спины на переднем плане */
 .final{position:relative;isolation:isolate;overflow-x:clip;overflow-y:visible;padding:72px 0;min-height:600px;display:flex;align-items:center;background:transparent;margin-top:0}
-.stage-fx{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;-webkit-mask-image:linear-gradient(180deg,transparent,#000 26%,#000 70%,transparent);mask-image:linear-gradient(180deg,transparent,#000 26%,#000 70%,transparent)}
+.stage-fx{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;overflow:clip;-webkit-mask-image:linear-gradient(180deg,transparent,#000 26%,#000 70%,transparent);mask-image:linear-gradient(180deg,transparent,#000 26%,#000 70%,transparent)}
 .stage-fx .chart{opacity:.2;z-index:0}
 .hall{position:absolute;left:0;bottom:0;width:100%;height:auto;min-height:100%;object-fit:cover;object-position:50% 100%;opacity:.95;-webkit-mask-image:linear-gradient(180deg,transparent 4%,#000 44%,#000 66%,transparent 96%);mask-image:linear-gradient(180deg,transparent 4%,#000 44%,#000 66%,transparent 96%)}
 .stage-fx::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,9,12,.92) 0,rgba(5,9,12,.62) 32%,rgba(5,9,12,.05) 60%,transparent),linear-gradient(0deg,rgba(5,9,12,.5),transparent 30%)}
@@ -538,6 +540,21 @@ h1 em{font-style:normal;color:var(--green);text-shadow:0 0 34px rgba(53,229,140,
   ['name', 'phone'].forEach(function (n) {
     form.elements[n].addEventListener('input', function () { setErr(n, false); });
   });
+})();
+
+// Плавный переход по ссылкам-якорям (вместо CSS scroll-behavior, который в Safari мешает вернуться наверх)
+// и страховка: ни один контейнер страницы не должен сдвигаться внутри себя
+(function () {
+  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]'); if (!a) return;
+    var id = a.getAttribute('href').slice(1); var el = id && document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+  });
+  var page = document.querySelector('.page');
+  if (page) page.addEventListener('scroll', function () { page.scrollTop = 0; page.scrollLeft = 0; });
 })();
 </script>
 </body>

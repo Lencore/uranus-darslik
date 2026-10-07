@@ -430,7 +430,8 @@ html.modal-open{overflow:hidden}
 .card .meter{padding:13px 16px 12px}.card .meter__nums b{font-size:40px}.card .meter__bar{margin:9px 0 8px}
 
 /* «мест нет»: убираем всё, что зовёт регистрироваться */
-.btn[hidden]{display:none}
+.btn[hidden],.tg-btn[hidden]{display:none}
+.tg-card .meter{margin:0 0 18px}
 .sold-out .card-head h2,.sold-out .card-head>p:not(.card-top){display:none}
 .sold-out .final-in>p:not(.final-soldout){display:none}
 .sold-out .card-head{padding-bottom:6px}
@@ -623,7 +624,7 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
         <div class="soldout__ic" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></div>
         <h3 class="hf">Все места заняты</h3>
         <p>Регистрация закрыта: 200 из 200 мест. Спасибо всем, кто успел. Новости мероприятия публикуем в Telegram-канале.</p>
-        <a class="soldout__tg" href="https://t.me/+7LTjENp80N0zZTEy" target="_blank" rel="noopener noreferrer" data-tg="soldout">Открыть канал в Telegram</a>
+        <a class="soldout__tg" href="https://t.me/+CT9wVvzVf6EyNzIy" target="_blank" rel="noopener noreferrer" data-tg="soldout">Открыть канал в Telegram</a>
       </div>
       <form id="reg-form" novalidate autocomplete="on">
         <div class="fld" data-f="name">
@@ -646,7 +647,7 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
         <div class="ok-ic"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
         <h3 class="hf">Заявка принята!</h3>
         <p>Остался один шаг: чтобы попасть на семинар и быть в курсе новостей, подпишитесь на канал мероприятия в Telegram.</p>
-        <a class="ok-link" href="https://t.me/+7LTjENp80N0zZTEy" target="_blank" rel="noopener noreferrer" data-tg="card">Открыть канал в Telegram</a>
+        <a class="ok-link" href="https://t.me/+CT9wVvzVf6EyNzIy" target="_blank" rel="noopener noreferrer" data-tg="card">Открыть канал в Telegram</a>
       </div>
     </aside>
   </section>
@@ -800,7 +801,7 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
       <li class="is-now"><i aria-hidden="true">2</i>Подписка на канал</li>
     </ol>
     <p class="ty-cta-text" id="ty-text"><b>Остался один шаг.</b> Чтобы попасть на семинар и быть в курсе всех новостей, обязательно подпишитесь на канал мероприятия в Telegram.</p>
-    <a class="tg-btn" href="https://t.me/+7LTjENp80N0zZTEy" target="_blank" rel="noopener noreferrer" data-tg="popup">
+    <a class="tg-btn" href="https://t.me/+CT9wVvzVf6EyNzIy" target="_blank" rel="noopener noreferrer" data-tg="popup">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.4L2.9 11.6c-.9.4-.9 1.1-.2 1.3l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.5 0 .7-.2 1-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3-14.5c.3-1.3-.5-1.9-1.5-1.5z" fill="currentColor" stroke="none"/><path d="M8.2 14.2l9.4-5.9" stroke="#1d8fcb" stroke-width="1.4" fill="none"/></svg>
       <span>Подписаться на канал в Telegram</span>
     </a>
@@ -903,10 +904,10 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
   setTimeout(liveBump, 12000);
 
   var meters = [].slice.call(document.querySelectorAll('[data-meter]'));
-  var form = document.getElementById('reg-form');
+  var form = document.getElementById('reg-form') || document.querySelector('.tg-card');   // на странице с каналом вместо формы блок с кнопкой
   var soldBox = document.getElementById('soldout');
   var finalSold = document.getElementById('final-soldout');
-  var finalBtn = document.querySelector('[data-cta="final_take_a_seat"]');
+  var finalBtn = document.querySelector('[data-cta="final_take_a_seat"], [data-tg="final_cta"]');
   var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
   var shown = null, soldTracked = false;
 

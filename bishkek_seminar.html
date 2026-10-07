@@ -265,16 +265,20 @@ h1 em{font-style:normal;color:var(--green);text-shadow:0 0 34px rgba(53,229,140,
 .perks{background:transparent;position:relative;margin-top:-40px}
 .perks::before{content:"";position:absolute;left:0;right:0;top:-120px;height:200px;pointer-events:none;z-index:0;background:linear-gradient(180deg,transparent,rgba(5,11,16,.0))}
 .perks-in{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:18px 12px;padding-block:8px 20px}
-.perks-in li{display:flex;gap:18px;align-items:center;padding:12px 14px;border-radius:20px;transition:background .25s}
+.perks-in li{position:relative;display:flex;gap:18px;align-items:center;padding:12px 14px;border-radius:20px;transition:background .25s}
+/* мягкое свечение за иконкой: отдельный слой, не обрезается краями (раньше filter+box-shadow давали прямоугольные края в Safari) */
+.perks-in li::before{content:"";position:absolute;left:-18px;top:50%;width:104px;height:104px;transform:translateY(-50%);border-radius:50%;pointer-events:none;background:radial-gradient(closest-side,rgba(53,229,140,.30),rgba(53,229,140,.10) 55%,transparent)}
+.perks-in li>*{position:relative}
 .perks-in li:hover{background:rgba(53,229,140,.06)}
 .perks-in svg{flex:none;box-sizing:content-box;width:30px;height:30px;padding:15px;border-radius:18px;color:#5cf5a6;stroke-width:1.7;
-  background:radial-gradient(120% 120% at 30% 20%,rgba(53,229,140,.34),rgba(53,229,140,.08) 70%);box-shadow:inset 0 0 0 1px rgba(53,229,140,.42),0 0 28px -4px rgba(53,229,140,.45);filter:drop-shadow(0 0 6px rgba(53,229,140,.55))}
+  background:radial-gradient(120% 120% at 30% 20%,rgba(53,229,140,.34),rgba(53,229,140,.08) 70%);box-shadow:inset 0 0 0 1px rgba(53,229,140,.42)}
 .perks-in li:nth-child(odd) svg{color:#5cf5a6}
 .perks-in b{display:block;font-size:clamp(17px,1.5vw,20px);font-weight:700;line-height:1.2;color:#fff}
 .perks-in span{display:block;color:#c3ccd8;font-size:clamp(14px,1.2vw,15.5px);line-height:1.45;margin-top:5px}
 
 /* подвал */
-.foot{display:grid;gap:14px;padding:26px 0 40px;border-top:1px solid rgba(255,255,255,.06);color:var(--tm);font-size:12px}
+.foot{position:relative;display:grid;gap:14px;padding:26px 0 40px;color:var(--tm);font-size:12px}
+.foot::before{content:"";position:absolute;left:0;right:0;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.14) 18%,rgba(255,255,255,.14) 82%,transparent)}
 .foot-links{display:flex;gap:20px;flex-wrap:wrap}
 .foot-links a{text-decoration:underline;text-underline-offset:3px}.foot-links a:hover{color:#fff}
 
@@ -440,15 +444,15 @@ html.modal-open{overflow:hidden}
 .course__old{position:relative;font:600 30px/1 'Oswald',Arial,sans-serif;color:#ff8c99;letter-spacing:.01em}
 .course__old::after{content:"";position:absolute;left:-6px;right:-6px;top:52%;height:3px;border-radius:2px;background:#ff5568;transform:rotate(-9deg);box-shadow:0 0 10px rgba(255,85,104,.7)}
 .course__free{font:700 40px/1.05 'Oswald',Arial,sans-serif;text-transform:uppercase;letter-spacing:.02em;background:linear-gradient(180deg,#b6ffd9 8%,#46f09a 55%,#16b868);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 16px rgba(53,229,140,.55))}
-.course__art{position:relative;width:280px;margin:-22px -14px -22px -6px}
-.course__art::before{content:"";position:absolute;inset:6% 4%;background:radial-gradient(closest-side,rgba(255,200,90,.38),transparent);filter:blur(22px)}
+.course__art{position:relative;width:300px;margin:-6px -4px -6px 0}
+.course__art::before{content:"";position:absolute;inset:4%;background:radial-gradient(closest-side,rgba(255,200,90,.34),rgba(53,229,140,.08) 60%,transparent);filter:blur(24px)}
 .course__art svg{position:relative;display:block;width:100%;height:auto;filter:drop-shadow(0 14px 22px rgba(0,0,0,.55))}
 .course h2{font-size:clamp(23px,2.6vw,31px);line-height:1.16;margin-bottom:10px;max-width:640px}
 .course h2 em{font-style:normal;color:var(--gold);text-shadow:0 0 22px rgba(255,200,90,.5);white-space:nowrap}
 .course p{margin:0;max-width:640px;color:var(--t2);font-size:15px;line-height:1.55;text-wrap:pretty}
 @media (max-width:760px){
   .course{grid-template-columns:1fr;padding:20px 18px;text-align:left}
-  .course__art{width:200px;margin:0 auto -4px;order:-1}
+  .course__art{width:250px;margin:-6px auto -14px;order:-1}
   .course__badge{order:-2}
   .course__badge{flex-direction:row;flex-wrap:wrap;justify-content:center;align-items:baseline;gap:4px 16px;min-width:0;width:100%;padding:12px 14px}
   .course__old{font-size:26px}
@@ -704,25 +708,43 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
       <p>Курс направлен на новичков. Он поможет выстроить эффективную систему торговли, приобрести необходимые навыки и привычки для создания пассивного дохода.</p>
     </div>
     <div class="course__art" aria-hidden="true">
-      <svg viewBox="0 0 260 220" focusable="false">
+      <svg viewBox="0 0 320 270" focusable="false" shape-rendering="geometricPrecision">
         <defs>
-          <linearGradient id="cv-g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffe3a1"/><stop offset="1" stop-color="#c98a2b"/></linearGradient>
-          <linearGradient id="cv-p" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#16251e"/><stop offset="1" stop-color="#08100d"/></linearGradient>
-          <linearGradient id="cv-l" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2cf0a4" stop-opacity="0"/><stop offset="1" stop-color="#2cf0a4"/></linearGradient>
+          <linearGradient id="cv-gold" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff0c2"/><stop offset=".45" stop-color="#ffc94d"/><stop offset="1" stop-color="#b8741a"/></linearGradient>
+          <linearGradient id="cv-card" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#17281f"/><stop offset="1" stop-color="#070d0b"/></linearGradient>
+          <linearGradient id="cv-area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2cf0a4" stop-opacity=".38"/><stop offset="1" stop-color="#2cf0a4" stop-opacity="0"/></linearGradient>
+          <linearGradient id="cv-line" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1fbf7c"/><stop offset="1" stop-color="#8dffd0"/></linearGradient>
+          <radialGradient id="cv-seal" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="#fff3c9"/><stop offset=".5" stop-color="#ffc640"/><stop offset="1" stop-color="#a8650f"/></radialGradient>
+          <filter id="cv-blur" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="5"/></filter>
         </defs>
-        <g transform="rotate(-5 130 110)">
-          <rect x="40" y="26" width="180" height="160" rx="16" fill="url(#cv-p)" stroke="url(#cv-g)" stroke-width="2"/>
-          <text x="58" y="52" fill="#ffd27a" font-family="Oswald,Arial,sans-serif" font-size="11.5" letter-spacing="1.4" font-weight="600">КУРС ПО ТРЕЙДИНГУ</text>
-          <path d="M58 60h144" stroke="rgba(255,210,122,.3)"/>
-          <g stroke-width="2" stroke-linecap="round">
-            <g stroke="#ff5568" fill="#ff5568"><path d="M72 128v26M82 118v38"/><rect x="68" y="134" width="8" height="12" rx="1.5"/><rect x="78" y="126" width="8" height="16" rx="1.5"/></g>
-            <g stroke="#2cf0a4" fill="#2cf0a4"><path d="M96 112v32M108 100v36M120 94v30M132 104v28M144 86v32M156 76v30M168 82v24M180 62v34"/><rect x="92" y="118" width="8" height="18" rx="1.5"/><rect x="104" y="108" width="8" height="18" rx="1.5"/><rect x="116" y="100" width="8" height="16" rx="1.5"/><rect x="128" y="110" width="8" height="14" rx="1.5"/><rect x="140" y="94" width="8" height="18" rx="1.5"/><rect x="152" y="84" width="8" height="16" rx="1.5"/><rect x="164" y="88" width="8" height="12" rx="1.5"/><rect x="176" y="70" width="8" height="20" rx="1.5"/></g>
+        <ellipse cx="160" cy="250" rx="118" ry="11" fill="#000" opacity=".5" filter="url(#cv-blur)"/>
+        <g transform="rotate(9 170 125)"><rect x="70" y="34" width="206" height="176" rx="20" fill="#0c1511" stroke="#ffd27a" stroke-opacity=".28" stroke-width="1.5"/></g>
+        <g transform="rotate(-5 160 130)">
+          <rect x="44" y="32" width="226" height="184" rx="20" fill="url(#cv-card)" stroke="url(#cv-gold)" stroke-width="3"/>
+          <rect x="48" y="36" width="218" height="176" rx="17" fill="none" stroke="#fff" stroke-opacity=".08" stroke-width="1.5"/>
+          <circle cx="76" cy="66" r="13" fill="url(#cv-gold)"/><path d="M72 59.5l11 6.5-11 6.5z" fill="#1b1204"/>
+          <text x="98" y="71" fill="#fff" font-family="Oswald,Arial,sans-serif" font-size="14" font-weight="600" letter-spacing="1.6">КУРС ПО ТРЕЙДИНГУ</text>
+          <path d="M60 88h196" stroke="#ffd27a" stroke-opacity=".35" stroke-width="1.5"/>
+          <g stroke="#fff" stroke-opacity=".06" stroke-width="1"><path d="M60 114h196M60 138h196M60 162h196"/></g>
+          <path d="M64 180C92 176 108 160 130 146S176 118 206 104S236 92 250 90V188H64z" fill="url(#cv-area)"/>
+          <g filter="url(#cv-blur)" opacity=".9"><path d="M64 180C92 176 108 160 130 146S176 118 206 104S236 92 250 90" fill="none" stroke="#2cf0a4" stroke-width="6"/></g>
+          <g stroke-linecap="round" stroke-width="2.4">
+            <g stroke="#ff5568" fill="#ff5568"><path d="M76 150v34"/><rect x="71.5" y="158" width="9" height="16" rx="2"/><path d="M92 142v36"/><rect x="87.5" y="148" width="9" height="18" rx="2"/></g>
+            <g stroke="#2cf0a4" fill="#2cf0a4"><path d="M108 140v30"/><rect x="103.500" y="146" width="9" height="16" rx="2"/><path d="M124 128v32"/><rect x="119.500" y="134" width="9" height="18" rx="2"/><path d="M140 122v26"/><rect x="135.500" y="128" width="9" height="14" rx="2"/><path d="M156 112v30"/><rect x="151.500" y="118" width="9" height="16" rx="2"/><path d="M172 104v28"/><rect x="167.500" y="110" width="9" height="16" rx="2"/><path d="M188 98v26"/><rect x="183.500" y="104" width="9" height="14" rx="2"/><path d="M204 90v26"/><rect x="199.500" y="96" width="9" height="16" rx="2"/></g>
           </g>
-          <path d="M60 150C88 146 104 132 124 120S164 92 196 66" fill="none" stroke="url(#cv-l)" stroke-width="3" stroke-linecap="round"/>
-          <rect x="58" y="162" width="104" height="10" rx="5" fill="rgba(255,255,255,.08)"/>
-          <rect x="58" y="162" width="64" height="10" rx="5" fill="url(#cv-g)"/>
-          <g transform="translate(214 28)" fill="none" stroke="url(#cv-g)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M0 0C-14-16-34-12-26 0 -22 6-6 4 0 0zM0 0C14-16 34-12 26 0 22 6 6 4 0 0z" fill="rgba(255,210,122,.12)"/><circle r="4" fill="url(#cv-g)" stroke="none"/><path d="M-3 4L-12 24M3 4L12 24"/></g>
+          <path d="M64 180C92 176 108 160 130 146S176 118 206 104S236 92 250 90" fill="none" stroke="url(#cv-line)" stroke-width="3.2" stroke-linecap="round"/>
+          <circle cx="250" cy="90" r="11" fill="#2cf0a4" opacity=".35"/><circle cx="250" cy="90" r="5.5" fill="#fff"/>
+          <rect x="60" y="196" width="140" height="9" rx="4.5" fill="#fff" fill-opacity=".1"/>
+          <rect x="60" y="196" width="92" height="9" rx="4.5" fill="url(#cv-gold)"/><circle cx="152" cy="200.500" r="6" fill="#fff3c9" stroke="#b8741a" stroke-width="1.5"/>
         </g>
+        <g transform="translate(266 40)" fill="none" stroke="url(#cv-gold)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"><path d="M0 0C-12-22-40-18-32-2-27 8-6 6 0 0zM0 0C12-22 40-18 32-2 27 8 6 6 0 0z" fill="#ffc94d" fill-opacity=".14"/><path d="M-2 6L-14 30M2 6L14 30"/><circle r="5.5" fill="url(#cv-gold)" stroke="none"/></g>
+        <g transform="translate(262 214)">
+          <circle r="42" fill="#ffc94d" opacity=".4" filter="url(#cv-blur)"/>
+          <circle r="33" fill="url(#cv-seal)" stroke="#fff3c9" stroke-width="2"/>
+          <circle r="27.500" fill="none" stroke="#6b3d05" stroke-opacity=".55" stroke-width="1.2" stroke-dasharray="2.5 3"/>
+          <g transform="scale(1.3)" fill="none" stroke="#2a1704" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="-12" y="-8" width="24" height="7" rx="1.5"/><path d="M-10 -1v14h20v-14M0 -8v21M0 -8c-3-8-11-8-10-3 1 3 7 3 10 3zM0 -8c3-8 11-8 10-3-1 3-7 3-10 3z"/></g>
+        </g>
+        <g fill="#fff3c9"><path d="M18 76l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/><path d="M300 118l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#9dffd2"/><path d="M26 206l2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#9dffd2"/><path d="M302 22l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></g>
       </svg>
     </div>
   </section>

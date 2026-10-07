@@ -584,7 +584,8 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
 // Все события называются с префиксом BishkekSeminar_, чтобы не пересекаться с другими событиями в этом пикселе.
 (function () {
   var PREFIX = 'BishkekSeminar_';
-  var BASE = { content_name: 'Seminar Bishkek 2026-10-25', content_category: 'seminar' };
+  var BASE = { content_name: 'Seminar Bishkek 2026-10-25', content_category: 'seminar',
+    page_variant: document.documentElement.getAttribute('data-variant') || 'form' };   // form = с формой, tg = переход в канал
   var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 
   // UTM-метки из ссылки: запоминаем на время визита, чтобы они шли во все события
@@ -651,10 +652,15 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
   function utmParams() {
     var src = new URLSearchParams(location.search), out = {};
     ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'fbclid'].forEach(function (k) {
-      if (src.get(k)) out[k] = src.get(k);
+      var v = src.get(k);
+      // если человек сначала зашёл по рекламной ссылке, а потом страница перезагрузилась без меток, берём запомненные
+      try { if (v) sessionStorage.setItem(k, v); else v = sessionStorage.getItem(k); } catch (e) {}
+      if (v) out[k] = v;
     });
     return out;
   }
+
+  utmParams();   // запоминаем метки сразу при заходе на страницу, до любых действий
 
   // ===== Попап «Спасибо за регистрацию» =====
   var focusables = function () { return modal.querySelectorAll('button:not([disabled]), a[href]'); };
@@ -751,7 +757,9 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
   // Предпросмотр попапа без отправки событий: добавьте к адресу #preview-thanks
   if (location.hash === '#preview-thanks') { window.__noTrack = true; openThanks('Алия', ''); }
 })();
-
+</script>
+<script>
+// Общий код страницы (нужен обеим версиям лендинга)
 // Плавный переход по ссылкам-якорям (вместо CSS scroll-behavior, который в Safari мешает вернуться наверх)
 // и страховка: ни один контейнер страницы не должен сдвигаться внутри себя
 (function () {

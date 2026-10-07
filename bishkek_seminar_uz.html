@@ -252,7 +252,8 @@ h1 em{font-style:normal;color:var(--green);text-shadow:0 0 34px rgba(53,229,140,
 .floor{position:absolute;right:2%;bottom:-6%;width:56%;height:30%;background:radial-gradient(closest-side,rgba(53,229,140,.3),rgba(255,70,90,.12) 55%,transparent);filter:blur(12px)}
 /* спикер: тот же красно-зелёный контровой свет, что и на главном экране */
 .final-speaker{position:absolute;right:-3%;bottom:0;height:94%;width:auto;max-width:none;z-index:1;
-  filter:drop-shadow(-26px 0 40px rgba(255,60,80,.36)) drop-shadow(28px 0 42px rgba(40,230,130,.36))}
+  filter:drop-shadow(-26px 0 40px rgba(255,60,80,.36)) drop-shadow(28px 0 42px rgba(40,230,130,.36));
+  -webkit-mask-image:linear-gradient(180deg,#000 0,#000 62%,transparent 98%);mask-image:linear-gradient(180deg,#000 0,#000 62%,transparent 98%)}
 /* текст блока: органичная мягкая тень из нескольких пятен вместо рамки */
 .final-in{position:relative;z-index:2;isolation:isolate}
 .final-in::before{content:"";position:absolute;z-index:-1;left:-90px;top:-70px;width:min(820px,calc(100% + 120px));height:calc(100% + 140px);pointer-events:none;filter:blur(14px);

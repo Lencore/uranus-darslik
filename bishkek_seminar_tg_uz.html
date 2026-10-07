@@ -44,7 +44,8 @@ svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-l
 /* общие правила набора текста: ровные строки, без переносов по слогам, без висящих хвостов */
 h1,h2,h3{text-wrap:balance;hyphens:none}
 p,li,dd{text-wrap:pretty;hyphens:none;overflow-wrap:break-word}
-.lead,.final-in p,.card-head p,.cards p,.perks-in span,.bonus-txt li{text-wrap:balance}
+.lead,.final-in p,.card-head p,.cards p,.perks-in span{text-wrap:balance}
+.bonus-txt li{text-wrap:pretty}   /* без выравнивания по длине: иначе в пункте остаётся пустота справа */
 /* выделенные цветом фразы держатся в одной строке */
 .lead b,h1 em,.final-in em,.seats,.pill,.facts b.lim,.who b,.tag{white-space:nowrap}
 .hf{font-family:'Oswald',Arial,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.012em;line-height:1.05}
@@ -529,7 +530,7 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
       <p class="bonus-sub">Birinchi savdongiz uchun</p>
       <ul>
         <li><b>Kimlar uchun:</b> XMda birinchi marta roʻyxatdan oʻtgan yangi mijozlar uchun.</li>
-        <li><b>Qanday foydalanish:</b> bonus bilan savdo qilish mumkin. 30 dollarning oʻzini yechib boʻlmaydi.</li>
+        <li><b>Qanday foydalanish:</b> bonus bilan savdo qilish mumkin, ammo uni hisobdan yechib boʻlmaydi.</li>
         <li><b>Foyda:</b> uni yechib olish mumkin, ammo shartlar bor. Batafsil seminarda aytib beramiz.</li>
       </ul>
     </div>

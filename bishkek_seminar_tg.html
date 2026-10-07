@@ -201,6 +201,9 @@ h1 em{font-style:normal;color:var(--green);text-shadow:0 0 34px rgba(53,229,140,
 }
 @media (max-width:420px){.card-head,#reg-form{padding-inline:18px}.facts{grid-template-columns:1fr}.top-cta{padding:10px 14px}}
 
+/* ноутбуки 980–1179: плашка +2,540$ сдвинута вправо, чтобы не лежать на абзаце */
+@media (min-width:980px) and (max-width:1179px){.tag-g{left:27%;top:8%}}
+
 /* ===== Секции под главным экраном ===== */
 .block{position:relative;padding:30px 0 24px}
 /* здание Бишкека за заголовком программы: растворяется в фоне и не мешает тексту */
@@ -346,6 +349,7 @@ html.modal-open{overflow:hidden}
   background:linear-gradient(180deg,#43c0ff,#1b8fd6 70%,#1778b8);
   box-shadow:0 18px 40px -12px rgba(42,171,238,.85),0 0 34px rgba(42,171,238,.55),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);
   transition:transform .18s,box-shadow .18s;isolation:isolate}
+.tg-btn span{text-wrap:balance;text-align:center}
 .tg-btn svg{width:26px;height:26px;flex:none;filter:drop-shadow(0 2px 4px rgba(0,50,90,.4))}
 .tg-btn:hover{transform:translateY(-2px);box-shadow:0 24px 48px -12px rgba(42,171,238,1),0 0 48px rgba(42,171,238,.75),inset 0 1px 0 rgba(255,255,255,.6),inset 0 -2px 0 rgba(0,0,0,.12)}
 .tg-btn:focus-visible{outline:3px solid #fff;outline-offset:4px}
@@ -379,6 +383,10 @@ html.modal-open{overflow:hidden}
 /* вторая кнопка внизу страницы: та же голубая, но по ширине содержимого */
 .tg-btn--inline{display:inline-flex;width:auto;padding:19px 34px}
 @media (max-width:520px){.tg-card{padding:18px 18px 22px}.tg-btn--inline{width:100%}}
+
+/* кнопка в карточке: текст помещается в одну строку и на узбекском */
+.tg-card .tg-btn{padding:19px 14px;font-size:16px;gap:10px}
+.tg-card .tg-btn svg{width:24px;height:24px}
 
 </style>
 </head>
@@ -558,7 +566,8 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
 (function () {
   var PREFIX = 'BishkekSeminar_';
   var BASE = { content_name: 'Seminar Bishkek 2026-10-25', content_category: 'seminar',
-    page_variant: document.documentElement.getAttribute('data-variant') || 'form' };   // form = с формой, tg = переход в канал
+    page_variant: document.documentElement.getAttribute('data-variant') || 'form',
+    page_language: document.documentElement.lang || 'ru' };   // ru или uz: названия событий одинаковые, язык виден в параметре   // form = с формой, tg = переход в канал
   var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 
   // UTM-метки из ссылки: запоминаем на время визита, чтобы они шли во все события

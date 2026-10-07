@@ -201,6 +201,9 @@ h1 em{font-style:normal;color:var(--green);text-shadow:0 0 34px rgba(53,229,140,
 }
 @media (max-width:420px){.card-head,#reg-form{padding-inline:18px}.facts{grid-template-columns:1fr}.top-cta{padding:10px 14px}}
 
+/* ноутбуки 980–1179: плашка +2,540$ сдвинута вправо, чтобы не лежать на абзаце */
+@media (min-width:980px) and (max-width:1179px){.tag-g{left:27%;top:8%}}
+
 /* ===== Секции под главным экраном ===== */
 .block{position:relative;padding:30px 0 24px}
 /* здание Бишкека за заголовком программы: растворяется в фоне и не мешает тексту */
@@ -346,6 +349,7 @@ html.modal-open{overflow:hidden}
   background:linear-gradient(180deg,#43c0ff,#1b8fd6 70%,#1778b8);
   box-shadow:0 18px 40px -12px rgba(42,171,238,.85),0 0 34px rgba(42,171,238,.55),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);
   transition:transform .18s,box-shadow .18s;isolation:isolate}
+.tg-btn span{text-wrap:balance;text-align:center}
 .tg-btn svg{width:26px;height:26px;flex:none;filter:drop-shadow(0 2px 4px rgba(0,50,90,.4))}
 .tg-btn:hover{transform:translateY(-2px);box-shadow:0 24px 48px -12px rgba(42,171,238,1),0 0 48px rgba(42,171,238,.75),inset 0 1px 0 rgba(255,255,255,.6),inset 0 -2px 0 rgba(0,0,0,.12)}
 .tg-btn:focus-visible{outline:3px solid #fff;outline-offset:4px}
@@ -565,7 +569,7 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
     <button class="modal__x" type="button" data-close aria-label="Закрыть окно"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
     <div class="ty-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
     <h2 class="hf ty-title" id="ty-title">Заявка принята!</h2>
-    <p class="ty-thanks"><span id="ty-name">Спасибо!</span> Мы получили вашу заявку на семинар в Бишкеке.</p>
+    <p class="ty-thanks"><span id="ty-name" data-named="Спасибо, {name}!" data-anon="Спасибо!" data-demo="Алия">Спасибо!</span> Мы получили вашу заявку на семинар в Бишкеке.</p>
     <ol class="ty-steps" aria-label="Шаги регистрации">
       <li class="is-done"><i aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9"/></svg></i>Заявка отправлена</li>
       <li class="is-now"><i aria-hidden="true">2</i>Подписка на канал</li>
@@ -585,7 +589,8 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
 (function () {
   var PREFIX = 'BishkekSeminar_';
   var BASE = { content_name: 'Seminar Bishkek 2026-10-25', content_category: 'seminar',
-    page_variant: document.documentElement.getAttribute('data-variant') || 'form' };   // form = с формой, tg = переход в канал
+    page_variant: document.documentElement.getAttribute('data-variant') || 'form',
+    page_language: document.documentElement.lang || 'ru' };   // ru или uz: названия событий одинаковые, язык виден в параметре   // form = с формой, tg = переход в канал
   var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 
   // UTM-метки из ссылки: запоминаем на время визита, чтобы они шли во все события
@@ -632,7 +637,8 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
 (function () {
   // Адрес приёма заявок: Google Таблица (Apps Script). Если оставить пустым, форма покажет ошибку, чтобы заявки не терялись молча.
   var WEBHOOK = 'https://script.google.com/macros/s/AKfycbxd0_8IuqEcl-j21Efw5v9Tv1JSgDZWGFDBipnseY-fnaSJCacaokDaiTr063lITyv6/exec';
-  var TAG = 'seminar_bishkek_2026-10-25';
+  // метка источника в таблице: у узбекских страниц на странице стоит data-tag с суффиксом _uz
+  var TAG = document.documentElement.getAttribute('data-tag') || 'seminar_bishkek_2026-10-25';
   var IS_LOCAL = /^(localhost|127\.0\.0\.1|)$/.test(location.hostname);
 
   var form = document.getElementById('reg-form');
@@ -666,7 +672,8 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
   var focusables = function () { return modal.querySelectorAll('button:not([disabled]), a[href]'); };
   function openThanks(name, leadId) {
     var who = document.getElementById('ty-name');
-    who.textContent = name ? 'Спасибо, ' + name + '!' : 'Спасибо!';
+    // текст на нужном языке лежит в самой разметке (data-named / data-anon)
+    who.textContent = name ? who.dataset.named.replace('{name}', function () { return name; }) : who.dataset.anon;
     lastFocus = document.activeElement;
     modal.hidden = false;
     document.documentElement.classList.add('modal-open');
@@ -735,8 +742,7 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
 
     if (!WEBHOOK) {
       console.warn('WEBHOOK не задан в form.js: заявка никуда не отправлена');
-      // Тестовый режим: добавьте к адресу #demo, и форма «успешно отправится» без сохранения заявки
-      if (IS_LOCAL || location.hash === '#demo') success(name, leadId); else fail();
+      if (IS_LOCAL) success(name, leadId); else fail();   // локально можно посмотреть «успех», на сайте нет
       return;
     }
 
@@ -755,7 +761,7 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
   });
 
   // Предпросмотр попапа без отправки событий: добавьте к адресу #preview-thanks
-  if (location.hash === '#preview-thanks') { window.__noTrack = true; openThanks('Алия', ''); }
+  if (location.hash === '#preview-thanks') { window.__noTrack = true; openThanks(document.getElementById('ty-name').dataset.demo, ''); }
 })();
 </script>
 <script>

@@ -170,7 +170,10 @@ html[lang="uz"] .copy{gap:clamp(7px,1.5vh,16px)}
   };
   document.addEventListener('click', function (e) {
     var el = e.target.closest('[data-cta]');
-    if (el) window.trackEvent('CTAClick', { cta_name: el.dataset.cta, destination: 'telegram post' });
+    if (!el) return;
+    window.trackEvent('CTAClick', { cta_name: el.dataset.cta, destination: 'telegram post' });
+    // стандартное событие Lead (одновременно с нашим): по нему Meta сразу умеет оптимизировать рекламу
+    try { if (window.fbq) window.fbq('track', 'Lead', { content_name: BASE.content_name, content_category: 'gala', page_language: BASE.page_language }); } catch (e) {}
   });
 
   var START = Date.parse('2026-09-26T14:12:00+05:00'), END = Date.parse('2026-10-16T23:59:59+05:00');

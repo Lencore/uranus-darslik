@@ -111,6 +111,12 @@ h1{display:grid;gap:2px;font-family:'Oswald',sans-serif;text-transform:uppercase
   .copy{text-shadow:0 2px 14px rgba(0,0,0,.75)}
 }
 @media (prefers-reduced-motion:reduce){.cta,.cta::after,.ticker__in,.prize__num b{animation:none}.spot{transition:none}}
+
+/* узбекская версия: «so'mdan ortiq» стоит под цифрами, чтобы цифры были по центру и влезали на узких экранах */
+html[lang="uz"] .prize__num{flex-direction:column;align-items:center;gap:2px}
+html[lang="uz"] .prize__num i{font-size:min(3.6vh,5.4vw,30px);letter-spacing:.06em}
+html[lang="uz"] .prize__num b{font-size:min(11vh,14vw,118px)}
+html[lang="uz"] .copy{gap:clamp(7px,1.5vh,16px)}
 </style>
 </head>
 <body>
@@ -148,6 +154,8 @@ h1{display:grid;gap:2px;font-family:'Oswald',sans-serif;text-transform:uppercase
 // Трекинг (Meta Pixel + dataLayer) и обратный отсчёт до конца срока выполнения условий (16 октября, Ташкент).
 (function () {
   var PREFIX = 'CyberAge_';
+  var UZ = document.documentElement.lang === 'uz';
+  var T = UZ ? { exp: 'muddat tugadi', d: ' kun ', h: ' soat ', m: ' daq' } : { exp: 'срок истёк', d: ' дн ', h: ' ч ', m: ' мин' };
   var BASE = { content_name: 'Cyber Age Gala 2026-10-31', content_category: 'gala', page_variant: 'bullet', page_language: document.documentElement.lang || 'ru' };
   var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
   function utm() {
@@ -162,7 +170,10 @@ h1{display:grid;gap:2px;font-family:'Oswald',sans-serif;text-transform:uppercase
   };
   document.addEventListener('click', function (e) {
     var el = e.target.closest('[data-cta]');
-    if (el) window.trackEvent('CTAClick', { cta_name: el.dataset.cta, destination: 'telegram post' });
+    if (!el) return;
+    window.trackEvent('CTAClick', { cta_name: el.dataset.cta, destination: 'telegram post' });
+    // стандартное событие Lead (одновременно с нашим): по нему Meta сразу умеет оптимизировать рекламу
+    try { if (window.fbq) window.fbq('track', 'Lead', { content_name: BASE.content_name, content_category: 'gala', page_language: BASE.page_language }); } catch (e) {}
   });
 
   var START = Date.parse('2026-09-26T14:12:00+05:00'), END = Date.parse('2026-10-16T23:59:59+05:00');
@@ -171,9 +182,9 @@ h1{display:grid;gap:2px;font-family:'Oswald',sans-serif;text-transform:uppercase
     if (!label) return;
     var ms = END - Date.now();
     if (bar) bar.style.width = Math.max(0, Math.min(100, (Date.now() - START) / (END - START) * 100)).toFixed(1) + '%';
-    if (ms <= 0) { label.textContent = 'срок истёк'; if (!expiredSent) { expiredSent = true; window.trackEvent('ExpiredView'); } return; }
+    if (ms <= 0) { label.textContent = T.exp; if (!expiredSent) { expiredSent = true; window.trackEvent('ExpiredView'); } return; }
     var d = Math.floor(ms / 864e5), h = Math.floor(ms % 864e5 / 36e5), m = Math.floor(ms % 36e5 / 6e4);
-    label.innerHTML = '<b>' + d + '</b> дн <b>' + h + '</b> ч <b>' + (m < 10 ? '0' : '') + m + '</b> мин';
+    label.innerHTML = '<b>' + d + '</b>' + T.d + '<b>' + h + '</b>' + T.h + '<b>' + (m < 10 ? '0' : '') + m + '</b>' + T.m;
   }
   tick(); setInterval(tick, 30000);
 

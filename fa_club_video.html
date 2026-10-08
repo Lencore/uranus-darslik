@@ -94,7 +94,7 @@ h1{font-size:clamp(32px,7vw,56px);margin-bottom:16px;color:var(--ink)}
 @media (max-width:520px){.player{padding:8px;border-radius:20px}.player-screen{border-radius:12px}.player-bar{padding-bottom:8px}}
 
 /* ===== Прогресс «Ваш путь в клуб»: 60 процентов, финиш ещё впереди ===== */
-.path{--p:60;max-width:700px;margin:4px auto 34px;text-align:left}
+.path{--p:60;max-width:700px;margin:0 auto 44px;text-align:left}
 .js .path{--p:0}.js .path.go{--p:60}
 .path-top{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:16px}
 .path-title{font:600 12.5px var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--ink2)}
@@ -156,6 +156,12 @@ h1{font-size:clamp(32px,7vw,56px);margin-bottom:16px;color:var(--ink)}
 @media (max-width:520px){.cta-box .btn{min-height:80px;padding-left:24px}.cta-box .btn .arr{width:56px;height:56px;border-radius:16px}.player{padding:5px;border-radius:19px}.player-screen{border-radius:14px}.lead-call::before,.lead-call::after{left:2%;right:2%}}
 @media (prefers-reduced-motion:reduce){.fill,.tip{transition:none}.tip,.n3,.last-step i,.cta-box .btn::before{animation:none}}
 
+/* текст призыва под видео */
+.last-step{margin-bottom:14px}
+.cta-text{margin-bottom:12px;font:700 clamp(22px,3vw,32px)/1.25 var(--disp);letter-spacing:-.025em;color:var(--ink);text-wrap:balance}
+.cta-text .word{display:inline-block;padding:0 .3em;border-radius:12px;border:1px solid rgba(244,224,174,.7);background:linear-gradient(180deg,rgba(244,224,174,.2),rgba(217,181,108,.08));box-shadow:0 0 22px rgba(244,214,140,.35);color:var(--gold-l)}
+.cta-sub{max-width:30em;margin:0 auto 26px;font-size:clamp(15.5px,1.5vw,17.5px);line-height:1.6;color:var(--ink2);text-wrap:balance}
+
 </style>
 
 </head>
@@ -170,21 +176,12 @@ h1{font-size:clamp(32px,7vw,56px);margin-bottom:16px;color:var(--ink)}
   </header>
 
   <main class="wrap vid">
-    <section class="path rise" aria-label="Ваш путь в клуб" data-pct="60">
-      <div class="path-top"><span class="path-title">Ваш путь в клуб</span><span class="path-pct"><b id="pct">60</b>%</span></div>
-      <div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60" aria-label="Пройдено 60 процентов пути в клуб">
-        <i class="fill"></i><i class="tip"></i>
-        <i class="node n1"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9"/></svg></i>
-        <i class="node n2"></i>
-        <i class="node n3"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></i>
-      </div>
-      <ol class="marks"><li class="m1"><b>Заявка<br>принята</b></li><li class="m2"><b>Смотрите<br>видео</b></li><li class="m3"><b>Войти<br>в клуб</b></li></ol>
-    </section>
+    
 
     <h1 class="hf rise" style="--d:.08s" id="vid-title" data-named="{name}, заявка принята. Посмотрите видео о клубе" data-anon="Заявка принята. Посмотрите видео о клубе">Заявка принята. Посмотрите видео о клубе</h1>
     <div class="lead rise" style="--d:.16s">
       <p class="lead-main">Видео коротко расскажет, как устроен закрытый клуб Ферузбека Алиева.</p>
-      <p class="lead-call">После просмотра <b>напишите менеджеру в&nbsp;Telegram</b>: он ответит на&nbsp;вопросы и&nbsp;подскажет, как вступить.</p>
+      <p class="lead-call">Посмотрите видео <b>до конца</b>, чтобы понять, подходит ли вам клуб.</p>
     </div>
 
     <figure class="player rise" style="--d:.24s">
@@ -192,13 +189,25 @@ h1{font-size:clamp(32px,7vw,56px);margin-bottom:16px;color:var(--ink)}
       <div class="player-screen"><div id="yt" data-video="QFfC7fu3k2o"></div></div>
     </figure>
 
+    <section class="path rise" style="--d:.28s" aria-label="Ваш путь в клуб" data-pct="60">
+      <div class="path-top"><span class="path-title">Ваш путь в клуб</span><span class="path-pct"><b id="pct">60</b>%</span></div>
+      <div class="track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="60" aria-label="Пройдено 60 процентов пути в клуб">
+        <i class="fill"></i><i class="tip"></i>
+        <i class="node n1"><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9"/></svg></i>
+        <i class="node n2"></i>
+        <i class="node n3"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg></i>
+      </div>
+      <ol class="marks"><li class="m1"><b>Заявка <br>принята</b></li><li class="m2"><b>Смотрите <br>видео</b></li><li class="m3"><b>Войти <br>в клуб</b></li></ol>
+    </section>
     <div class="cta-box rise" style="--d:.32s">
       <p class="last-step"><i></i>Остался последний шаг до клуба</p>
-      <a class="btn" href="https://t.me/CHANGE_ME_MANAGER" target="_blank" rel="noopener noreferrer" data-manager="video_page">
+      <p class="cta-text">Нажмите на кнопку и напишите в Telegram слово <span class="word">«Клуб»</span></p>
+      <p class="cta-sub">Менеджер подробно ответит на все ваши вопросы и поможет вам вступить в клуб.</p>
+      <a class="btn" href="https://t.me/CHANGE_ME_MANAGER?text=%D0%9A%D0%BB%D1%83%D0%B1" target="_blank" rel="noopener noreferrer" data-manager="video_page">
         <span>Написать менеджеру в Telegram</span>
         <i class="arr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.4L2.9 11.6c-.9.4-.9 1.1-.2 1.3l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.5 0 .7-.2 1-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3-14.5c.3-1.3-.5-1.9-1.5-1.5z" fill="currentColor" stroke="none"/></svg></i>
       </a>
-      <p class="hint">Откроется чат в Telegram. Напишите менеджеру, и он подскажет, как попасть в клуб.</p>
+      <p class="hint">Откроется чат в Telegram, а слово «Клуб» подставится в сообщение само.</p>
     </div>
   </main>
 

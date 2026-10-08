@@ -296,8 +296,6 @@ h1{font-size:clamp(42px,11vw,60px);margin-bottom:20px;color:var(--ink)}
 @media (max-width:640px){.btn-lg,.cta-row .btn{width:100%;min-width:0}.cta-row{align-items:stretch}.cta-row p{text-align:center}}
 
 /* подсветка формы после перехода по кнопке */
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(244,214,140,.75),0 50px 90px -40px rgba(130,28,58,.7)}100%{box-shadow:0 0 0 22px rgba(244,214,140,0),0 50px 90px -40px rgba(130,28,58,.7)}}
-.card.pulse{animation:pulse 1.2s ease-out 2}
 
 /* дополнительные программы: три карточки с разным оформлением */
 .progs{display:grid;gap:14px;grid-template-columns:1fr}
@@ -335,6 +333,112 @@ h1{font-size:clamp(42px,11vw,60px);margin-bottom:20px;color:var(--ink)}
 @media (max-width:979px){.lead{max-width:36em}}
 @media (max-width:420px){.eyebrow{border-radius:20px;padding:8px 16px 8px 8px;font-size:14px}.trophy{width:40px;height:40px}.trophy svg{width:22px;height:22px}}
 
+/* ===== Финальная настройка: форма крупнее, финал, лёгкие анимации ===== */
+
+/* --- исправление: подсветка формы больше не подменяет анимацию появления --- */
+.card::after{content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;opacity:0}
+.card.pulse::after{animation:ring 1.2s ease-out 2}
+@keyframes ring{0%{opacity:1;box-shadow:0 0 0 0 rgba(244,214,140,.8)}100%{opacity:0;box-shadow:0 0 0 24px rgba(244,214,140,0)}}
+
+/* --- форма крупнее --- */
+.card-head{padding:32px 32px 8px}
+.card-head h2{font-size:clamp(30px,2.7vw,38px)}
+.card-head>p:last-child{font-size:15.5px}
+#lead-form{padding:22px 32px 32px}
+.fld{padding:17px 20px;margin-bottom:14px;border-radius:16px}
+.fld>svg{width:23px;height:23px}
+.fld label{font-size:13px}
+.fld input{font-size:18px;padding-top:4px}
+#lead-form .btn{min-height:68px;font-size:17.5px;border-radius:18px}
+#lead-form .btn .arr{width:50px;height:50px;border-radius:14px}
+.legal{font-size:12.5px}
+@media (max-width:520px){.card-head{padding:26px 22px 6px}#lead-form{padding:18px 22px 26px}}
+
+/* --- десктоп: больше места форме, фото левее и не под формой --- */
+@media (min-width:980px){
+  .hero{grid-template-columns:minmax(0,430px) minmax(0,1fr) minmax(0,420px);gap:0 6px}
+  .portrait{margin-left:-110px;margin-right:0}
+  .stage{--stage:600px}
+  .card{margin-bottom:40px}
+}
+@media (min-width:1280px){
+  .hero{grid-template-columns:minmax(0,500px) minmax(0,1fr) minmax(0,470px);min-height:800px}
+  .portrait{margin-left:-90px}
+  .stage{--stage:640px}
+}
+
+/* --- финальный блок --- */
+.final-in{display:grid;gap:28px;align-items:start;padding:44px 30px}
+.final h2{margin-bottom:18px;font-size:clamp(32px,4.4vw,52px)}
+.final-lead{margin-bottom:12px;font:700 clamp(20px,2.4vw,27px)/1.25 var(--disp);letter-spacing:-.025em;color:var(--gold-l)}
+.final-warn{max-width:30em;font-size:clamp(16px,1.5vw,18px);line-height:1.7;color:#d9d0c2}
+.final-warn b{color:var(--ink);font-weight:600;background:linear-gradient(transparent 64%,rgba(217,181,108,.22) 64%)}
+.final-yes{padding:26px;border-radius:22px;border:1px solid var(--line-g);background:linear-gradient(180deg,rgba(217,181,108,.09),rgba(255,255,255,.015))}
+.yes-title{margin-bottom:16px;font:600 12.5px var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.final-yes ul{list-style:none;display:grid;gap:16px}
+.final-yes li{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;font-size:16px;line-height:1.55;color:var(--ink2)}
+.final-yes li b{display:block;margin-bottom:2px;font:700 17px var(--disp);letter-spacing:-.01em;color:var(--ink)}
+.final-yes i{width:28px;height:28px;margin-top:1px;border-radius:9px;background:linear-gradient(180deg,#f6e3b0,#c79a52) ;position:relative}
+.final-yes i::after{content:"";position:absolute;inset:0;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2322140a' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><path d='M6 12.5l4 4 8-9'/></svg>") center/16px no-repeat}
+.final-cta{display:flex;justify-content:center}
+@media (min-width:980px){.final-in{grid-template-columns:1.1fr .9fr;gap:34px 56px;padding:56px 56px}.final-cta{grid-column:1/-1}}
+
+/* --- крупные кнопки по центру --- */
+.cta-row.center{align-items:center;text-align:center}
+.btn-xl{min-height:84px;min-width:440px;padding-left:40px;border-radius:24px;font-size:clamp(19px,2vw,22px)}
+.btn-xl .arr{width:62px;height:62px;border-radius:18px}
+.btn-xl .arr svg{width:26px;height:26px}
+@media (max-width:640px){.btn-xl{min-width:0;width:100%;min-height:78px;padding-left:26px}.btn-xl .arr{width:54px;height:54px}.final-cta .btn{width:100%}}
+
+/* --- лёгкие анимации (только transform и opacity, без нагрузки) --- */
+.gold-i{background-size:220% 100%;animation:goldSweep 7s ease-in-out infinite}
+@keyframes goldSweep{0%,100%{background-position:0 0}50%{background-position:100% 0}}
+.lead-list li{opacity:0;transform:translateX(-12px);animation:slideIn .7s cubic-bezier(.2,.7,.2,1) forwards}
+.lead-list li:nth-child(1){animation-delay:.5s}.lead-list li:nth-child(2){animation-delay:.65s}.lead-list li:nth-child(3){animation-delay:.8s}
+@keyframes slideIn{to{opacity:1;transform:none}}
+.ring{animation:ringBreath 7s ease-in-out infinite}
+@keyframes ringBreath{50%{transform:translateX(-50%) scale(1.035);opacity:.8}}
+.fa-ghost{animation:ghostFloat 9s ease-in-out infinite}
+@keyframes ghostFloat{50%{transform:translate(-50%,-10px)}}
+.btn .arr svg{transition:transform .25s}
+.btn:hover .arr svg{transform:translateY(2px) scale(1.08)}
+.bx,.job,.pr,.prog{transition:border-color .3s,transform .35s cubic-bezier(.2,.7,.2,1)}
+@media (hover:hover) and (pointer:fine){.bx:hover,.job:hover,.pr:hover,.prog:hover{transform:translateY(-4px)}}
+/* график в карточке аналитики рисуется при появлении */
+.spark path:nth-of-type(2){stroke-dasharray:640;stroke-dashoffset:640;transition:stroke-dashoffset 2s cubic-bezier(.3,.7,.2,1) .25s}
+.b-a.in .spark path:nth-of-type(2){stroke-dashoffset:0}
+.spark circle{opacity:0;transition:opacity .4s 2s}.b-a.in .spark circle{opacity:1}
+/* метки идей и дни эфира появляются по очереди */
+.js .tokens li,.js .days span{opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s}
+.b-b.in .tokens li,.b-c.in .days span{opacity:1;transform:none}
+.b-b.in .tokens li:nth-child(2){transition-delay:.1s}.b-b.in .tokens li:nth-child(3){transition-delay:.2s}.b-b.in .tokens li:nth-child(4){transition-delay:.3s}.b-b.in .tokens li:nth-child(5){transition-delay:.4s}
+.b-c.in .days span:nth-child(2){transition-delay:.15s}
+/* карточки программ: ступени растут, график рисуется, ползунки едут */
+.js .p1 .deco rect{transform-box:fill-box;transform-origin:bottom;transform:scaleY(.05);transition:transform .9s cubic-bezier(.2,.8,.2,1)}
+.js .p1.in .deco rect{transform:scaleY(1)}
+.js .p1.in .deco rect:nth-of-type(2){transition-delay:.1s}.js .p1.in .deco rect:nth-of-type(3){transition-delay:.2s}.js .p1.in .deco rect:nth-of-type(4){transition-delay:.3s}.js .p1.in .deco rect:nth-of-type(5){transition-delay:.4s}
+.p2 .deco path:nth-of-type(2){stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 1.8s cubic-bezier(.3,.7,.2,1) .2s}
+.p2.in .deco path:nth-of-type(2){stroke-dashoffset:0}
+.js .prog:not(.in) .autos i::before{width:0}.js .prog:not(.in) .autos i::after{left:0}
+.autos i::before{transition:width 1.4s cubic-bezier(.2,.8,.2,1) .3s}.autos i::after{transition:left 1.4s cubic-bezier(.2,.8,.2,1) .3s}
+.p3 .deco circle{animation:blink 2.6s ease-in-out infinite}.p3 .deco circle:nth-of-type(odd){animation-delay:.6s}
+@keyframes blink{50%{opacity:.35}}
+/* ряды таблицы сравнения проявляются по очереди */
+.js .vs .vs-row{opacity:0;transform:translateY(10px);transition:opacity .6s,transform .6s}
+.js .vs.in .vs-row{opacity:1;transform:none}
+.js .vs.in .vs-row:nth-of-type(2){transition-delay:.1s}.js .vs.in .vs-row:nth-of-type(3){transition-delay:.2s}.js .vs.in .vs-row:nth-of-type(4){transition-delay:.3s}.js .vs.in .vs-row:nth-of-type(5){transition-delay:.4s}
+@media (prefers-reduced-motion:reduce){
+  .gold-i,.ring,.fa-ghost,.p3 .deco circle{animation:none}
+  .lead-list li{animation:none;opacity:1;transform:none}
+  .js .tokens li,.js .days span,.js .vs .vs-row,.js .p1 .deco rect{opacity:1;transform:none;transition:none}
+  .spark path:nth-of-type(2),.p2 .deco path:nth-of-type(2){stroke-dashoffset:0;transition:none}
+  .spark circle{opacity:1}.js .prog:not(.in) .autos i::before{width:calc(var(--v)*100%)}.js .prog:not(.in) .autos i::after{left:calc(var(--v)*100% - 12px)}
+}
+
+/* единая ширина контента на больших экранах */
+@media (min-width:1280px){.wrap{width:min(1320px,100% - 64px)}}
+.final .final-lead{color:var(--gold-l);max-width:none;margin-bottom:12px}.final .final-warn{margin:0;max-width:30em;color:#d9d0c2}
+
 </style>
 
 </head>
@@ -347,7 +451,6 @@ h1{font-size:clamp(42px,11vw,60px);margin-bottom:20px;color:var(--ink)}
 
   <header class="wrap top">
     <a href="#top" aria-label="Uranus"><img class="logo" src="data:image/png;base64,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" alt="Uranus" width="139" height="32"></a>
-    <a class="ghost-btn" href="#reg" data-cta="top_apply">Хочу в клуб</a>
   </header>
 
   <main>
@@ -363,7 +466,7 @@ h1{font-size:clamp(42px,11vw,60px);margin-bottom:20px;color:var(--ink)}
           <li><i></i><span><b>Ежедневный разбор рынка</b> от Ферузбека и его команды</span></li>
           <li><i></i><span><b>Ответы эксперта</b> на ваши вопросы</span></li>
         </ul>
-        <p class="lead-note">Всё в Telegram, рядом с трейдерами, которые работают по правилам.</p>
+        <p class="lead-note">Всё в Telegram, рядом с трейдерами, которые работают по проверенной системе.</p>
       </div>
       <ul class="kpis rise" style="--d:.28s">
         <li><b>1<sup>×</sup></b><span>в день<small>аналитика Ферузбека и его команды</small></span></li>
@@ -410,8 +513,8 @@ h1{font-size:clamp(42px,11vw,60px);margin-bottom:20px;color:var(--ink)}
 
   <!-- ===== БЕГУЩАЯ СТРОКА ===== -->
   <div class="ticker" aria-hidden="true"><div class="ticker-in">
-    <span>Gold</span><span>Bitcoin</span><span>Forex</span><span>S&amp;P 500</span><span>Trade Ideas</span><span>Risk / Reward</span><span>Stop Loss</span><span>Take Profit</span>
-    <span>Gold</span><span>Bitcoin</span><span>Forex</span><span>S&amp;P 500</span><span>Trade Ideas</span><span>Risk / Reward</span><span>Stop Loss</span><span>Take Profit</span>
+    <span>Forex</span><span>S&amp;P 500</span><span>NYSE</span><span>Stop Loss</span><span>NASDAQ</span><span>Take Profit</span><span>CME Group</span><span>Risk / Reward</span><span>London Stock Exchange</span><span>Trade Ideas</span><span>Federal Reserve</span><span>Gold</span><span>European Central Bank</span><span>IMF</span>
+    <span>Forex</span><span>S&amp;P 500</span><span>NYSE</span><span>Stop Loss</span><span>NASDAQ</span><span>Take Profit</span><span>CME Group</span><span>Risk / Reward</span><span>London Stock Exchange</span><span>Trade Ideas</span><span>Federal Reserve</span><span>Gold</span><span>European Central Bank</span><span>IMF</span>
   </div></div>
 
   <!-- ===== О КЛУБЕ: что это даёт (по JTBD) ===== -->
@@ -521,17 +624,25 @@ h1{font-size:clamp(42px,11vw,60px);margin-bottom:20px;color:var(--ink)}
       </article>
     </div>
     <p class="extra-note" data-reveal>Условия и стоимость дополнительных программ уточняет менеджер.</p>
-    <div class="cta-row" data-reveal><a class="btn btn-inline btn-lg" href="#reg" data-cta="extra_join"><span>Узнать условия у менеджера</span><i class="arr"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></i></a><p>Оставьте заявку, и менеджер расскажет о программах</p></div>
+    <div class="cta-row center" data-reveal><a class="btn btn-inline btn-lg btn-xl" href="#reg" data-cta="extra_join"><span>Узнать условия у менеджера</span><i class="arr"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></i></a><p>Оставьте заявку, и менеджер расскажет о программах</p></div>
   </section>
 
   <!-- ===== ПОДДЕРЖКА + ИТОГОВЫЙ ПРИЗЫВ ===== -->
   <section class="wrap final" data-reveal>
     <div class="final-in">
-      <div>
+      <div class="final-head">
         <h2 class="hf">Не торгуйте в одиночку</h2>
-        <p>Рынок невозможно обмануть: тот, кто торгует на эмоциях, следует за чужими сигналами и полагается на сомнительные курсы, как правило, платит за свои ошибки собственным депозитом. В клубе кураторы и аналитики сразу разбирают ваши вопросы в чате, а ошибки вы разбираете вместе с Ферузбеком или его командой.</p>
+        <p class="final-lead">Рынок невозможно обмануть.</p>
+        <p class="final-warn">Тот, кто торгует на эмоциях, следует за чужими сигналами и полагается на сомнительные курсы, как правило, <b>платит за свои ошибки собственным депозитом</b>.</p>
       </div>
-      <a class="btn btn-inline btn-lg" href="#reg" data-cta="final_apply"><span>Вступить в клуб</span><i class="arr"><svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg></i></a>
+      <div class="final-yes">
+        <p class="yes-title">В клубе всё иначе</p>
+        <ul>
+          <li><i></i><span><b>Вопросы разбирают сразу.</b> Кураторы и аналитики отвечают вам в чате.</span></li>
+          <li><i></i><span><b>Ошибки вы разбираете с экспертом.</b> Вместе с Ферузбеком или его командой.</span></li>
+        </ul>
+      </div>
+      <div class="final-cta"><a class="btn btn-inline btn-lg btn-xl" href="#reg" data-cta="final_apply"><span>Вступить в клуб</span><i class="arr"><svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg></i></a></div>
     </div>
   </section>
   </main>

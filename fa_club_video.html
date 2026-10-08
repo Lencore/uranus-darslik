@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="ru" data-page="video">
+<head>
+<title>Заявка принята: видео о закрытом клубе Ферузбека Алиева</title>
+<meta name="description" content="Посмотрите видео о закрытом клубе Ферузбека Алиева и напишите менеджеру в Telegram, чтобы узнать, как вступить.">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#050b10">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '744594559402525');
+fbq('track', 'PageView');
+</script>
+<!-- End Meta Pixel Code -->
+<style>
+/* ===== База: цвета, шрифты, шапка, кнопки ===== */
+:root{
+  --bg:#050b10; --line:rgba(255,255,255,.10);
+  --red:#ff4d5e; --green:#35e58c; --green-d:#16b868; --gold:#ffd27a;
+  --t:#fff; --t2:#b4bcc9; --tm:#7a8596; --err:#ff7b7b;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);-webkit-text-size-adjust:100%;scroll-padding-top:12px}
+body{
+  background:var(--bg);
+  color:var(--t);font:400 16px/1.55 'Onest',Arial,sans-serif;
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:6px}
+.wrap{width:min(1180px,100% - 40px);margin-inline:auto}
+.hf{text-wrap:balance}
+/* общие правила набора текста: ровные строки, без переносов по слогам, без висящих хвостов */
+h1,h2,h3{text-wrap:balance;hyphens:none}
+p,li,dd{text-wrap:pretty;hyphens:none;overflow-wrap:break-word}
+.lead,.final-in p,.card-head p,.cards p,.perks-in span{text-wrap:balance}
+.bonus-txt li{text-wrap:pretty}   /* без выравнивания по длине: иначе в пункте остаётся пустота справа */
+/* выделенные цветом фразы держатся в одной строке */
+.lead b,h1 em,.final-in em,.seats,.pill,.facts b.lim,.who b,.tag{white-space:nowrap}
+.hf{font-family:'Oswald',Arial,sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.012em;line-height:1.05}
+
+/* фон всей страницы: красное слева и зелёное справа идут сверху вниз */
+.page{position:relative;overflow:hidden;overflow:clip;isolation:isolate}
+/* низ страницы плавно уходит в цвет фона: любой отскок прокрутки или высокое окно не покажут обрыва свечения */
+.page::after{content:"";position:absolute;left:0;right:0;bottom:0;height:260px;z-index:-1;pointer-events:none;background:linear-gradient(180deg,transparent,var(--bg) 92%)}
+.page-bg{position:absolute;inset:0;z-index:-1;pointer-events:none;overflow:hidden;overflow:clip;
+  background:
+    radial-gradient(closest-side,rgba(255,60,80,.30),transparent) left -32% top 520px/64% 1000px repeat-y,
+    radial-gradient(closest-side,rgba(40,230,130,.26),transparent) right -32% top 980px/64% 1000px repeat-y,
+    radial-gradient(closest-side,rgba(255,60,80,.18),transparent) left -40% top 1700px/60% 900px no-repeat,
+    radial-gradient(closest-side,rgba(40,230,130,.2),transparent) right -40% top 2100px/60% 900px no-repeat}
+
+/* свечение, свечи и цифры рынка: фирменный фон из первой версии */
+.glow{position:absolute;border-radius:50%;filter:blur(40px)}
+.glow-r{left:-12%;top:5%;width:58%;height:95%;background:radial-gradient(closest-side,rgba(255,60,80,.42),transparent)}
+.glow-g{right:-12%;top:0;width:58%;height:95%;background:radial-gradient(closest-side,rgba(40,230,130,.36),transparent)}
+.chart{position:absolute;bottom:0;width:52%;height:50%;opacity:.42}
+.chart.low{bottom:auto;width:46%;height:520px;opacity:.26}
+.chart-r{left:0;color:var(--red);-webkit-mask-image:linear-gradient(90deg,#000 55%,transparent);mask-image:linear-gradient(90deg,#000 55%,transparent)}
+.chart-g{right:0;color:var(--green);-webkit-mask-image:linear-gradient(270deg,#000 55%,transparent);mask-image:linear-gradient(270deg,#000 55%,transparent)}
+.num{position:absolute;font:700 clamp(22px,2.8vw,42px)/1 'Oswald',Arial,sans-serif;opacity:.5;animation:float var(--t,6s) ease-in-out infinite}
+.n-r{color:#ff6577;text-shadow:0 0 22px rgba(255,60,80,.8)}
+.n-g{color:#4cf29c;text-shadow:0 0 22px rgba(40,230,130,.8)}
+@keyframes float{50%{transform:translateY(-14px)}}
+.page-bg .num{display:none}
+@media (min-width:1600px){.page-bg .num{display:block}}
+.hero-bg .num{display:none}
+@media (max-width:979px){.num{display:none!important}}
+
+/* ===== Шапка ===== */
+.top{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 0;position:relative;z-index:5}
+.logo{height:32px;width:auto}
+
+/* ===== Кнопка ===== */
+.btn{position:relative;overflow:hidden;overflow:clip;display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:18px 28px;font:700 17px 'Onest',Arial,sans-serif;color:#04140b;border:0;border-radius:14px;cursor:pointer;
+  background:linear-gradient(180deg,#5cf5a6,var(--green-d));box-shadow:0 16px 34px -12px rgba(40,230,130,.75),inset 0 1px 0 rgba(255,255,255,.45);transition:transform .18s,box-shadow .18s}
+.btn::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:shine 3.6s infinite}
+.btn:hover{transform:translateY(-2px);box-shadow:0 22px 40px -12px rgba(40,230,130,.9),inset 0 1px 0 rgba(255,255,255,.45)}
+.btn:disabled{opacity:.7;cursor:wait}
+.btn svg{width:20px;height:20px;stroke-width:2.4}
+.btn-inline{display:inline-flex;width:auto;padding:18px 42px}
+
+/* ===== Анимации ===== */
+.dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
+.rise{opacity:0;transform:translateY(22px);animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d,0s)}
+@keyframes rise{to{opacity:1;transform:none}}
+@keyframes pulse{70%{box-shadow:0 0 0 10px rgba(53,229,140,0)}100%{box-shadow:0 0 0 0 rgba(53,229,140,0)}}
+@keyframes shine{0%,60%{left:-60%}100%{left:130%}}
+@media (prefers-reduced-motion:reduce){.rise{animation:none;opacity:1;transform:none}.btn::after,.dot,.num{animation:none}}
+
+/* ===== Вторая страница: шаги, рамка плеера, кнопка менеджера ===== */
+.vid{position:relative;isolation:isolate;max-width:920px;padding-block:8px 48px;text-align:center}
+.hero-bg{position:absolute;inset:-70px calc(50% - 50vw) 0;z-index:-1;pointer-events:none;overflow:hidden;overflow:clip;-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent);mask-image:linear-gradient(180deg,#000 70%,transparent)}
+.steps{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:8px 10px;margin:6px auto 22px;font-size:13.5px;font-weight:600}
+.steps li{display:inline-flex;align-items:center;gap:9px;padding:6px 14px 6px 6px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--t2);white-space:nowrap}
+.steps i{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.08);color:#fff;font:700 12px 'Onest',sans-serif;font-style:normal}
+.steps svg{width:14px;height:14px;stroke-width:3}
+.steps .is-done{color:#bff5d9;border-color:rgba(53,229,140,.4);background:rgba(53,229,140,.1)}.steps .is-done i{background:var(--green);color:#04140b}
+.steps .is-now{color:#fff;border-color:rgba(255,210,122,.55);background:rgba(255,210,122,.1)}.steps .is-now i{background:var(--gold);color:#2a1704}
+h1{font-size:clamp(32px,6.4vw,54px);margin-bottom:14px}
+.lead{max-width:36em;margin:0 auto 28px;color:#d6dde8;font-size:clamp(16px,1.5vw,18px);line-height:1.6}
+
+/* рамка плеера: свечение и тонкий контур снаружи, внутрь видео ничего не заходит */
+.player{position:relative;margin:0 auto 30px;padding:12px;border-radius:26px;border:1px solid rgba(53,229,140,.35);background:linear-gradient(160deg,rgba(14,26,22,.92),rgba(6,9,11,.96));box-shadow:0 0 0 1px rgba(255,255,255,.04),0 40px 80px -30px rgba(40,230,130,.45),-30px 30px 70px -40px rgba(255,60,80,.45)}
+.player::before{content:"";position:absolute;inset:-1px;border-radius:26px;pointer-events:none;padding:1px;background:linear-gradient(120deg,rgba(255,100,115,.7),transparent 35%,transparent 65%,rgba(53,229,140,.8));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.player-bar{display:flex;align-items:center;gap:10px;padding:2px 6px 12px;font:600 13.5px 'Onest',sans-serif;color:#e6ebf2;text-align:left}
+.player-bar em{margin-left:auto;font-style:normal;font-weight:500;color:var(--tm)}
+.player-screen{position:relative;aspect-ratio:16/9;border-radius:16px;overflow:hidden;overflow:clip;background:#000;box-shadow:0 0 0 1px rgba(255,255,255,.08)}
+.player-screen iframe,.player-screen>div{position:absolute;inset:0;width:100%;height:100%;border:0}
+
+.cta-box{max-width:520px;margin:0 auto}
+.tg-btn{position:relative;display:flex;align-items:center;justify-content:center;gap:12px;width:100%;padding:19px 24px;border-radius:16px;font:700 17px 'Onest',Arial,sans-serif;color:#fff;
+  background:linear-gradient(180deg,#43c0ff,#1b8fd6 70%,#1778b8);box-shadow:0 18px 40px -12px rgba(42,171,238,.85),0 0 34px rgba(42,171,238,.55),inset 0 1px 0 rgba(255,255,255,.55),inset 0 -2px 0 rgba(0,0,0,.12);transition:transform .18s,box-shadow .18s}
+.tg-btn svg{width:26px;height:26px;flex:none;filter:drop-shadow(0 2px 4px rgba(0,50,90,.4))}
+.tg-btn:hover{transform:translateY(-2px);box-shadow:0 24px 48px -12px rgba(42,171,238,1),0 0 48px rgba(42,171,238,.75),inset 0 1px 0 rgba(255,255,255,.6),inset 0 -2px 0 rgba(0,0,0,.12)}
+.tg-btn:focus-visible{outline:3px solid #fff;outline-offset:4px}
+.hint{margin-top:14px;color:var(--tm);font-size:13.5px}
+.foot{display:grid;gap:14px;padding:26px 0 40px;border-top:1px solid rgba(255,255,255,.06);color:var(--tm);font-size:12px;text-align:left}
+.foot .disc{max-width:60em}.foot-links{display:flex;gap:20px;flex-wrap:wrap}
+.foot-links a{text-decoration:underline;text-underline-offset:3px}.foot-links a:hover{color:#fff}
+@media (min-width:980px){.foot{grid-template-columns:auto 1fr auto;align-items:center;gap:32px}}
+@media (max-width:520px){.player{padding:8px;border-radius:20px}.player-screen{border-radius:12px}.player-bar{padding-bottom:8px}.tg-btn{padding:18px 16px;font-size:16px}}
+@media (prefers-reduced-motion:reduce){.tg-btn{transition:none}}
+
+</style>
+
+</head>
+<body>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1" alt=""/></noscript>
+
+<div class="page">
+  <div class="page-bg" aria-hidden="true"></div>
+  <header class="wrap top">
+    <a href="fa_club.html" aria-label="Uranus"><img class="logo" src="data:image/png;base64,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" alt="Uranus" width="139" height="32"></a>
+  </header>
+
+  <main class="wrap vid">
+    <div class="hero-bg" aria-hidden="true"><i class="glow glow-r"></i><i class="glow glow-g"></i></div>
+
+    <ol class="steps rise" aria-label="Шаги">
+      <li class="is-done"><i><svg viewBox="0 0 24 24"><path d="M6 12.5l4 4 8-9"/></svg></i>Заявка принята</li>
+      <li class="is-now"><i>2</i>Видео о клубе</li>
+      <li><i>3</i>Менеджер в Telegram</li>
+    </ol>
+
+    <h1 class="hf rise" style="--d:.1s" id="vid-title" data-named="{name}, заявка принята. Посмотрите видео о клубе" data-anon="Заявка принята. Посмотрите видео о клубе">Заявка принята. Посмотрите видео о клубе</h1>
+    <p class="lead rise" style="--d:.2s">Видео коротко расскажет, как устроен закрытый клуб Ферузбека Алиева. После просмотра напишите менеджеру в Telegram: он ответит на вопросы и подскажет, как вступить.</p>
+
+    <figure class="player rise" style="--d:.3s">
+      <div class="player-bar"><span class="dot"></span>Видео о клубе<em>Ферузбек Алиев</em></div>
+      <div class="player-screen"><div id="yt" data-video="QFfC7fu3k2o"></div></div>
+    </figure>
+
+    <div class="cta-box rise" style="--d:.4s">
+      <a class="tg-btn" href="https://t.me/CHANGE_ME_MANAGER" target="_blank" rel="noopener noreferrer" data-manager="video_page">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.4L2.9 11.6c-.9.4-.9 1.1-.2 1.3l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.5 0 .7-.2 1-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3-14.5c.3-1.3-.5-1.9-1.5-1.5z" fill="currentColor" stroke="none"/><path d="M8.2 14.2l9.4-5.9" stroke="#1d8fcb" stroke-width="1.4" fill="none"/></svg>
+        <span>Написать менеджеру в Telegram</span>
+      </a>
+      <p class="hint">Откроется чат в Telegram. Напишите менеджеру, и он подскажет, как попасть в клуб.</p>
+    </div>
+  </main>
+
+  <footer class="wrap foot">
+    <img class="logo" src="data:image/png;base64,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" alt="Uranus" width="139" height="32">
+    <p class="disc">Торговля на финансовых рынках связана с высоким риском потери капитала. Материалы клуба носят образовательный характер и не являются инвестиционной рекомендацией. Результаты не гарантируются.</p>
+    <p class="foot-links"><a href="https://uranus.mercuryedu.uz/pages/privacyuranus" target="_blank" rel="noopener noreferrer">Политика конфиденциальности</a><a href="#">Публичная оферта</a></p>
+  </footer>
+</div>
+
+<script>
+// Трекер событий клуба: Meta Pixel (fbq) + dataLayer.
+// Все события называются с префиксом ClubFA_, чтобы не пересекаться с событиями семинара (BishkekSeminar_) и Cyber Age (CyberAge_).
+(function () {
+  var PREFIX = 'ClubFA_';
+  var BASE = {
+    content_name: 'Club Feruzbek Aliev', content_category: 'club',
+    page_variant: document.documentElement.getAttribute('data-page') || 'landing',   // landing = лендинг с формой, video = вторая страница
+    page_language: document.documentElement.lang || 'ru'
+  };
+  var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+
+  // UTM-метки из ссылки: запоминаем на время визита, чтобы они шли во все события и на вторую страницу
+  window.clubUtm = function () {
+    var out = {}, q = new URLSearchParams(location.search);
+    UTM.forEach(function (k) {
+      var v = q.get(k);
+      try { if (v) sessionStorage.setItem(k, v); else v = sessionStorage.getItem(k); } catch (e) {}
+      if (v) out[k] = v;
+    });
+    return out;
+  };
+  window.clubUtm();
+
+  // trackEvent('FormStart', {параметры}, 'необязательный id для дедупликации с серверными событиями')
+  window.trackEvent = function (name, params, eventId) {
+    var full = PREFIX + name;
+    var data = Object.assign({}, BASE, window.clubUtm(), params || {});
+    try { (window.dataLayer = window.dataLayer || []).push(Object.assign({ event: full }, data)); } catch (e) {}
+    try {
+      if (!window.fbq) return;
+      if (eventId) window.fbq('trackCustom', full, data, { eventID: eventId });
+      else window.fbq('trackCustom', full, data);
+    } catch (e) {}
+  };
+
+  // Клики по кнопкам-призывам (всё, где указан data-cta)
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-cta]');
+    if (el) window.trackEvent('CTAClick', { cta_name: el.dataset.cta, cta_text: (el.textContent || '').trim().slice(0, 40) });
+  });
+
+  // Переход к менеджеру в Telegram (кнопка на второй странице): главное целевое действие
+  function manager(e) {
+    var el = e.target.closest('[data-manager]');
+    if (!el) return;
+    var lead = ''; try { lead = (JSON.parse(sessionStorage.getItem('club_lead') || '{}')).lead_id || ''; } catch (x) {}
+    window.trackEvent('ManagerClick', { click_location: el.dataset.manager, destination: 'telegram manager', lead_id: lead });
+  }
+  document.addEventListener('click', manager);
+  document.addEventListener('auxclick', manager);         // клик средней кнопкой мыши
+})();
+</script>
+<script>
+// Вторая страница: видео с YouTube (IFrame API) и события просмотра, приветствие по имени
+(function () {
+  var holder = document.getElementById('yt');
+  var lead = {}; try { lead = JSON.parse(sessionStorage.getItem('club_lead') || '{}'); } catch (e) {}
+
+  // «Имя, заявка принята…»: имя только для приветствия на странице, в пиксель оно не отправляется
+  var h1 = document.getElementById('vid-title');
+  if (lead.name && h1) h1.textContent = h1.dataset.named.replace('{name}', function () { return lead.name; });
+
+  window.trackEvent('VideoPageView', { lead_id: lead.lead_id || '' });
+
+  var player, timer, sent = {}, playSent = false;
+  function percent() {
+    try { var d = player.getDuration(); return d ? player.getCurrentTime() / d * 100 : 0; } catch (e) { return 0; }
+  }
+  function tick() {
+    var p = percent();
+    [25, 50, 75].forEach(function (t) {
+      if (p >= t && !sent[t]) { sent[t] = true; window.trackEvent('VideoProgress', { percent: t, lead_id: lead.lead_id || '' }); }
+    });
+  }
+  function onState(e) {
+    var S = window.YT.PlayerState;
+    if (e.data === S.PLAYING) {
+      if (!playSent) { playSent = true; window.trackEvent('VideoPlay', { lead_id: lead.lead_id || '' }); }
+      if (!timer) timer = setInterval(tick, 1000);
+    } else if (e.data === S.PAUSED) {
+      clearInterval(timer); timer = null;
+    } else if (e.data === S.ENDED) {
+      clearInterval(timer); timer = null;
+      if (!sent[100]) { sent[100] = true; window.trackEvent('VideoComplete', { percent: 100, lead_id: lead.lead_id || '' }); }
+    }
+  }
+
+  function create() {
+    player = new window.YT.Player('yt', {
+      host: 'https://www.youtube-nocookie.com',
+      videoId: holder.dataset.video,
+      width: '100%', height: '100%',
+      playerVars: { rel: 0, modestbranding: 1, playsinline: 1, iv_load_policy: 3 },
+      events: { onStateChange: onState }
+    });
+  }
+  if (window.YT && window.YT.Player) create();
+  else {
+    window.onYouTubeIframeAPIReady = create;
+    var s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; s.async = true;
+    // если скрипт YouTube не загрузился (блокировщик), показываем обычную вставку без событий просмотра
+    s.onerror = function () {
+      holder.outerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + holder.dataset.video + '?rel=0&modestbranding=1&playsinline=1" title="Видео о клубе" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+    };
+    document.head.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>

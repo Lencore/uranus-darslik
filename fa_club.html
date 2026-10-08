@@ -218,10 +218,9 @@ h1{font-size:clamp(42px,11vw,60px);margin-bottom:20px;color:var(--ink)}
 /* «Когда… → …» */
 .jobs{display:grid;gap:14px;grid-template-columns:1fr}
 .job{position:relative;padding:26px;border-radius:24px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));overflow:hidden;overflow:clip;isolation:isolate;transition:border-color .3s}
-.job::after{content:"";position:absolute;left:26px;right:26px;top:50%;height:1px;background:linear-gradient(90deg,var(--gold),transparent);opacity:.35}
-.when{padding-bottom:50px;font:700 clamp(19px,2vw,22px)/1.25 var(--disp);letter-spacing:-.02em;color:var(--ink)}
+.when{padding-bottom:28px;min-height:calc(27px + 2.5em + 28px);font:700 clamp(19px,2vw,22px)/1.25 var(--disp);letter-spacing:-.02em;color:var(--ink)}
 .when::before{content:"Когда";display:block;margin-bottom:8px;font:600 12px var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
-.then{padding-top:18px;color:var(--ink2);font-size:15.5px;line-height:1.6}
+.then{padding-top:22px;border-top:1px solid;border-image:linear-gradient(90deg,rgba(217,181,108,.4),transparent) 1;color:var(--ink2);font-size:15.5px;line-height:1.6}
 .then::before{content:"В клубе";display:block;margin-bottom:6px;font:600 12px var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--gold-l)}
 
 /* сравнение с сигнальными каналами */

@@ -137,6 +137,13 @@ h1{font-size:clamp(42px,11vw,60px);margin-bottom:20px;color:var(--ink)}
 @media (max-width:979px){.portrait{order:1}.hero-copy{order:0}.card{order:2;margin-bottom:24px}.stage{--stage:430px}}
 @media (min-width:600px) and (max-width:979px){.card{max-width:560px;margin-inline:auto;width:100%}}
 @media (max-width:420px){.legal{align-items:flex-start}.who{padding:9px 13px}}
+/* узкие телефоны: колонка не шире экрана, заголовок и подпись могут переноситься */
+.hero>*{min-width:0}
+@media (max-width:420px){
+  .gold-i{white-space:normal}
+  h1{font-size:clamp(34px,10.2vw,44px)}
+  .eyebrow{border-radius:16px;line-height:1.35;padding:8px 14px 8px 12px;font-size:12.5px}
+}
 
 /* ===== Секции: бегущая строка, бенто-сетка, система, программы, финал, подвал ===== */
 .ticker{overflow:hidden;overflow:clip;border-block:1px solid var(--line);background:rgba(255,255,255,.015);-webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
@@ -160,7 +167,7 @@ h1{font-size:clamp(42px,11vw,60px);margin-bottom:20px;color:var(--ink)}
 .idx{margin-bottom:auto;padding-bottom:34px;font:700 13px var(--disp);letter-spacing:.16em;color:var(--gold)}
 .bx h3{font-size:clamp(21px,2.1vw,25px);font-weight:700;letter-spacing:-.02em;line-height:1.15;margin-bottom:10px;color:var(--ink)}
 .bx p{color:var(--ink2);font-size:15px;line-height:1.6;max-width:34em}
-.b-a{min-height:340px}.spark{position:absolute;left:0;right:0;bottom:0;width:100%;height:46%;z-index:-1;opacity:.9}
+.b-a{min-height:340px}.spark{position:absolute;left:0;right:0;top:58px;width:100%;height:150px;z-index:-1;opacity:.95}
 .tokens{list-style:none;display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
 .tokens li{padding:7px 13px;border-radius:10px;border:1px solid var(--line-g);background:rgba(217,181,108,.07);font:600 13px var(--disp);color:var(--gold-l);letter-spacing:.01em}
 .days{display:flex;gap:10px;margin-top:20px}
@@ -201,6 +208,55 @@ h1{font-size:clamp(42px,11vw,60px);margin-bottom:20px;color:var(--ink)}
   .foot{grid-template-columns:auto 1fr auto;align-items:center;gap:32px}
 }
 @media (prefers-reduced-motion:reduce){.ticker-in{animation:none}}
+.b-d h3{font-size:clamp(20px,1.7vw,22px)}
+
+/* ===== Смысловые блоки: «когда → что получите», сравнение, принципы, панель программ ===== */
+.intro{max-width:46em;margin:-8px 0 30px;color:#d9d0c2;font-size:clamp(16.5px,1.5vw,18px);line-height:1.7}
+.muted{color:var(--ink3);font-weight:600;font-size:.55em;letter-spacing:0;white-space:nowrap}
+
+/* «Когда… → …» */
+.jobs{display:grid;gap:14px;grid-template-columns:1fr}
+.job{position:relative;padding:26px;border-radius:24px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.012));overflow:hidden;overflow:clip;isolation:isolate;transition:border-color .3s}
+.job::after{content:"";position:absolute;left:26px;right:26px;top:50%;height:1px;background:linear-gradient(90deg,var(--gold),transparent);opacity:.35}
+.when{padding-bottom:50px;font:700 clamp(19px,2vw,22px)/1.25 var(--disp);letter-spacing:-.02em;color:var(--ink)}
+.when::before{content:"Когда";display:block;margin-bottom:8px;font:600 12px var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+.then{padding-top:18px;color:var(--ink2);font-size:15.5px;line-height:1.6}
+.then::before{content:"В клубе";display:block;margin-bottom:6px;font:600 12px var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--gold-l)}
+
+/* сравнение с сигнальными каналами */
+.vs{border-radius:24px;border:1px solid var(--line);background:rgba(255,255,255,.02);overflow:hidden;overflow:clip;margin-bottom:18px}
+.vs-head{display:none}
+.vs-row{display:grid;gap:8px;padding:18px 20px;border-top:1px solid var(--line)}
+.vs-row:first-of-type{border-top:0}
+.vs-row b{font:700 15px var(--disp);letter-spacing:-.01em;color:var(--ink)}
+.vs-row span{font-size:14.5px;line-height:1.5;color:var(--ink3)}
+.vs-row span::before{content:attr(data-l);display:block;font:600 11px var(--body);letter-spacing:.14em;text-transform:uppercase;margin-bottom:2px;opacity:.9}
+.vs-row .g{color:var(--ink);font-weight:500}.vs-row .g::before{color:var(--gold)}
+
+.princ{display:grid;gap:14px;grid-template-columns:1fr}
+.pr{position:relative;padding:24px;border-radius:22px;border:1px solid var(--line);background:linear-gradient(180deg,rgba(217,181,108,.07),rgba(255,255,255,.01));overflow:hidden;overflow:clip;isolation:isolate;transition:border-color .3s}
+.pr i{display:block;margin-bottom:22px;font:700 13px var(--disp);font-style:normal;letter-spacing:.16em;color:var(--gold)}
+.pr h3{font-size:clamp(20px,2vw,22px);font-weight:700;letter-spacing:-.02em;margin-bottom:8px;color:var(--ink)}
+.pr p{color:var(--ink2);font-size:15px;line-height:1.6}
+
+/* дополнительные программы: одна панель, три колонки */
+.panel{border-radius:26px;border:1px solid var(--line-g);background:linear-gradient(180deg,rgba(217,181,108,.06),rgba(255,255,255,.012));overflow:hidden;overflow:clip}
+.pcol{padding:26px}.pcol+.pcol{border-top:1px solid var(--line)}
+.pcol h3{font-size:clamp(20px,2vw,22px);font-weight:700;letter-spacing:-.02em;margin-bottom:8px;color:var(--ink)}
+.pcol p{color:var(--ink2);font-size:15px;line-height:1.55;margin-bottom:14px}
+.pcol ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.pcol li{padding:6px 12px;border-radius:10px;border:1px solid var(--line);background:rgba(255,255,255,.04);font:500 13px var(--body);color:var(--gold-l)}
+
+@media (min-width:760px){
+  .jobs,.princ{grid-template-columns:repeat(3,1fr)}
+  .vs-head{display:grid;grid-template-columns:1.1fr 1.4fr 1.8fr;gap:20px;padding:16px 24px;border-bottom:1px solid var(--line);font:600 12px var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+  .vs-head .g{color:var(--gold)}
+  .vs-row{grid-template-columns:1.1fr 1.4fr 1.8fr;gap:20px;align-items:start;padding:18px 24px}
+  .vs-row span::before{display:none}
+  .vs-row span{font-size:15px}
+}
+
+@media (min-width:980px){.panel{display:grid;grid-template-columns:repeat(3,1fr)}.pcol+.pcol{border-top:0;border-left:1px solid var(--line)}}
 
 </style>
 
@@ -221,13 +277,13 @@ h1{font-size:clamp(42px,11vw,60px);margin-bottom:20px;color:var(--ink)}
   <!-- ===== ГЛАВНЫЙ ЭКРАН ===== -->
   <section class="wrap hero" id="top">
     <div class="hero-copy">
-      <p class="eyebrow rise"><i></i>Закрытый клуб в Telegram</p>
+      <p class="eyebrow rise"><i></i>Первое в Узбекистане сообщество системного трейдинга</p>
       <h1 class="hf rise" style="--d:.08s">Закрытый клуб <span class="gold-i">Ферузбека Алиева</span></h1>
-      <p class="lead rise" style="--d:.18s">Сообщество профессиональных трейдеров и инвесторов. Ежедневная аналитика, торговые идеи с понятной логикой и прямой контакт с экспертом.</p>
+      <p class="lead rise" style="--d:.18s">Торгуйте по системе, а не наугад и не на эмоциях. В клубе вы получаете рабочую торговую систему, ежедневный разбор рынка от Ферузбека и его команды и ответы эксперта на ваши вопросы. Всё в Telegram, рядом с трейдерами, которые работают по правилам.</p>
       <ul class="kpis rise" style="--d:.28s">
         <li><b>1<sup>×</sup></b><span>в день<small>аналитика Ферузбека и его команды</small></span></li>
         <li><b>2<sup>×</sup></b><span>в неделю<small>закрытые эфиры: вторник и пятница</small></span></li>
-        <li><b>6<sup>×</sup></b><span>в год<small>личные встречи с Ферузбеком офлайн</small></span></li>
+        <li><b>1<sup>×</sup></b><span>в 2 месяца<small>личные встречи с Ферузбеком офлайн</small></span></li>
       </ul>
       <a class="btn btn-inline hero-cta rise" style="--d:.38s" href="#reg" data-cta="hero_apply"><span>Оставить заявку</span><i class="arr"><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></i></a>
     </div>
@@ -273,65 +329,86 @@ h1{font-size:clamp(42px,11vw,60px);margin-bottom:20px;color:var(--ink)}
     <span>Gold</span><span>Bitcoin</span><span>Forex</span><span>S&amp;P 500</span><span>Trade Ideas</span><span>Risk / Reward</span><span>Stop Loss</span><span>Take Profit</span>
   </div></div>
 
+  <!-- ===== О КЛУБЕ: что это даёт (по JTBD) ===== -->
+  <section class="wrap sec" id="about">
+    <p class="kicker" data-reveal>О клубе</p>
+    <h2 class="hf" data-reveal style="--d:.05s">Эксперт по рынку и его рабочие инструменты рядом с вами</h2>
+    <p class="intro" data-reveal style="--d:.1s">Ферузбек Алиев работает на рынке много лет и опирается на проверенные стратегии. В клубе вы не просто наблюдаете за его работой: вы пользуетесь его инструментами и задаёте ему вопросы напрямую. Так торговля из игры на удачу превращается в системную работу.</p>
+    <div class="jobs">
+      <article class="job spot" data-reveal><p class="when">Не понимаете, что творится на рынке</p><p class="then">Каждый день получаете готовый разбор и за несколько минут видите общую картину рынка, не тратя часы на поиск информации.</p></article>
+      <article class="job spot" data-reveal style="--d:.06s"><p class="when">Сомневаетесь в сделке</p><p class="then">Задаёте вопрос в чате или на эфире и получаете ответ эксперта, пока рынок открыт.</p></article>
+      <article class="job spot" data-reveal style="--d:.12s"><p class="when">Устали учиться на собственных ошибках</p><p class="then">Торгуете по системе рядом с людьми, которые растут вместе с вами.</p></article>
+    </div>
+  </section>
+
   <!-- ===== ЧТО ВНУТРИ КЛУБА (бенто-сетка) ===== -->
   <section class="wrap sec" id="inside">
     <p class="kicker" data-reveal>Что внутри</p>
-    <h2 class="hf" data-reveal style="--d:.05s">Что получают участники клуба каждый день</h2>
+    <h2 class="hf" data-reveal style="--d:.05s">Что вы получаете в клубе каждый день</h2>
     <div class="bento">
       <article class="bx b-a spot" data-reveal>
         <span class="idx">01</span>
-        <h3>Ежедневная аналитика</h3>
-        <p>Ферузбек и его команда разбирают состояние рынка, макроэкономику, золото, Bitcoin, Forex и индекс S&amp;P 500.</p>
+        <h3>Разбор рынка, который экономит вам часы</h3>
+        <p>Каждый день Ферузбек лично и его команда объясняют, что происходит с золотом, Bitcoin, Forex и индексом S&amp;P 500 и почему. Это готовая выжимка для трейдера: берите ясную картину рынка и применяйте её в своих решениях, вместо того чтобы разбираться в потоке противоречивых мнений.</p>
         <svg class="spark" viewBox="0 0 320 110" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="sg" x1="0" x2="1"><stop offset="0" stop-color="#d9b56c" stop-opacity="0"/><stop offset=".6" stop-color="#d9b56c" stop-opacity=".8"/><stop offset="1" stop-color="#f4e0ae"/></linearGradient><linearGradient id="sf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d9b56c" stop-opacity=".28"/><stop offset="1" stop-color="#d9b56c" stop-opacity="0"/></linearGradient></defs><path d="M0 92 L30 80 L58 86 L88 62 L118 70 L150 44 L182 54 L214 30 L246 38 L280 14 L320 6 L320 110 L0 110Z" fill="url(#sf)" stroke="none"/><path d="M0 92 L30 80 L58 86 L88 62 L118 70 L150 44 L182 54 L214 30 L246 38 L280 14 L320 6" stroke="url(#sg)" stroke-width="2.2"/><circle cx="320" cy="6" r="4" fill="#f4e0ae" stroke="none"/></svg>
       </article>
       <article class="bx b-b spot" data-reveal style="--d:.06s">
         <span class="idx">02</span>
-        <h3>Торговые идеи с логикой</h3>
-        <p>В каждой идее понятно, почему вход, где Stop Loss и Take Profit и как посчитано соотношение риска и прибыли.</p>
-        <ul class="tokens"><li>Вход</li><li>Stop Loss</li><li>Take Profit</li><li>Risk / Reward</li></ul>
+        <h3>Идеи, которые вы понимаете, а не копируете вслепую</h3>
+        <p>Каждая идея это целый план: почему она появилась, где вход, где Stop Loss и Take Profit и как соотносятся риск и прибыль (Risk/Reward). Вы видите всю логику и учитесь мыслить так же.</p>
+        <ul class="tokens"><li>Причина</li><li>Вход</li><li>Stop Loss</li><li>Take Profit</li><li>Risk / Reward</li></ul>
       </article>
       <article class="bx b-c spot" data-reveal style="--d:.1s">
         <span class="idx">03</span>
-        <h3>Эфиры дважды в неделю</h3>
-        <p>Закрытые эфиры, где можно задать Ферузбеку вопрос по своей сделке и разобрать её вместе.</p>
+        <h3>Личный эфир с Ферузбеком два раза в неделю</h3>
+        <p>Вторник и пятница: закрытый эфир, где разбирают рынок и сильные зоны. Главное: можно задать вопрос по своей сделке и разобрать её вместе с экспертом.</p>
         <div class="days"><span>ВТ</span><span>ПТ</span></div>
       </article>
       <article class="bx b-d spot" data-reveal style="--d:.14s">
         <span class="idx">04</span>
-        <h3>Авторские стратегии</h3>
-        <p>Проверены временем и практикой. Вы внедряете их в свою торговлю.</p>
+        <h3>Рабочие стратегии</h3>
+        <p>Проверены временем и практикой. Не придумываете систему годами: берёте готовую и настраиваете под свой характер.</p>
       </article>
       <article class="bx b-e spot" data-reveal style="--d:.06s">
         <span class="idx">05</span>
-        <h3>Закрытый чат</h3>
-        <p>Telegram-чат, где на связи Ферузбек и его команда трейдеров. Вопросы разбирают оперативно, участники делятся опытом.</p>
+        <h3>Закрытый чат: ответ, пока рынок открыт</h3>
+        <p>На связи Ферузбек и команда профессиональных трейдеров. Сомневаетесь в сделке или не понимаете движение? Спросите и получите ответ, а рядом люди, которые торгуют так же системно.</p>
       </article>
       <article class="bx b-f spot" data-reveal style="--d:.1s">
         <span class="idx">06</span>
-        <h3>Встречи офлайн</h3>
-        <p>Раз в два месяца личная встреча с Ферузбеком и эксклюзивные мастер-классы только для участников клуба.</p>
+        <h3>Живые встречи раз в два месяца</h3>
+        <p>Лично с Ферузбеком, лицом к лицу, плюс мастер-классы только для участников клуба. Знакомства и опыт, которых нет в записях.</p>
       </article>
     </div>
   </section>
 
-  <!-- ===== ВСЁ В ОДНОЙ СИСТЕМЕ ===== -->
-  <section class="wrap sec" aria-labelledby="sys-title">
-    <p class="kicker" data-reveal>Система</p>
-    <h2 class="hf" id="sys-title" data-reveal style="--d:.05s">Всё нужное в одной системе, а не по отдельности</h2>
-    <ol class="flow" data-reveal style="--d:.1s">
-      <li><i>1</i>Реальные знания</li><li><i>2</i>Торговая система</li><li><i>3</i>Аналитика рынка</li><li><i>4</i>Практические идеи</li><li><i>5</i>Общение с экспертом</li><li><i>6</i>Закрытое сообщество</li>
-    </ol>
-    <p class="flow-note" data-reveal>Вы не остаётесь один на один с рынком: учитесь системно, используете опыт и ежедневные разборы Ферузбека и растёте в среде профессиональных трейдеров.</p>
+  <!-- ===== ПОДХОД: НЕ СИГНАЛЫ, А СИСТЕМА ===== -->
+  <section class="wrap sec" id="approach">
+    <p class="kicker" data-reveal>Наш подход</p>
+    <h2 class="hf" data-reveal style="--d:.05s">Мы не продаём сигналы. Мы даём систему</h2>
+    <p class="intro" data-reveal style="--d:.1s">Большинство закрытых групп и сигнальных каналов продают прогнозы: получили «покупай» и всё. Завтра нужен новый сигнал, а понимания как не было, так и нет. Здесь наоборот: вы получаете логику и учитесь торговать сами.</p>
+    <div class="vs" data-reveal style="--d:.14s">
+      <div class="vs-head"><span></span><span>Типичный сигнальный канал</span><span class="g">Клуб Ферузбека</span></div>
+      <div class="vs-row"><b>Что вы получаете</b><span data-l="Сигнальный канал">«Покупай» или «продавай» без объяснений</span><span class="g" data-l="Клуб">Полный план сделки: причина, вход, Stop Loss, Take Profit, Risk/Reward</span></div>
+      <div class="vs-row"><b>Что остаётся у вас</b><span data-l="Сигнальный канал">Зависимость от чужих сигналов</span><span class="g" data-l="Клуб">Навык: вы понимаете логику и начинаете торговать осознанно</span></div>
+      <div class="vs-row"><b>Обратная связь</b><span data-l="Сигнальный канал">Односторонний канал, вопросы без ответа</span><span class="g" data-l="Клуб">Эфиры два раза в неделю, чат с ответами, разбор ваших ошибок</span></div>
+      <div class="vs-row"><b>На чём построено</b><span data-l="Сигнальный канал">Прогноз под ситуацию, быстрая выгода продавца</span><span class="g" data-l="Клуб">Система на строгих математических правилах и риск-менеджменте</span></div>
+    </div>
+    <div class="princ">
+      <article class="pr spot" data-reveal><i>01</i><h3>Правила вместо интуиции</h3><p>Торговая система построена на строгих математических правилах и алгоритмах. Меньше эмоций и удачи, больше повторяемости.</p></article>
+      <article class="pr spot" data-reveal style="--d:.06s"><i>02</i><h3>Риск под контролем</h3><p>Участники работают по правилам системы и риск-менеджмента. Сначала защита депозита, потом всё остальное.</p></article>
+      <article class="pr spot" data-reveal style="--d:.12s"><i>03</i><h3>Разработки Uranus</h3><p>Доступ к интеллектуальной собственности Uranus: торговым роботам серии Unicorn и консалтингу международного уровня.</p></article>
+    </div>
   </section>
 
-  <!-- ===== ДОПОЛНИТЕЛЬНЫЕ ПРОГРАММЫ ===== -->
+  <!-- ===== ДОПОЛНИТЕЛЬНО: ОДНА КОМПАКТНАЯ ПАНЕЛЬ ===== -->
   <section class="wrap sec" id="extra">
-    <p class="kicker" data-reveal>Дополнительно</p>
-    <h2 class="hf" data-reveal style="--d:.05s">Программы для тех, кому нужно больше</h2>
-    <div class="extras">
-      <article class="ex spot" data-reveal><span class="tagp">Платно, отдельно</span><h3>Обучение с нуля до профессионального уровня</h3><p>Базовые принципы и платформы, самостоятельный анализ графиков, выбор стратегий под свой характер, риск- и капитал-менеджмент, работа с эмоциями.</p></article>
-      <article class="ex spot" data-reveal style="--d:.06s"><span class="tagp">Платно, отдельно</span><h3>Программа на методологии Аврамиса Деспотиса</h3><p>Работа с индикатором, комплексный анализ рынка, стратегические решения и системный трейдинг.</p></article>
-      <article class="ex spot" data-reveal style="--d:.12s"><span class="tagp">Платно, отдельно</span><h3>Алгоритмическая торговля и роботы</h3><p>Роботы FL-19 и FL-25 для тех, кто хочет частично или полностью автоматизировать торговлю.</p></article>
+    <p class="kicker" data-reveal>Хотите глубже</p>
+    <h2 class="hf" data-reveal style="--d:.05s">Дополнительные программы <span class="muted">(платно, отдельно)</span></h2>
+    <div class="panel" data-reveal style="--d:.1s">
+      <article class="pcol"><h3>Обучение с нуля до профи</h3><p>Пройдёте путь от первых терминов до уверенной самостоятельной торговли.</p><ul><li>База и платформы</li><li>Анализ графиков</li><li>Риск- и капитал-менеджмент</li><li>Работа с эмоциями</li></ul></article>
+      <article class="pcol"><h3>Индикатор Аврамиса Деспотиса</h3><p>Методология мирового уровня: смотрите на рынок системно и принимаете решения по правилам.</p><ul><li>Работа с индикатором</li><li>Комплексный анализ рынка</li><li>Системный трейдинг</li></ul></article>
+      <article class="pcol"><h3>Роботы FL-19 и FL-25</h3><p>Алгоритмическая торговля: часть работы или всю торговлю берут на себя роботы.</p><ul><li>Частичная автоматизация</li><li>Полная автоматизация</li></ul></article>
     </div>
     <p class="extra-note" data-reveal>Условия и стоимость дополнительных программ уточняет менеджер.</p>
   </section>
@@ -340,8 +417,8 @@ h1{font-size:clamp(42px,11vw,60px);margin-bottom:20px;color:var(--ink)}
   <section class="wrap final" data-reveal>
     <div class="final-in">
       <div>
-        <h2 class="hf">Поддержка, а не только контент</h2>
-        <p>Технические и аналитические вопросы в закрытом чате разбирают кураторы и аналитики. Свои ошибки вы регулярно анализируете с Ферузбеком или его командой.</p>
+        <h2 class="hf">Не торгуйте в одиночку</h2>
+        <p>Рынок невозможно обмануть: тот, кто торгует на эмоциях, следует за чужими сигналами и полагается на сомнительные курсы, как правило, платит за свои ошибки собственным депозитом. В клубе кураторы и аналитики сразу разбирают ваши вопросы в чате, а ошибки вы разбираете вместе с Ферузбеком или его командой.</p>
       </div>
       <a class="btn btn-inline" href="#reg" data-cta="final_apply"><span>Оставить заявку</span><i class="arr"><svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg></i></a>
     </div>

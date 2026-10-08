@@ -164,9 +164,6 @@ h1{font-size:clamp(32px,7vw,56px);margin-bottom:16px;color:var(--ink)}
 
 /* ===== Торговый декор: свечи, терминал, котировки на фоне; график и карточки за Ферузбеком ===== */
 /* большой график за Ферузбеком */
-.hero-chart{position:absolute;left:50%;top:50%;width:min(1250px,112vw);max-width:none;transform:translate(-50%,-50%);pointer-events:none;opacity:1;
-  -webkit-mask-image:radial-gradient(ellipse 40% 40% at 50% 50%,#000 40%,transparent 100%);mask-image:radial-gradient(ellipse 40% 40% at 50% 50%,#000 40%,transparent 100%);animation:chartPulse 9s ease-in-out infinite}
-@keyframes chartPulse{50%{opacity:.62}}
 /* вторая страница: тот же график, один раз, мягко за видео */
 .vid-chart{position:absolute;z-index:-1;right:-14%;top:-6%;width:min(1100px,92vw);max-width:none;pointer-events:none;opacity:.42;
   -webkit-mask-image:radial-gradient(ellipse 40% 40% at 50% 46%,#000 25%,transparent 100%);mask-image:radial-gradient(ellipse 40% 40% at 50% 46%,#000 25%,transparent 100%)}
@@ -180,9 +177,9 @@ h1{font-size:clamp(32px,7vw,56px);margin-bottom:16px;color:var(--ink)}
 .qchip i.dn{border-top:8px solid #c0395f;filter:drop-shadow(0 0 6px rgba(192,57,95,.8))}
 .q1{left:-4%;top:20%}.q2{right:-2%;top:42%;animation-delay:-2.3s}.q3{left:-8%;top:60%;animation-delay:-4.6s}
 @keyframes qFloat{50%{transform:translateY(-9px)}}
-@media (max-width:979px){.q1{left:2%;top:14%}.q2{right:2%;top:36%}.q3{left:0;top:58%}.qchip{padding:7px 10px}.qchip svg{width:44px;height:18px}.hero-chart{width:min(1000px,150vw)}}
+@media (max-width:979px){.q1{left:2%;top:14%}.q2{right:2%;top:36%}.q3{left:0;top:58%}.qchip{padding:7px 10px}.qchip svg{width:44px;height:18px}}
 @media (max-width:420px){.q3{display:none}}
-@media (prefers-reduced-motion:reduce){.hero-chart,.qchip{animation:none}}
+@media (prefers-reduced-motion:reduce){.qchip{animation:none}}
 /* карточки чуть плотнее, чтобы торговый фон не мешал читать текст */
 .bx,.job,.pr,.prog,.vs,.final-yes{background-color:rgba(9,7,9,.84)}
 

@@ -1057,7 +1057,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
     e.preventDefault();
     if (sending) return;
     var name = form.elements.name.value.trim();
-    var phone = digits(form.elements.phone.value);
+    var phone = digits(form.elements.phone.value); if (phone.length === 9) phone = '998' + phone;
     var okName = name.length >= 2, okPhone = phone.length >= 11 && phone.length <= 15;
     setErr('name', !okName); setErr('phone', !okPhone);
     if (!okName || !okPhone) {
@@ -1071,24 +1071,25 @@ html[lang="uz"] .who b{margin:1px 0 3px}
     p.set('name', name); p.set('phone', phone); p.set('lead_id', leadId);
     p.set('tag', TAG); p.set('landing_url', location.href.split('#')[0]);
 
-    // amoCRM: заявка уходит запросом на адрес вебхука с полями name, phone, pipeline_id, status_id, tag_id (как в образце от Руслана)
+    // amoCRM: отправка один в один как на лендингах открытого урока (darslik.uranus.uz):
+    // запрос GET на вебхук с полями name, phone, pipeline_id, status_id, tag_id.
+    // Ответ с другого домена читать нельзя, поэтому не ждём его: при любом исходе (или через 3,5 с) переводим человека дальше, без экрана ошибки.
     var amoUrl = '';
     if (AMO.url) {
-      var a = new URLSearchParams();
-      a.set('name', name); a.set('phone', phone);
-      ['pipeline_id', 'status_id', 'tag_id'].forEach(function (k) { if (AMO[k]) a.set(k, AMO[k]); });
-      amoUrl = AMO.url + '?' + a.toString();
+      // ссылка строго как дал Руслан: только name, phone, pipeline_id, status_id, tag_id (в этом порядке), без дополнительных полей
+      amoUrl = AMO.url + '?name=' + encodeURIComponent(name) + '&phone=' + phone + '&pipeline_id=' + AMO.pipeline_id + '&status_id=' + AMO.status_id + '&tag_id=' + AMO.tag_id;
     }
-
+    if (amoUrl && !WEBHOOK) {
+      var done = false, finish = function () { if (done) return; done = true; success(name, leadId); };
+      var timer = setTimeout(finish, 3500);
+      fetch(amoUrl, { method: 'GET', mode: 'no-cors', keepalive: true }).then(function () { clearTimeout(timer); finish(); }).catch(function () {
+        clearTimeout(timer);
+        try { new Image().src = amoUrl; } catch (e) {}
+        setTimeout(finish, 600);
+      });
+      return;
+    }
     if (!WEBHOOK) {
-      if (amoUrl) {                                      // основной приёмник заявок: amoCRM. Ответ закрыт для чтения (no-cors), поэтому успех = запрос ушёл без сетевой ошибки
-        var ctrlA = window.AbortController ? new AbortController() : null;
-        var timerA = ctrlA && setTimeout(function () { ctrlA.abort(); }, 15000);
-        fetch(amoUrl, { method: 'GET', mode: 'no-cors', cache: 'no-store', keepalive: true, signal: ctrlA ? ctrlA.signal : undefined })
-          .then(function () { clearTimeout(timerA); success(name, leadId); })
-          .catch(function () { clearTimeout(timerA); fail(); });
-        return;
-      }
       console.warn('Ни WEBHOOK, ни AMO_URL не заданы: заявка не отправлена');
       if (/^(localhost|127\.0\.0\.1|)$/.test(location.hostname)) success(name, leadId); else fail();
       return;

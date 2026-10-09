@@ -233,13 +233,13 @@ h1{font-size:clamp(32px,7vw,56px);margin-bottom:16px;color:var(--ink)}
     </section>
     <div class="cta-box rise" style="--d:.32s">
       <p class="last-step"><i></i>Klubgacha oxirgi qadam qoldi</p>
-      <p class="cta-text">Tugmani bosing va Telegramda <span class="word">«Klub»</span> soʻzini yozing</span></p>
+      <p class="cta-text">Tugmani bosing va Telegramda <span class="word">«KLUB»</span> soʻzini yozing</span></p>
       <p class="cta-sub">Menejer barcha savollaringizga batafsil javob beradi va klubga qoʻshilishingizga yordam beradi.</p>
-      <a class="btn" href="https://t.me/CHANGE_ME_MANAGER?text=Klub" target="_blank" rel="noopener noreferrer" data-manager="video_page">
+      <a class="btn" href="https://t.me/m/4Bx91XviMzRi" target="_blank" rel="noopener noreferrer" data-manager="video_page">
         <span>Telegramda menejerga yozish</span>
         <i class="arr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.4L2.9 11.6c-.9.4-.9 1.1-.2 1.3l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.5 0 .7-.2 1-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3-14.5c.3-1.3-.5-1.9-1.5-1.5z" fill="currentColor" stroke="none"/></svg></i>
       </a>
-      <p class="hint">Telegramda chat ochiladi, «Klub» soʻzi esa xabarga oʻzi qoʻyiladi.</p>
+      <p class="hint">Telegramda chat ochiladi, «KLUB» soʻzi esa xabarga oʻzi qoʻyiladi.</p>
     </div>
   </main>
 
@@ -283,6 +283,9 @@ h1{font-size:clamp(32px,7vw,56px);margin-bottom:16px;color:var(--ink)}
       if (!window.fbq) return;
       if (eventId) window.fbq('trackCustom', full, data, { eventID: eventId });
       else window.fbq('trackCustom', full, data);
+      // Стандартные события Meta для оптимизации рекламы: заявка = Lead, переход к менеджеру = Contact
+      var std = { LeadComplete: 'Lead', ManagerClick: 'Contact' }[name];
+      if (std) { var sd = { content_name: BASE.content_name, content_category: BASE.content_category }; if (eventId) window.fbq('track', std, sd, { eventID: eventId + '_std' }); else window.fbq('track', std, sd); }
     } catch (e) {}
   };
 

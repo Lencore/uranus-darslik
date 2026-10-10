@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="ru" data-tag="club_feruzbek_ru">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NTJN8BLX');</script>
+<!-- End Google Tag Manager -->
 <title>Закрытый клуб Ферузбека Алиева: сообщество трейдеров и инвесторов</title>
 <meta name="description" content="Закрытый клуб Ферузбека Алиева в Telegram: ежедневная аналитика, торговые идеи с понятной логикой, эфиры два раза в неделю и личное общение с экспертом.">
 <meta charset="utf-8">
@@ -659,6 +662,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
 
 </head>
 <body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NTJN8BLX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1" alt=""/></noscript>
 
 <div class="page">
@@ -882,6 +886,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
     page_variant: document.documentElement.getAttribute('data-page') || 'landing',   // landing = лендинг с формой, video = вторая страница
     page_language: document.documentElement.lang || 'ru'
   };
+  var GA4_NAMES = {"LeadComplete": "generate_lead", "FormStart": "form_start", "CTAClick": "cta_click", "ManagerClick": "manager_click", "VideoPlay": "video_start", "VideoProgress": "video_progress", "VideoComplete": "video_complete", "Scroll50": "scroll_50", "Scroll90": "scroll_90"};
   var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 
   // UTM-метки из ссылки: запоминаем на время визита, чтобы они шли во все события и на вторую страницу
@@ -901,6 +906,9 @@ html[lang="uz"] .who b{margin:1px 0 3px}
     var full = PREFIX + name;
     var data = Object.assign({}, BASE, window.clubUtm(), params || {});
     try { (window.dataLayer = window.dataLayer || []).push(Object.assign({ event: full }, data)); } catch (e) {}
+    // Для Google Analytics 4 и Google Ads (через GTM): те же события с «стандартными» именами GA4, чтобы не настраивать триггеры по префиксу
+    var g4 = GA4_NAMES[name];
+    if (g4) { try { window.dataLayer.push(Object.assign({ event: g4 }, data)); } catch (e) {} }
     try {
       if (!window.fbq) return;
       if (eventId) window.fbq('trackCustom', full, data, { eventID: eventId });

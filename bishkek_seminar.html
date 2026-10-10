@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="ru">
 <head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KRCWTD3Q');</script>
+<!-- End Google Tag Manager -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Семинар по трейдингу в Бишкеке — 25 октября, Orion Hotel</title>
@@ -526,6 +529,7 @@ h1 .ast,h2 .ast,h3 .ast{font-size:.5em}
 </style>
 </head>
 <body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KRCWTD3Q" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- Meta Pixel (noscript) -->
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
@@ -817,6 +821,7 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
   var BASE = { content_name: 'Seminar Bishkek 2026-10-25', content_category: 'seminar',
     page_variant: document.documentElement.getAttribute('data-variant') || 'form',
     page_language: document.documentElement.lang || 'ru' };   // ru или uz: названия событий одинаковые, язык виден в параметре   // form = с формой, tg = переход в канал
+  var GA4_NAMES = {"RegistrationComplete": "generate_lead", "FormStart": "form_start", "CTAClick": "cta_click", "TelegramJoinClick": "join_telegram", "ThankYouView": "thank_you_view"};
   var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 
   // UTM-метки из ссылки: запоминаем на время визита, чтобы они шли во все события
@@ -835,6 +840,9 @@ src="https://www.facebook.com/tr?id=744594559402525&ev=PageView&noscript=1"
     var full = PREFIX + name;
     var data = Object.assign({}, BASE, utm(), params || {});
     try { (window.dataLayer = window.dataLayer || []).push(Object.assign({ event: full }, data)); } catch (e) {}
+    // Для Google Analytics 4 и Google Ads (через GTM): те же события с «стандартными» именами GA4, чтобы не настраивать триггеры по префиксу
+    var g4 = GA4_NAMES[name];
+    if (g4) { try { window.dataLayer.push(Object.assign({ event: g4 }, data)); } catch (e) {} }
     if (window.__noTrack) return;                       // режим предпросмотра попапа: в пиксель ничего не шлём
     try {
       if (!window.fbq) return;

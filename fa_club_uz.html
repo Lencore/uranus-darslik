@@ -701,6 +701,34 @@ html[lang="uz"] .who b{margin:1px 0 3px}
 @media (min-width:900px) and (max-width:1299px){.b-c,.b-d{min-height:392px}}
 @media (min-width:1300px){.b-c,.b-d{min-height:350px}}
 
+/* Чекбоксы согласия (только узбекская страница клуба): обязательное и необязательное */
+.cons{display:grid;grid-template-columns:auto 1fr;column-gap:11px;align-items:start;margin:0 -10px 2px;padding:7px 10px;border:1px solid transparent;border-radius:12px;transition:border-color .2s,background .2s}
+.cons input{-webkit-appearance:none;appearance:none;width:20px;height:20px;margin:2px 0 0;border:1.5px solid rgba(217,181,108,.75);border-radius:7px;background:rgba(255,255,255,.04);cursor:pointer;transition:background .15s,border-color .15s,box-shadow .15s}
+.cons input:checked{border-color:var(--gold);background:var(--gold) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2322140a' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7.5'/%3E%3C/svg%3E") center/14px no-repeat}
+.cons input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.cons label{font-size:12.5px;line-height:1.38;color:#d9d0c2;cursor:pointer}
+.cons .emsg{margin-top:6px;font-size:13.5px;font-weight:600}
+.cons.err{--err:#ff4d4d;border-color:var(--err);background:rgba(255,92,92,.07)}
+.cons.err input{border-color:var(--err);box-shadow:0 0 0 4px rgba(255,92,92,.16)}
+.cons.err .emsg{display:block;animation:consMsg .38s ease both}
+.cons.shake{animation:consShake .45s ease}
+@keyframes consMsg{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@keyframes consShake{0%,100%{transform:none}20%{transform:translateX(-7px)}40%{transform:translateX(6px)}60%{transform:translateX(-4px)}80%{transform:translateX(3px)}}
+@media (prefers-reduced-motion:reduce){.cons.shake,.cons.err .emsg{animation:none}}
+.cons-opt{margin-bottom:12px}
+/* короткая формулировка + раскрывающийся полный текст */
+.cons-body{font-size:12.5px;line-height:1.38}
+.cons-body label{display:inline}
+.cons-more{display:inline;margin-left:6px;padding:0;border:0;background:none;font:600 12.5px/1.38 var(--body);color:var(--gold-l,#f0d79a);text-decoration:underline;text-decoration-color:rgba(217,181,108,.6);text-underline-offset:3px;cursor:pointer}
+.cons-more::after{content:"";display:inline-block;width:6px;height:6px;margin:0 0 3px 6px;border:solid currentColor;border-width:0 1.8px 1.8px 0;transform:rotate(45deg);transition:transform .25s}
+.cons-more[aria-expanded="true"]::after{transform:rotate(-135deg);margin-bottom:-1px}
+.cons-more:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.cons-full{display:grid;grid-template-rows:0fr;visibility:hidden;opacity:0;transition:grid-template-rows .32s ease,opacity .25s ease,visibility 0s .32s}
+.cons-full.open{grid-template-rows:1fr;visibility:visible;opacity:1;transition-delay:0s}
+.cons-full>div{overflow:hidden;min-height:0;padding-top:0;font-size:12.5px;line-height:1.38;color:#bdb4a6}
+.cons-full.open>div{padding-top:8px}
+@media (prefers-reduced-motion:reduce){.cons-full,.cons-more::after{transition:none}}
+
 </style>
 
 </head>
@@ -760,6 +788,23 @@ html[lang="uz"] .who b{margin:1px 0 3px}
           <div><label for="f-phone">Telefon (Telegram raqami)</label>
           <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+998 90 123 45 67" maxlength="25"></div>
           <span class="emsg" role="alert">Raqamni davlat kodi bilan toʻliq kiriting</span>
+        </div>
+                <div class="cons" data-f="consent">
+          <input id="c-main" name="consent_main" type="checkbox" aria-required="true" aria-describedby="c-main-full">
+          <div class="cons-body">
+            <label for="c-main">Bogʻlanish va maslahat berish maqsadida shaxsiy maʼlumotlarimni qayta ishlashga rozilik bildiraman.</label>
+            <button type="button" class="cons-more" aria-expanded="false" aria-controls="c-main-full" data-more="Batafsil" data-less="Yopish">Batafsil</button>
+            <div class="cons-full" id="c-main-full"><div>«Uranus Investment Capital» MChJga men bilan bogʻlanish hamda yopiq klub boʻyicha maslahat berish maqsadida, <a class="legal-link" href="https://uranus.mercuryedu.uz/pages/privacyuranus" target="_blank" rel="noopener noreferrer">Maxfiylik siyosatida</a> koʻrsatilgan shartlar va hajmda shaxsiy maʼlumotlarimni qayta ishlashga rozilik bildiraman.</div></div>
+          </div>
+          <span class="emsg" role="alert">Arizani yuborish uchun rozilik katagini belgilang</span>
+        </div>
+        <div class="cons cons-opt">
+          <input id="c-ads" name="consent_ads" type="checkbox" aria-describedby="c-ads-full">
+          <div class="cons-body">
+            <label for="c-ads">Klub, kurslar va tadbirlar haqidagi yangiliklar hamda reklama xabarnomalarini qabul qilishga roziman.</label>
+            <button type="button" class="cons-more" aria-expanded="false" aria-controls="c-ads-full" data-more="Batafsil" data-less="Yopish">Batafsil</button>
+            <div class="cons-full" id="c-ads-full"><div>«Uranus Investment Capital» MChJdan klub, kurslar va tadbirlar haqidagi yangiliklar hamda reklama xabarnomalarini (taklifnomalar, maxsus takliflar) telefon, SMS, e-mail va Telegram orqali qabul qilishga, shuningdek, ushbu maqsadda <a class="legal-link" href="https://uranus.mercuryedu.uz/pages/privacyuranus" target="_blank" rel="noopener noreferrer">Maxfiylik siyosatiga</a> shaxsiy maʼlumotlarimni qayta ishlashga roziman. Rozilik bekor qilingunga qadar amal qiladi. Uni istalgan vaqtda xabardagi «Obunani bekor qilish» havolasi orqali yoki <a class="legal-link" href="https://uranus.mercuryedu.uz/pages/privacyuranus" target="_blank" rel="noopener noreferrer">Maxfiylik siyosatida</a> koʻrsatilgan kompaniya kontaktlariga murojaat qilish yoʻli bilan qaytarib olish mumkin.</div></div>
+          </div>
         </div>
         <button class="btn" type="submit"><span>Qanday qoʻshilishni bilish</span><i class="arr"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
         <p class="fail" id="fail" role="alert" hidden>Yuborib boʻlmadi. Internetni tekshirib, qayta urinib koʻring.</p>
@@ -1064,6 +1109,9 @@ html[lang="uz"] .who b{margin:1px 0 3px}
   var failBox = document.getElementById('fail');
   var btn = form.querySelector('.btn');
   var sending = false, started = false;
+  var cMain = form.elements.consent_main || null;                    // обязательное согласие (есть только на узбекской странице)
+  var consBox = form.querySelector('[data-f="consent"]');
+  function shake(el) { el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }   // перезапуск анимации при каждой попытке
 
   function setErr(name, on) { form.querySelector('[data-f="' + name + '"]').classList.toggle('err', on); }
   function digits(v) { return String(v).replace(/\D/g, ''); }
@@ -1104,6 +1152,14 @@ html[lang="uz"] .who b{margin:1px 0 3px}
   });
   btn.addEventListener('click', function () { track('SubmitClick', { form_id: 'club_application', button_text: 'Qanday qoʻshilishni bilish' }); });
   ['name', 'phone'].forEach(function (n) { form.elements[n].addEventListener('input', function () { setErr(n, false); }); });
+  if (cMain) cMain.addEventListener('change', function () { setErr('consent', false); });
+  // «Batafsil»: раскрыть/свернуть полный текст необязательного согласия
+  Array.prototype.forEach.call(form.querySelectorAll('.cons-more'), function (b) {
+    b.addEventListener('click', function () {
+      var box = document.getElementById(b.getAttribute('aria-controls')), open = box.classList.toggle('open');
+      b.setAttribute('aria-expanded', open); b.textContent = open ? b.getAttribute('data-less') : b.getAttribute('data-more');
+    });
+  });
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -1111,9 +1167,13 @@ html[lang="uz"] .who b{margin:1px 0 3px}
     var name = form.elements.name.value.trim();
     var phone = digits(form.elements.phone.value); if (phone.length === 9) phone = '998' + phone;
     var okName = name.length >= 2, okPhone = phone.length >= 11 && phone.length <= 15;
+    var okConsent = !cMain || cMain.checked;                          // без галочки согласия форму отправить нельзя
     setErr('name', !okName); setErr('phone', !okPhone);
-    if (!okName || !okPhone) {
-      track('FormError', { form_id: 'club_application', error_type: 'validation', fields: (okName ? '' : 'name') + (okName || okPhone ? '' : ',') + (okPhone ? '' : 'phone') });
+    if (cMain) setErr('consent', !okConsent);
+    if (!okName || !okPhone || !okConsent) {
+      var bad = []; if (!okName) bad.push('name'); if (!okPhone) bad.push('phone'); if (!okConsent) bad.push('consent');
+      track('FormError', { form_id: 'club_application', error_type: 'validation', fields: bad.join(',') });
+      if (!okConsent && consBox) { shake(consBox); if (okName && okPhone) consBox.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
       return;
     }
     sending = true; btn.disabled = true; failBox.hidden = true;

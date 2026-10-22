@@ -704,7 +704,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
 /* Квалификационная версия страницы клуба: предупреждение о языке, опрос из 2 вопросов, видео */
 
 /* --- предупреждение о языке (в самом начале) --- */
-.lang-note{display:flex;align-items:center;gap:28px;margin:6px auto 30px;padding:26px 32px;border-radius:26px;border:1px solid transparent;
+.lang-note{display:flex;align-items:center;gap:28px;margin:0 0 40px;padding:26px 32px;border-radius:26px;border:1px solid transparent;
   background:linear-gradient(180deg,rgba(24,17,21,.95),rgba(13,10,12,.97)) padding-box,linear-gradient(120deg,rgba(0,153,181,.85),rgba(255,255,255,.6) 36%,rgba(30,181,58,.85) 68%,rgba(206,17,38,.6)) border-box;
   box-shadow:0 34px 80px -46px rgba(30,181,58,.5),0 0 0 1px rgba(0,0,0,.35)}
 .ln-flag{flex:none}
@@ -720,7 +720,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
 #quiz{padding:14px 26px 26px}
 .q{border:0;margin:0 0 20px;padding:0;min-width:0}
 .q legend{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;padding:0;font:600 16px/1.35 var(--disp);color:var(--ink)}
-.qn{flex:none;width:26px;height:26px;margin-top:-1px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#22140a;font:700 14px var(--disp)}
+.qnum{flex:none;width:26px;height:26px;margin-top:-1px;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:#22140a;font:700 14px var(--disp)}
 .opt{position:relative;display:grid;grid-template-columns:auto 1fr;gap:13px;align-items:center;margin-bottom:10px;padding:14px 16px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.03);cursor:pointer;transition:border-color .18s,background .18s,box-shadow .18s}
 .opt:hover{border-color:rgba(217,181,108,.5)}
 .opt input{position:absolute;opacity:0;pointer-events:none}
@@ -748,6 +748,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
 
 /* --- видео --- */
 .vsec{padding-bottom:30px}
+.vsec .cta-row{margin-top:30px}
 .vnote{max-width:40em;margin:-12px 0 26px;color:var(--ink2);font-size:16px}
 .vsec .player{max-width:940px;margin:0 0 14px}
 .player{position:relative;isolation:isolate;padding:7px;border-radius:24px;border:1px solid transparent;
@@ -776,17 +777,6 @@ html[lang="uz"] .who b{margin:1px 0 3px}
   </header>
 
   <main>
-  <!-- ===== ПРЕДУПРЕЖДЕНИЕ О ЯЗЫКЕ КЛУБА ===== -->
-  <section class="wrap lang-note rise" aria-labelledby="ln-title">
-    <div class="ln-flag"><svg class="flag" viewBox="0 0 60 40" role="img" aria-label="Флаг Узбекистана"><defs><clipPath id="fc"><rect width="60" height="40" rx="4"/></clipPath><path id="st" d="M0-1L.29-.4.95-.31.47.15.59.81 0 .5-.59.81-.47.15-.95-.31-.29-.4z"/></defs><g clip-path="url(#fc)" stroke="none"><rect width="60" height="13.4" fill="#0099b5"/><rect y="13.4" width="60" height="13.2" fill="#fff"/><rect y="26.6" width="60" height="13.4" fill="#1eb53a"/><rect y="13" width="60" height="1" fill="#ce1126"/><rect y="26" width="60" height="1" fill="#ce1126"/><circle cx="10" cy="6.6" r="4.7" fill="#fff"/><circle cx="11.5" cy="6.6" r="4" fill="#0099b5"/><g fill="#fff"><use href="#st" transform="translate(19 3) scale(1.05)"/><use href="#st" transform="translate(23.5 3) scale(1.05)"/><use href="#st" transform="translate(28 3) scale(1.05)"/><use href="#st" transform="translate(17 6.6) scale(1.05)"/><use href="#st" transform="translate(21.5 6.6) scale(1.05)"/><use href="#st" transform="translate(26 6.6) scale(1.05)"/><use href="#st" transform="translate(30.5 6.6) scale(1.05)"/><use href="#st" transform="translate(15 10.2) scale(1.05)"/><use href="#st" transform="translate(19.5 10.2) scale(1.05)"/><use href="#st" transform="translate(24 10.2) scale(1.05)"/><use href="#st" transform="translate(28.5 10.2) scale(1.05)"/><use href="#st" transform="translate(33 10.2) scale(1.05)"/></g></g></svg></div>
-    <div class="ln-text">
-      <p class="ln-kicker">Важно знать заранее</p>
-      <h2 id="ln-title" class="hf">Клуб проходит на узбекском языке</h2>
-      <p>Весь контент клуба, а также эфиры и общение в чате ведутся <b>на узбекском языке</b>.</p>
-      <p class="ln-warn">Если вы совсем не знаете язык или понимаете его не на том уровне, который нужен для обучения, клуб вам не подойдёт: в таком случае нам, к сожалению, нечего вам дать.</p>
-    </div>
-  </section>
-
   <!-- ===== ГЛАВНЫЙ ЭКРАН ===== -->
   <section class="wrap hero" id="top">
     <div class="hero-bg" aria-hidden="true"></div>
@@ -820,12 +810,12 @@ html[lang="uz"] .who b{margin:1px 0 3px}
       </div>
       <form id="quiz" novalidate>
         <fieldset class="q">
-          <legend><span class="qn">1</span>Знаете ли вы узбекский язык на достаточном уровне, чтобы проходить на нём обучение и общаться устно и письменно?</legend>
+          <legend><span class="qnum">1</span>Знаете ли вы узбекский язык на достаточном уровне, чтобы проходить на нём обучение и общаться устно и письменно?</legend>
           <label class="opt"><input type="radio" name="lang" value="yes"><span class="mark"></span><span class="txt">Да, знаю на достаточном уровне</span></label>
           <label class="opt"><input type="radio" name="lang" value="no"><span class="mark"></span><span class="txt">Нет, не знаю</span></label>
         </fieldset>
         <fieldset class="q">
-          <legend><span class="qn">2</span>Есть ли у вас опыт в трейдинге, или вы только делаете первые шаги и являетесь новичком?</legend>
+          <legend><span class="qnum">2</span>Есть ли у вас опыт в трейдинге, или вы только делаете первые шаги и являетесь новичком?</legend>
           <label class="opt"><input type="radio" name="exp" value="pro"><span class="mark"></span><span class="txt">Да, я занимаюсь торговлей и являюсь действующим трейдером, имею достаточный опыт</span></label>
           <label class="opt"><input type="radio" name="exp" value="new"><span class="mark"></span><span class="txt">Нет, я только делаю первые шаги: опыта в трейдинге нет или совсем мало</span></label>
         </fieldset>
@@ -842,6 +832,16 @@ html[lang="uz"] .who b{margin:1px 0 3px}
 
   <!-- ===== ВИДЕО ФЕРУЗБЕКА О КЛУБЕ ===== -->
   <section class="wrap sec vsec" id="video">
+    <!-- предупреждение о языке клуба -->
+  <section class="lang-note" data-reveal aria-labelledby="ln-title">
+    <div class="ln-flag"><svg class="flag" viewBox="0 0 60 40" role="img" aria-label="Флаг Узбекистана"><defs><clipPath id="fc"><rect width="60" height="40" rx="4"/></clipPath><path id="st" d="M0-1L.29-.4.95-.31.47.15.59.81 0 .5-.59.81-.47.15-.95-.31-.29-.4z"/></defs><g clip-path="url(#fc)" stroke="none"><rect width="60" height="13.4" fill="#0099b5"/><rect y="13.4" width="60" height="13.2" fill="#fff"/><rect y="26.6" width="60" height="13.4" fill="#1eb53a"/><rect y="13" width="60" height="1" fill="#ce1126"/><rect y="26" width="60" height="1" fill="#ce1126"/><circle cx="10" cy="6.6" r="4.7" fill="#fff"/><circle cx="11.5" cy="6.6" r="4" fill="#0099b5"/><g fill="#fff"><use href="#st" transform="translate(19 3) scale(1.05)"/><use href="#st" transform="translate(23.5 3) scale(1.05)"/><use href="#st" transform="translate(28 3) scale(1.05)"/><use href="#st" transform="translate(17 6.6) scale(1.05)"/><use href="#st" transform="translate(21.5 6.6) scale(1.05)"/><use href="#st" transform="translate(26 6.6) scale(1.05)"/><use href="#st" transform="translate(30.5 6.6) scale(1.05)"/><use href="#st" transform="translate(15 10.2) scale(1.05)"/><use href="#st" transform="translate(19.5 10.2) scale(1.05)"/><use href="#st" transform="translate(24 10.2) scale(1.05)"/><use href="#st" transform="translate(28.5 10.2) scale(1.05)"/><use href="#st" transform="translate(33 10.2) scale(1.05)"/></g></g></svg></div>
+    <div class="ln-text">
+      <p class="ln-kicker">Важно знать заранее</p>
+      <h2 id="ln-title" class="hf">Основной язык клуба — узбекский</h2>
+      <p>Весь контент клуба, а также эфиры и общение в чате ведутся <b>на узбекском языке</b>.</p>
+      <p class="ln-warn">Если вы совсем не знаете язык или понимаете его не на том уровне, который нужен для обучения, клуб вам не подойдёт и, к сожалению, мы не сможем вас принять.</p>
+    </div>
+  </section>
     <p class="kicker" data-reveal>Видео Ферузбека о клубе</p>
     <h2 class="hf" data-reveal style="--d:.05s">Как устроен закрытый клуб</h2>
     <p class="vnote" data-reveal style="--d:.08s">Видео коротко расскажет, как устроен закрытый клуб Ферузбека Алиева. Оно на узбекском языке.</p>
@@ -849,6 +849,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
       <div class="player-bar"><i class="dot"></i>Видео Ферузбека о клубе<em>Ферузбек Алиев</em></div>
       <div class="player-screen"><div id="yt" data-video="QFfC7fu3k2o"></div></div>
     </figure>
+    <div class="cta-row" data-reveal><a class="btn btn-inline btn-lg" href="#reg" data-cta="video_join"><span>Хочу попасть в клуб</span><i class="arr"><svg viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></svg></i></a><p>Ответьте на 2 вопроса: это займёт меньше минуты</p></div>
   </section>
 
   <!-- ===== О КЛУБЕ: что это даёт (по JTBD) ===== -->
@@ -1139,7 +1140,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
                btn: 'Написать менеджеру в Telegram', href: MANAGER, attr: 'data-manager', loc: 'quiz_result' },
     bot:     { tone: 'ok', text: 'Спасибо за ответы. Нажмите на кнопку, чтобы получить доступ к клубу.',
                btn: 'Получить доступ к клубу', href: BOT, attr: 'data-bot', loc: 'quiz_result' },
-    nofit:   { tone: 'no', text: 'Спасибо за честный ответ. Весь контент клуба, эфиры и общение проходят на узбекском языке, поэтому сейчас нам, к сожалению, нечего вам предложить. Если вы освоите язык, мы будем рады видеть вас снова.' }
+    nofit:   { tone: 'no', text: 'Спасибо за честный ответ. Основной язык клуба — узбекский: весь контент, а также эфиры и общение в чате ведутся на узбекском языке. Если вы совсем не знаете язык или понимаете его не на том уровне, который нужен для обучения, клуб вам не подойдёт и, к сожалению, мы не сможем вас принять. Если вы освоите язык, мы будем рады видеть вас снова.' }
   };
 
   function decide(lang, exp) {

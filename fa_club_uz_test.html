@@ -703,9 +703,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
 
 /* Версия узбекского лендинга с тестом: старт, вопросы, итог с баллами и шкалой */
 .test .card-head>p:last-child{color:#d9d0c2;font-size:15px;line-height:1.55}
-.tst{padding:14px 26px 26px}
-.test.running .card-head>p:last-child{display:none}
-.test.running .card-head h2{margin-bottom:0}
+.t-card{padding:14px 26px 26px}
 .t-facts{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 16px}
 .t-facts li{padding:12px 8px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.03);text-align:center}
 .t-facts b{display:block;font:700 28px/1 var(--disp);background:linear-gradient(180deg,#fff0c8,#d9b56c 70%,#a47b35);-webkit-background-clip:text;background-clip:text;color:transparent}
@@ -760,7 +758,38 @@ html[lang="uz"] .who b{margin:1px 0 3px}
 .tr-text{margin-bottom:16px;padding:14px 16px;border-radius:14px;border:1px solid color-mix(in srgb,var(--c) 45%,transparent);background:color-mix(in srgb,var(--c) 8%,transparent);font:500 15px/1.55 var(--body);color:#f2ece1}
 @keyframes tIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.t-res.show{animation:none}.rg-fg,.t-bar u,.cells i{transition:none}}
-@media (max-width:520px){.tst{padding:12px 18px 22px}.tr-top{gap:14px}.tr-ring{width:104px;height:104px}.rg-val b{font-size:38px}.t-q{font-size:17px}}
+@media (max-width:520px){.t-card{padding:12px 18px 22px}.tr-top{gap:14px}.tr-ring{width:104px;height:104px}.rg-val b{font-size:38px}.t-q{font-size:17px}}
+
+/* ===== окно с тестом: по центру экрана, фон размыт и затемнён; на телефоне выезжает снизу ===== */
+html.tm-lock,html.tm-lock body{overflow:hidden}
+.tm{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:20px;opacity:0;transition:opacity .26s ease}
+.tm[hidden]{display:none}
+.tm.on{opacity:1}
+.tm-back{position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,rgba(30,12,22,.62),rgba(5,3,7,.86));-webkit-backdrop-filter:blur(12px) saturate(.85);backdrop-filter:blur(12px) saturate(.85)}
+.tm-box{position:relative;display:flex;flex-direction:column;width:min(600px,100%);max-height:calc(100vh - 40px);max-height:calc(100dvh - 40px);overflow:hidden;border-radius:26px;border:1px solid transparent;outline:none;
+  background:linear-gradient(180deg,rgba(24,16,21,.98),rgba(12,9,11,.99)) padding-box,linear-gradient(160deg,rgba(244,224,174,.8),rgba(217,181,108,.12) 32%,rgba(120,26,56,.6) 100%) border-box;
+  box-shadow:0 60px 120px -30px rgba(0,0,0,.85),0 0 0 1px rgba(0,0,0,.4);transform:translateY(18px) scale(.97);transition:transform .34s cubic-bezier(.2,.8,.2,1)}
+.tm.on .tm-box{transform:none}
+.tm-x{position:absolute;top:14px;right:14px;z-index:3;display:grid;place-items:center;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.07);color:var(--ink);cursor:pointer;transition:background .18s,border-color .18s}
+.tm-x:hover{background:rgba(217,181,108,.16);border-color:var(--gold)}
+.tm-x svg{width:18px;height:18px;stroke-width:2.2}
+.tm-head{flex:none;padding:24px 70px 6px 28px}
+.tm-head .pill{margin-bottom:8px}
+.tm-head h2{font-size:clamp(23px,3.4vw,28px);color:var(--ink)}
+.tm-sub{margin-top:8px;font-size:14px;line-height:1.5;color:var(--ink2)}
+.tm:not([data-s="first"]) .tm-sub{display:none}
+.tm .tst{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:12px 28px 28px;scrollbar-width:thin;scrollbar-color:rgba(217,181,108,.4) transparent}
+@media (max-width:600px){
+  .tm{align-items:end;padding:0}
+  .tm-box{width:100%;max-height:92vh;max-height:92dvh;border-radius:24px 24px 0 0;border-bottom:0;transform:translateY(100%)}
+  .tm-box::before{content:"";position:absolute;top:8px;left:50%;width:44px;height:4px;margin-left:-22px;border-radius:4px;background:rgba(255,255,255,.22);z-index:3}
+  .tm-x{top:12px;right:12px;width:38px;height:38px}
+  .tm-head{padding:24px 60px 4px 18px}
+  .tm .tst{padding:10px 18px calc(24px + env(safe-area-inset-bottom))}
+  .t-opt{padding:12px 13px;font-size:14px}
+}
+@media (max-height:560px) and (min-width:601px){.tm{padding:10px}.tm-box{max-height:calc(100dvh - 20px)}}
+@media (prefers-reduced-motion:reduce){.tm,.tm-box{transition:none}}
 
 </style>
 
@@ -809,13 +838,9 @@ html[lang="uz"] .who b{margin:1px 0 3px}
         <h2 class="hf">Klubga kirmoqchimisiz?</h2>
         <p>Lekin biz hammani qabul qilmaymiz. Avval bilimingizni tekshiramiz: yetarli ball toʻplasangiz, klubga kirish imkoniyatini beramiz. Toʻplay olmasangiz, xafa boʻlmang: bilimingizni oshirib, treydingda mustahkam poydevor qurishga yordam beradigan yechim bor.</p>
       </div>
-      <div class="tst" id="tst">
-        <div class="t-intro" id="t-intro">
-          <ul class="t-facts"><li><b>10</b><span>ta savol</span></li><li><b>3</b><span>daqiqa</span></li><li><b>7</b><span>oʻtish bali</span></li></ul>
-          <button type="button" class="btn" id="t-start"><span>Testni boshlash</span><i class="arr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
-        </div>
-        <div class="t-run" id="t-run" aria-live="polite" hidden></div>
-        <div class="t-res" id="t-res" aria-live="polite" hidden></div>
+      <div class="t-card">
+        <ul class="t-facts"><li><b>10</b><span>ta savol</span></li><li><b>3</b><span>daqiqa</span></li><li><b>7</b><span>oʻtish bali</span></li></ul>
+        <button type="button" class="btn" id="t-start" data-open-test><span>Testni boshlash</span><i class="arr"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
       </div>
     </aside>
 
@@ -972,6 +997,21 @@ html[lang="uz"] .who b{margin:1px 0 3px}
   </footer>
 </div>
 
+<div class="tm" id="tm" hidden>
+  <div class="tm-back" data-close></div>
+  <div class="tm-box" role="dialog" aria-modal="true" aria-labelledby="tm-title" tabindex="-1">
+    <button type="button" class="tm-x" data-close aria-label="Yopish"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="tm-head">
+      <p class="pill">Bilim testi</p>
+      <h2 id="tm-title" class="hf">Klubga kirish testi</h2>
+      <p class="tm-sub">Yetarli ball toʻplasangiz, klubga kirish imkoniyati ochiladi.</p>
+    </div>
+    <div class="tst" id="tst">
+      <div class="t-run" id="t-run" aria-live="polite"></div>
+      <div class="t-res" id="t-res" aria-live="polite" hidden></div>
+    </div>
+  </div>
+</div>
 <script>
 // Трекер версии страницы клуба с тестом: Meta Pixel (fbq) + dataLayer.
 // Все события называются с префиксом ClubTest_ (Club + Test), чтобы не пересекаться с основной страницей клуба (ClubFA_), версией с опросом (ClubQual_),
@@ -985,7 +1025,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
     page_language: document.documentElement.lang || 'uz'
   };
   // Имена для Google Analytics 4 (через GTM): отдельные от основной страницы, чтобы отчёты не склеивались
-  var GA4_NAMES = {"PageView": "test_page_view", "TestStart": "test_start", "TestAnswer": "test_answer", "TestComplete": "test_complete",
+  var GA4_NAMES = {"PageView": "test_page_view", "TestOpen": "test_open", "TestClose": "test_close", "TestStart": "test_start", "TestAnswer": "test_answer", "TestComplete": "test_complete",
     "TestPassed": "test_passed", "TestFailed": "test_failed", "BotClick": "test_bot_click", "ManagerClick": "test_manager_click",
     "CTAClick": "test_cta_click", "Scroll50": "test_scroll_50", "Scroll90": "test_scroll_90"};
   var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
@@ -1072,7 +1112,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
   var form = document.getElementById('reg');
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href="#reg"]');
-    if (!a || !form) return;
+    if (!a || !form || e.defaultPrevented) return;   // если клик уже обработан (например, открыто окно с тестом), не прокручиваем
     e.preventDefault();
     var r = form.getBoundingClientRect(), vh = window.innerHeight || document.documentElement.clientHeight;
     var gap = Math.max(16, (vh - r.height) / 2);
@@ -1148,35 +1188,34 @@ window.TEST = {
 };
 </script>
 <script>
-// Тест клуба: 10 вопросов по одному, подсчёт баллов, итог с визуальной шкалой и нужной кнопкой. Никуда не переводит и ничего не отправляет в таблицы.
+// Тест клуба в окне по центру экрана (фон размыт и затемнён): 10 вопросов по одному, подсчёт баллов, итог с шкалой и нужной кнопкой.
+// Никуда не переводит и ничего не отправляет в таблицы.
 (function () {
   var MANAGER = 'https://t.me/m/4Bx91XviMzRi';      // менеджер в Telegram (если тест не сдан)
   var BOT = 'https://t.me/feruzbekalievbot?start=kgz';         // бот клуба с оплатой (если тест сдан)
   var T = window.TEST, UI = T.ui;
-  var root = document.getElementById('tst');
-  if (!root || !T) return;
-  var intro = document.getElementById('t-intro'), run = document.getElementById('t-run'), res = document.getElementById('t-res');
-  var N = T.q.length, cur = 0, answers = [], orders = [], started = false;
+  var tm = document.getElementById('tm'), box = tm && tm.querySelector('.tm-box'), tst = document.getElementById('tst');
+  var run = document.getElementById('t-run'), res = document.getElementById('t-res');
+  if (!T || !tm || !run || !res) return;
+  var N = T.q.length, cur = 0, answers = [], orders = [], started = false, done = false, lastFocus = null, pushed = false;
   function track(n, p) { if (window.trackEvent) window.trackEvent(n, p); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
-  var ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
   var PLANE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.4L2.9 11.6c-.9.4-.9 1.1-.2 1.3l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.5 0 .7-.2 1-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3-14.5c.3-1.3-.5-1.9-1.5-1.5z" fill="currentColor" stroke="none"/></svg>';
 
   // Варианты каждого вопроса перемешиваем один раз за прохождение: верный ответ не всегда на одном месте
   function prepare() {
     orders = T.q.map(function (q) { var opts = [{ text: q.ok, ok: true }].concat(q.bad.map(function (b) { return { text: b, ok: false }; })); return shuffle(opts); });
-    answers = []; cur = 0;
+    answers = []; cur = 0; done = false;
   }
 
   function showQuestion() {
     var q = T.q[cur];
-    var html = '<div class="t-prog"><span>' + UI.q + ' <b>' + (cur + 1) + '</b> / ' + N + '</span><i class="t-bar"><u style="width:' + (cur / N * 100) + '%"></u></i></div>' +
+    run.innerHTML = '<div class="t-prog"><span>' + UI.q + ' <b>' + (cur + 1) + '</b> / ' + N + '</span><i class="t-bar"><u style="width:' + (cur / N * 100) + '%"></u></i></div>' +
       '<h3 class="t-q" tabindex="-1">' + esc(q.t) + '</h3><div class="t-opts" role="group" aria-label="' + esc(q.t) + '">' +
       orders[cur].map(function (o, i) { return '<button type="button" class="t-opt' + (answers[cur] === i ? ' sel' : '') + '" data-i="' + i + '"><span class="t-mk"></span><span class="t-tx">' + esc(o.text) + '</span></button>'; }).join('') +
       '</div>' + (cur > 0 ? '<button type="button" class="t-back" id="t-back">← ' + UI.back + '</button>' : '');
-    run.innerHTML = html; run.hidden = false; intro.hidden = true; res.hidden = true;
-    var h = run.querySelector('.t-q'); try { h.focus({ preventScroll: true }); } catch (e) {}
+    run.hidden = false; res.hidden = true; tm.setAttribute('data-s', cur === 0 ? 'first' : 'q'); tst.scrollTop = 0;
     requestAnimationFrame(function () { var b = run.querySelector('.t-bar u'); if (b) b.style.width = ((cur + 1) / N * 100) + '%'; });
   }
 
@@ -1198,21 +1237,64 @@ window.TEST = {
       '<div class="tr-head"><span class="badge">' + (pass ? '✓ ' + UI.passed : '✕ ' + UI.failed) + '</span><p class="tr-lvl">' + UI.level + ': <b>' + L.name + '</b></p></div></div>' +
       '<div class="scale" aria-hidden="true"><div class="cells">' + cells + '</div><div class="bands">' + bands + '</div><p class="pm"><i></i>' + UI.passMark + '</p></div>' +
       '<p class="tr-text">' + esc(L.text) + '</p>' + btn;
-    run.hidden = true; intro.hidden = true; res.hidden = false;
-    void res.offsetWidth; res.classList.add('show');
+    run.hidden = true; res.hidden = false; tm.setAttribute('data-s', 'r'); tst.scrollTop = 0;
+    res.classList.remove('show'); void res.offsetWidth; res.classList.add('show');
     setTimeout(function () { var fg = res.querySelector('.rg-fg'); if (fg) fg.style.strokeDashoffset = fg.getAttribute('data-off'); }, 60);
-    try { res.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (e) {}
+    done = true;
     track('TestComplete', { score: s, level: L.name, passed: pass ? 'yes' : 'no' });
     track(pass ? 'TestPassed' : 'TestFailed', { score: s, level: L.name });
   }
 
-  document.getElementById('t-start').addEventListener('click', function () {
+  // ---------- окно: открыть / закрыть ----------
+  function focusables() { return Array.prototype.filter.call(box.querySelectorAll('button,a[href],[tabindex]:not([tabindex="-1"])'), function (e) { return !e.disabled && e.offsetParent !== null; }); }
+  function setBg(on) {   // пока окно открыто, страница под ним недоступна для клавиатуры и экранных дикторов
+    var page = document.querySelector('.page'); if (!page) return;
+    if (on) { page.setAttribute('inert', ''); page.setAttribute('aria-hidden', 'true'); } else { page.removeAttribute('inert'); page.removeAttribute('aria-hidden'); }
+  }
+  function open() {
+    if (!tm.hidden) return;
+    lastFocus = document.activeElement;
     if (!started) { started = true; track('TestStart'); }
-    document.getElementById('reg').classList.add('running');
-    prepare(); showQuestion();
-    try { document.getElementById('reg').scrollIntoView({ behavior: 'smooth', block: 'nearest' }); } catch (e) {}
+    if (!orders.length) prepare();
+    if (done) showResult(); else showQuestion();
+    var sw = window.innerWidth - document.documentElement.clientWidth;      // ширина полосы прокрутки, чтобы страница не дёргалась
+    document.documentElement.classList.add('tm-lock'); if (sw > 0) document.body.style.paddingRight = sw + 'px';
+    tm.hidden = false; void tm.offsetWidth; tm.classList.add('on'); setBg(true);
+    try { history.pushState({ tm: 1 }, '', '#test'); pushed = true; } catch (e) { pushed = false; }   // кнопка «назад» на телефоне закрывает окно
+    track('TestOpen');
+    setTimeout(function () { var q = run.querySelector('.t-q'); try { (q || box).focus({ preventScroll: true }); } catch (e) {} }, 60);
+  }
+  function close(fromPop) {
+    if (tm.hidden) return;
+    tm.classList.remove('on'); setBg(false);
+    track('TestClose', { answered: answers.filter(function (a) { return a !== undefined; }).length, completed: done ? 'yes' : 'no' });
+    setTimeout(function () {
+      tm.hidden = true; document.documentElement.classList.remove('tm-lock'); document.body.style.paddingRight = '';
+      if (lastFocus && lastFocus.focus) try { lastFocus.focus({ preventScroll: true }); } catch (e) {}
+    }, 260);
+    if (!fromPop && pushed && history.state && history.state.tm) { try { history.back(); } catch (e) {} }
+    pushed = false;
+  }
+  window.addEventListener('popstate', function () { if (!tm.hidden) close(true); });
+  document.addEventListener('keydown', function (e) {
+    if (tm.hidden) return;
+    if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+    if (e.key !== 'Tab') return;
+    var f = focusables(); if (!f.length) return;
+    var first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && (document.activeElement === first || document.activeElement === box)) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
   });
+  tm.addEventListener('click', function (e) { if (e.target.closest('[data-close]')) close(); });
 
+  // Все кнопки «пройти тест» (и ссылки на #reg) открывают окно, а не прокручивают страницу
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-open-test], a[href="#reg"]');
+    if (!t || !document.contains(t) || tm.contains(t)) return;
+    e.preventDefault(); open();
+  }, true);   // на этапе перехвата: раньше общей прокрутки к блоку «#reg»
+
+  // ---------- ответы ----------
   run.addEventListener('click', function (e) {
     var back = e.target.closest('#t-back');
     if (back) { cur = Math.max(0, cur - 1); showQuestion(); return; }
@@ -1220,7 +1302,8 @@ window.TEST = {
     var i = +b.getAttribute('data-i'); answers[cur] = i;
     Array.prototype.forEach.call(run.querySelectorAll('.t-opt'), function (x) { x.classList.toggle('sel', x === b); });
     track('TestAnswer', { question: cur + 1, correct: orders[cur][i].ok ? 1 : 0 });
-    setTimeout(function () { if (cur + 1 < N) { cur++; showQuestion(); } else showResult(); }, 380);   // короткая пауза, чтобы выбор был виден
+    var step = cur;
+    setTimeout(function () { if (step !== cur) return; if (cur + 1 < N) { cur++; showQuestion(); var q = run.querySelector('.t-q'); try { q.focus({ preventScroll: true }); } catch (x) {} } else showResult(); }, 380);   // короткая пауза, чтобы выбор был виден
   });
 
   // Переходы к менеджеру и в бота: главные целевые действия

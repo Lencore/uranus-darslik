@@ -1072,7 +1072,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
   var form = document.getElementById('reg');
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href="#reg"]');
-    if (!a || !form) return;
+    if (!a || !form || e.defaultPrevented) return;   // если клик уже обработан (например, открыто окно с тестом), не прокручиваем
     e.preventDefault();
     var r = form.getBoundingClientRect(), vh = window.innerHeight || document.documentElement.clientHeight;
     var gap = Math.max(16, (vh - r.height) / 2);

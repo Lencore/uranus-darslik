@@ -704,7 +704,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
 /* Квалификационная версия страницы клуба: предупреждение о языке, опрос из 2 вопросов, видео */
 
 /* --- предупреждение о языке (в самом начале) --- */
-.lang-note{display:flex;align-items:center;gap:28px;margin:0 0 40px;padding:26px 32px;border-radius:26px;border:1px solid transparent;
+.lang-note{display:flex;align-items:center;gap:28px;margin:6px auto 34px;padding:26px 32px;border-radius:26px;border:1px solid transparent;
   background:linear-gradient(180deg,rgba(24,17,21,.95),rgba(13,10,12,.97)) padding-box,linear-gradient(120deg,rgba(0,153,181,.85),rgba(255,255,255,.6) 36%,rgba(30,181,58,.85) 68%,rgba(206,17,38,.6)) border-box;
   box-shadow:0 34px 80px -46px rgba(30,181,58,.5),0 0 0 1px rgba(0,0,0,.35)}
 .ln-flag{flex:none}
@@ -761,6 +761,25 @@ html[lang="uz"] .who b{margin:1px 0 3px}
 .player-screen iframe,.player-screen>div{position:absolute;inset:0;width:100%;height:100%;border:0}
 @media (max-width:520px){.player{padding:5px;border-radius:19px}.player-screen{border-radius:14px}.player-bar{padding-bottom:8px;letter-spacing:.1em}#quiz{padding:12px 18px 22px}}
 
+/* --- предупреждение о языке: самый верх страницы, очень заметно --- */
+.lang-top{position:relative;overflow:hidden;gap:36px;padding:34px 42px 32px 38px;border-width:2px;
+  background:radial-gradient(520px 240px at 0% 50%,rgba(0,153,181,.26),transparent 70%) padding-box,radial-gradient(520px 240px at 100% 50%,rgba(30,181,58,.22),transparent 70%) padding-box,linear-gradient(180deg,rgba(24,17,21,.97),rgba(12,9,11,.99)) padding-box,linear-gradient(120deg,rgba(0,153,181,.95),rgba(255,255,255,.75) 36%,rgba(30,181,58,.95) 68%,rgba(206,17,38,.7)) border-box;
+  box-shadow:0 0 0 1px rgba(0,0,0,.4),0 34px 80px -30px rgba(30,181,58,.6),0 0 60px -14px rgba(0,153,181,.45)}
+.lang-top::before{content:"";position:absolute;left:0;right:0;top:0;height:7px;background:linear-gradient(180deg,#0099b5 0 33.3%,#fff 33.3% 66.6%,#1eb53a 66.6%)}
+.lang-top .flag{width:138px}
+.lang-top .ln-text h2{font-size:clamp(28px,4.2vw,44px);margin-bottom:12px}
+.lang-top .ln-text p{font-size:17.5px}
+.lang-top .ln-warn{padding-left:16px;border-left-width:3px;font-weight:600}
+.lang-top .ln-kicker{display:flex;align-items:center;margin-bottom:10px;font-size:13px;letter-spacing:.22em;color:#ffd27a}
+.ln-dot{flex:none;width:10px;height:10px;margin-right:11px;border-radius:50%;background:#ff5d5d;box-shadow:0 0 0 0 rgba(255,93,93,.7);animation:lnPulse 1.9s ease-out infinite}
+@keyframes lnPulse{0%{box-shadow:0 0 0 0 rgba(255,93,93,.7)}70%{box-shadow:0 0 0 12px rgba(255,93,93,0)}100%{box-shadow:0 0 0 0 rgba(255,93,93,0)}}
+@media (prefers-reduced-motion:reduce){.ln-dot{animation:none}}
+@media (max-width:620px){.lang-top{gap:18px;padding:30px 20px 24px}.lang-top .flag{width:100px}.lang-top .ln-text p{font-size:16.5px}}
+
+/* --- ключевое слово для менеджера --- */
+.res-kw{display:flex;align-items:center;flex-wrap:wrap;gap:6px 10px;margin:0 0 12px;padding:11px 15px;border-radius:12px;border:1px dashed var(--gold);background:rgba(217,181,108,.1);font:600 15px var(--body);color:var(--ink2)}
+.res-kw b{font:800 21px var(--disp);letter-spacing:.14em;color:var(--gold-l)}
+
 </style>
 
 </head>
@@ -777,6 +796,17 @@ html[lang="uz"] .who b{margin:1px 0 3px}
   </header>
 
   <main>
+  <!-- ===== ПРЕДУПРЕЖДЕНИЕ О ЯЗЫКЕ КЛУБА (самый верх) ===== -->
+  <section class="wrap lang-note lang-top rise" aria-labelledby="ln-title">
+  <div class="ln-flag"><svg class="flag" viewBox="0 0 60 40" role="img" aria-label="Флаг Узбекистана"><defs><clipPath id="fc"><rect width="60" height="40" rx="4"/></clipPath><path id="st" d="M0-1L.29-.4.95-.31.47.15.59.81 0 .5-.59.81-.47.15-.95-.31-.29-.4z"/></defs><g clip-path="url(#fc)" stroke="none"><rect width="60" height="13.4" fill="#0099b5"/><rect y="13.4" width="60" height="13.2" fill="#fff"/><rect y="26.6" width="60" height="13.4" fill="#1eb53a"/><rect y="13" width="60" height="1" fill="#ce1126"/><rect y="26" width="60" height="1" fill="#ce1126"/><circle cx="10" cy="6.6" r="4.7" fill="#fff"/><circle cx="11.5" cy="6.6" r="4" fill="#0099b5"/><g fill="#fff"><use href="#st" transform="translate(19 3) scale(1.05)"/><use href="#st" transform="translate(23.5 3) scale(1.05)"/><use href="#st" transform="translate(28 3) scale(1.05)"/><use href="#st" transform="translate(17 6.6) scale(1.05)"/><use href="#st" transform="translate(21.5 6.6) scale(1.05)"/><use href="#st" transform="translate(26 6.6) scale(1.05)"/><use href="#st" transform="translate(30.5 6.6) scale(1.05)"/><use href="#st" transform="translate(15 10.2) scale(1.05)"/><use href="#st" transform="translate(19.5 10.2) scale(1.05)"/><use href="#st" transform="translate(24 10.2) scale(1.05)"/><use href="#st" transform="translate(28.5 10.2) scale(1.05)"/><use href="#st" transform="translate(33 10.2) scale(1.05)"/></g></g></svg></div>
+  <div class="ln-text">
+    <p class="ln-kicker"><i class="ln-dot"></i>Важно знать заранее</p>
+    <h2 id="ln-title" class="hf">Основной язык клуба — узбекский</h2>
+    <p>Весь контент клуба, а также эфиры и общение в чате ведутся <b>на узбекском языке</b>.</p>
+    <p class="ln-warn">Если вы совсем не знаете язык или понимаете его не на том уровне, который нужен для обучения, клуб вам не подойдёт и, к сожалению, мы не сможем вас принять.</p>
+  </div>
+  </section>
+
   <!-- ===== ГЛАВНЫЙ ЭКРАН ===== -->
   <section class="wrap hero" id="top">
     <div class="hero-bg" aria-hidden="true"></div>
@@ -832,16 +862,6 @@ html[lang="uz"] .who b{margin:1px 0 3px}
 
   <!-- ===== ВИДЕО ФЕРУЗБЕКА О КЛУБЕ ===== -->
   <section class="wrap sec vsec" id="video">
-    <!-- предупреждение о языке клуба -->
-  <section class="lang-note" data-reveal aria-labelledby="ln-title">
-    <div class="ln-flag"><svg class="flag" viewBox="0 0 60 40" role="img" aria-label="Флаг Узбекистана"><defs><clipPath id="fc"><rect width="60" height="40" rx="4"/></clipPath><path id="st" d="M0-1L.29-.4.95-.31.47.15.59.81 0 .5-.59.81-.47.15-.95-.31-.29-.4z"/></defs><g clip-path="url(#fc)" stroke="none"><rect width="60" height="13.4" fill="#0099b5"/><rect y="13.4" width="60" height="13.2" fill="#fff"/><rect y="26.6" width="60" height="13.4" fill="#1eb53a"/><rect y="13" width="60" height="1" fill="#ce1126"/><rect y="26" width="60" height="1" fill="#ce1126"/><circle cx="10" cy="6.6" r="4.7" fill="#fff"/><circle cx="11.5" cy="6.6" r="4" fill="#0099b5"/><g fill="#fff"><use href="#st" transform="translate(19 3) scale(1.05)"/><use href="#st" transform="translate(23.5 3) scale(1.05)"/><use href="#st" transform="translate(28 3) scale(1.05)"/><use href="#st" transform="translate(17 6.6) scale(1.05)"/><use href="#st" transform="translate(21.5 6.6) scale(1.05)"/><use href="#st" transform="translate(26 6.6) scale(1.05)"/><use href="#st" transform="translate(30.5 6.6) scale(1.05)"/><use href="#st" transform="translate(15 10.2) scale(1.05)"/><use href="#st" transform="translate(19.5 10.2) scale(1.05)"/><use href="#st" transform="translate(24 10.2) scale(1.05)"/><use href="#st" transform="translate(28.5 10.2) scale(1.05)"/><use href="#st" transform="translate(33 10.2) scale(1.05)"/></g></g></svg></div>
-    <div class="ln-text">
-      <p class="ln-kicker">Важно знать заранее</p>
-      <h2 id="ln-title" class="hf">Основной язык клуба — узбекский</h2>
-      <p>Весь контент клуба, а также эфиры и общение в чате ведутся <b>на узбекском языке</b>.</p>
-      <p class="ln-warn">Если вы совсем не знаете язык или понимаете его не на том уровне, который нужен для обучения, клуб вам не подойдёт и, к сожалению, мы не сможем вас принять.</p>
-    </div>
-  </section>
     <p class="kicker" data-reveal>Видео Ферузбека о клубе</p>
     <h2 class="hf" data-reveal style="--d:.05s">Как устроен закрытый клуб</h2>
     <p class="vnote" data-reveal style="--d:.08s">Видео коротко расскажет, как устроен закрытый клуб Ферузбека Алиева. Оно на узбекском языке.</p>
@@ -1099,7 +1119,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
   var form = document.getElementById('reg');
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href="#reg"]');
-    if (!a || !form) return;
+    if (!a || !form || e.defaultPrevented) return;   // если клик уже обработан (например, открыто окно с тестом), не прокручиваем
     e.preventDefault();
     var r = form.getBoundingClientRect(), vh = window.innerHeight || document.documentElement.clientHeight;
     var gap = Math.max(16, (vh - r.height) / 2);
@@ -1136,7 +1156,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
   var PLANE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.4L2.9 11.6c-.9.4-.9 1.1-.2 1.3l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.5 0 .7-.2 1-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3-14.5c.3-1.3-.5-1.9-1.5-1.5z" fill="currentColor" stroke="none"/></svg>';
   // Три варианта итога. Кнопки создаются только здесь, по ответам: на странице их заранее нет
   var KINDS = {
-    manager: { tone: 'ok', text: 'Спасибо за ответы. Нажмите на кнопку, чтобы связаться с менеджером в Telegram и узнать, как получить доступ в клуб. Напишите ему слово «KLUB».',
+    manager: { tone: 'ok', text: 'Спасибо за ответы. Нажмите на кнопку, чтобы связаться с менеджером в Telegram и узнать, как получить доступ в клуб.', keyword: 'SEMINAR',
                btn: 'Написать менеджеру в Telegram', href: MANAGER, attr: 'data-manager', loc: 'quiz_result' },
     bot:     { tone: 'ok', text: 'Спасибо за ответы. Нажмите на кнопку, чтобы получить доступ к клубу.',
                btn: 'Получить доступ к клубу', href: BOT, attr: 'data-bot', loc: 'quiz_result' },
@@ -1158,6 +1178,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
     var ic = document.createElement('i'); ic.className = 'res-ic'; ic.setAttribute('aria-hidden', 'true');
     ic.innerHTML = k.tone === 'ok' ? '<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>' : '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v5.5M12 16.2v.3"/></svg>';
     wrap.appendChild(ic); wrap.appendChild(p); box.appendChild(wrap);
+    if (k.keyword) { var kw = document.createElement('p'); kw.className = 'res-kw'; kw.innerHTML = 'Ключевое слово — <b></b>'; kw.querySelector('b').textContent = k.keyword; box.appendChild(kw); }
     if (k.href) {
       var a = document.createElement('a'); a.className = 'btn'; a.href = k.href; a.target = '_blank'; a.rel = 'noopener noreferrer';
       a.setAttribute(k.attr, k.loc);

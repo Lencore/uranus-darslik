@@ -761,6 +761,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
           <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="+998 90 123 45 67" maxlength="25"></div>
           <span class="emsg" role="alert">Введите номер полностью, с кодом страны</span>
         </div>
+        
         <button class="btn" type="submit"><span>Узнать, как вступить</span><i class="arr"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></i></button>
         <p class="fail" id="fail" role="alert" hidden>Не получилось отправить. Проверьте интернет и попробуйте ещё раз.</p>
         <p class="legal"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 018 0v3"/></svg><span>Нажимая кнопку, вы соглашаетесь на обработку <a class="legal-link" href="https://uranus.mercuryedu.uz/pages/privacyuranus" target="_blank" rel="noopener noreferrer">персональных данных</a>.</span></p>
@@ -1027,7 +1028,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
   var form = document.getElementById('reg');
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href="#reg"]');
-    if (!a || !form) return;
+    if (!a || !form || e.defaultPrevented) return;   // если клик уже обработан (например, открыто окно с тестом), не прокручиваем
     e.preventDefault();
     var r = form.getBoundingClientRect(), vh = window.innerHeight || document.documentElement.clientHeight;
     var gap = Math.max(16, (vh - r.height) / 2);
@@ -1064,6 +1065,9 @@ html[lang="uz"] .who b{margin:1px 0 3px}
   var failBox = document.getElementById('fail');
   var btn = form.querySelector('.btn');
   var sending = false, started = false;
+  var cMain = form.elements.consent_main || null;                    // обязательное согласие (есть только на узбекской странице)
+  var consBox = form.querySelector('[data-f="consent"]');
+  function shake(el) { el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); }   // перезапуск анимации при каждой попытке
 
   function setErr(name, on) { form.querySelector('[data-f="' + name + '"]').classList.toggle('err', on); }
   function digits(v) { return String(v).replace(/\D/g, ''); }
@@ -1104,6 +1108,14 @@ html[lang="uz"] .who b{margin:1px 0 3px}
   });
   btn.addEventListener('click', function () { track('SubmitClick', { form_id: 'club_application', button_text: 'Узнать, как вступить' }); });
   ['name', 'phone'].forEach(function (n) { form.elements[n].addEventListener('input', function () { setErr(n, false); }); });
+  if (cMain) cMain.addEventListener('change', function () { setErr('consent', false); });
+  // «Batafsil»: раскрыть/свернуть полный текст необязательного согласия
+  Array.prototype.forEach.call(form.querySelectorAll('.cons-more'), function (b) {
+    b.addEventListener('click', function () {
+      var box = document.getElementById(b.getAttribute('aria-controls')), open = box.classList.toggle('open');
+      b.setAttribute('aria-expanded', open); b.textContent = open ? b.getAttribute('data-less') : b.getAttribute('data-more');
+    });
+  });
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -1111,9 +1123,13 @@ html[lang="uz"] .who b{margin:1px 0 3px}
     var name = form.elements.name.value.trim();
     var phone = digits(form.elements.phone.value); if (phone.length === 9) phone = '998' + phone;
     var okName = name.length >= 2, okPhone = phone.length >= 11 && phone.length <= 15;
+    var okConsent = !cMain || cMain.checked;                          // без галочки согласия форму отправить нельзя
     setErr('name', !okName); setErr('phone', !okPhone);
-    if (!okName || !okPhone) {
-      track('FormError', { form_id: 'club_application', error_type: 'validation', fields: (okName ? '' : 'name') + (okName || okPhone ? '' : ',') + (okPhone ? '' : 'phone') });
+    if (cMain) setErr('consent', !okConsent);
+    if (!okName || !okPhone || !okConsent) {
+      var bad = []; if (!okName) bad.push('name'); if (!okPhone) bad.push('phone'); if (!okConsent) bad.push('consent');
+      track('FormError', { form_id: 'club_application', error_type: 'validation', fields: bad.join(',') });
+      if (!okConsent && consBox) { shake(consBox); if (okName && okPhone) consBox.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
       return;
     }
     sending = true; btn.disabled = true; failBox.hidden = true;

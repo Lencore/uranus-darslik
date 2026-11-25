@@ -975,10 +975,25 @@ html[lang="uz"] .who b{margin:1px 0 3px}
     page_variant: document.documentElement.getAttribute('data-page') || 'landing',   // landing = лендинг с формой, video = вторая страница
     page_language: document.documentElement.lang || 'ru'
   };
-  var GA4_NAMES = {"LeadComplete": "generate_lead", "FormStart": "form_start", "CTAClick": "cta_click", "ManagerClick": "manager_click", "VideoPlay": "video_start", "VideoProgress": "video_progress", "VideoComplete": "video_complete", "Scroll50": "scroll_50", "Scroll90": "scroll_90"};
+  var GA4_NAMES = {"LeadComplete": "generate_lead", "FormStart": "form_start", "CTAClick": "cta_click", "BotClick": "manager_click", "VideoPlay": "video_start", "VideoProgress": "video_progress", "VideoComplete": "video_complete", "Scroll50": "scroll_50", "Scroll90": "scroll_90"};
   var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 
-  // UTM-метки из ссылки: запоминаем на время визита, чтобы они шли во все события и на вторую страницу
+  // Метка лида: ссылка вида ?tag=targetinstqual1 (слово любое). Telegram принимает в start только латиницу, цифры, «_» и «-» (до 64 знаков),
+  // поэтому остальное заменяем на «_». Запоминаем на время визита, как UTM. Тот же код, что на странице с тестом (tracking_test.js).
+  window.clubTag = function () {
+    var v = new URLSearchParams(location.search).get('tag');
+    try { if (v) sessionStorage.setItem('tag', v); else v = sessionStorage.getItem('tag'); } catch (e) {}
+    v = String(v || '').trim().replace(/[^A-Za-z0-9_-]+/g, '_').slice(0, 64);
+    return /^_*$/.test(v) ? '' : v;
+  };
+
+  // Ссылка на бота с меткой: t.me/бот?start=<метка>. Нет метки (или ошибка) - остаётся ссылка как есть, то есть start=club
+  window.clubBotLink = function (base) {
+    var tag = window.clubTag(); if (!tag) return base;
+    try { var u = new URL(base); u.searchParams.set('start', tag); return u.toString(); } catch (e) { return base; }
+  };
+
+  // UTM-метки и метка лида из ссылки: запоминаем на время визита, чтобы они шли во все события и на вторую страницу
   window.clubUtm = function () {
     var out = {}, q = new URLSearchParams(location.search);
     UTM.forEach(function (k) {
@@ -986,6 +1001,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
       try { if (v) sessionStorage.setItem(k, v); else v = sessionStorage.getItem(k); } catch (e) {}
       if (v) out[k] = v;
     });
+    var tag = window.clubTag(); if (tag) out.tag = tag;
     return out;
   };
   window.clubUtm();
@@ -1002,8 +1018,8 @@ html[lang="uz"] .who b{margin:1px 0 3px}
       if (!window.fbq) return;
       if (eventId) window.fbq('trackCustom', full, data, { eventID: eventId });
       else window.fbq('trackCustom', full, data);
-      // Стандартные события Meta для оптимизации рекламы: заявка = Lead, переход к менеджеру = Contact
-      var std = { LeadComplete: 'Lead', ManagerClick: 'Contact' }[name];
+      // Стандартные события Meta для оптимизации рекламы: заявка = Lead, переход в бота = Contact
+      var std = { LeadComplete: 'Lead', BotClick: 'Contact' }[name];
       if (std) { var sd = { content_name: BASE.content_name, content_category: BASE.content_category }; if (eventId) window.fbq('track', std, sd, { eventID: eventId + '_std' }); else window.fbq('track', std, sd); }
     } catch (e) {}
   };
@@ -1014,12 +1030,12 @@ html[lang="uz"] .who b{margin:1px 0 3px}
     if (el) window.trackEvent('CTAClick', { cta_name: el.dataset.cta, cta_text: (el.textContent || '').trim().slice(0, 40) });
   });
 
-  // Переход к менеджеру в Telegram (кнопка на второй странице): главное целевое действие
+  // Переход в Telegram (кнопка на второй странице, сейчас ведёт в бота): главное целевое действие. Событие называется ClubFA_BotClick; стандартное Contact для рекламы не менялось, в GA4 имя manager_click прежнее
   function manager(e) {
     var el = e.target.closest('[data-manager]');
     if (!el) return;
     var lead = ''; try { lead = (JSON.parse(sessionStorage.getItem('club_lead') || '{}')).lead_id || ''; } catch (x) {}
-    window.trackEvent('ManagerClick', { click_location: el.dataset.manager, destination: 'telegram manager', lead_id: lead });
+    window.trackEvent('BotClick', { click_location: el.dataset.manager, destination: 'telegram bot', lead_id: lead });
   }
   document.addEventListener('click', manager);
   document.addEventListener('auxclick', manager);         // клик средней кнопкой мыши
@@ -1181,6 +1197,7 @@ html[lang="uz"] .who b{margin:1px 0 3px}
 
     var p = new URLSearchParams(tracking());
     p.set('name', name); p.set('phone', phone); p.set('lead_id', leadId);
+    var linkTag = p.get('tag'); if (linkTag) p.set('lead_tag', linkTag);       // метка из рекламной ссылки (?tag=...) идёт отдельным полем
     p.set('tag', TAG); p.set('landing_url', location.href.split('#')[0]);
 
     // amoCRM: отправка один в один как на лендингах открытого урока (darslik.uranus.uz):

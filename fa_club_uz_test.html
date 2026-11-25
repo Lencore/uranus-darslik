@@ -1030,7 +1030,17 @@ html.tm-lock,html.tm-lock body{overflow:hidden}
     "CTAClick": "test_cta_click", "Scroll50": "test_scroll_50", "Scroll90": "test_scroll_90"};
   var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 
-  // UTM-метки из ссылки: запоминаем на время визита, чтобы они шли во все события
+  // Метка лида: ссылка вида ?tag=insta1. Слово может быть любым, заранее заданного списка нет.
+  // Telegram принимает в start только латиницу, цифры, «_» и «-» (до 64 знаков), поэтому всё остальное заменяем на «_».
+  // Метку запоминаем на время визита, как UTM. Если после очистки ничего не осталось, метки нет.
+  window.clubTag = function () {
+    var v = new URLSearchParams(location.search).get('tag');
+    try { if (v) sessionStorage.setItem('tag', v); else v = sessionStorage.getItem('tag'); } catch (e) {}
+    v = String(v || '').trim().replace(/[^A-Za-z0-9_-]+/g, '_').slice(0, 64);
+    return /^_*$/.test(v) ? '' : v;
+  };
+
+  // UTM-метки и метка лида из ссылки: запоминаем на время визита, чтобы они шли во все события
   window.clubUtm = function () {
     var out = {}, q = new URLSearchParams(location.search);
     UTM.forEach(function (k) {
@@ -1038,6 +1048,7 @@ html.tm-lock,html.tm-lock body{overflow:hidden}
       try { if (v) sessionStorage.setItem(k, v); else v = sessionStorage.getItem(k); } catch (e) {}
       if (v) out[k] = v;
     });
+    var tag = window.clubTag(); if (tag) out.tag = tag;
     return out;
   };
   window.clubUtm();
@@ -1219,6 +1230,13 @@ window.TEST = {
     requestAnimationFrame(function () { var b = run.querySelector('.t-bar u'); if (b) b.style.width = ((cur + 1) / N * 100) + '%'; });
   }
 
+  // Ссылка на бота: если страницу открыли с меткой ?tag=..., она уходит в start=..., иначе остаётся стандартная (start=club)
+  function botLink() {
+    var tag = window.clubTag ? window.clubTag() : '';
+    if (!tag) return BOT;
+    try { var u = new URL(BOT); u.searchParams.set('start', tag); return u.toString(); } catch (e) { return BOT; }
+  }
+
   function score() { return answers.reduce(function (s, a, i) { return s + (orders[i][a] && orders[i][a].ok ? 1 : 0); }, 0); }
   function levelOf(s) { for (var i = 0; i < T.levels.length; i++) if (s <= T.levels[i].max) return i; return T.levels.length - 1; }
 
@@ -1228,7 +1246,7 @@ window.TEST = {
     var cells = '';
     for (var i = 1; i <= N; i++) cells += '<i class="c' + (i <= 3 ? 0 : i <= 6 ? 1 : i <= 8 ? 2 : 3) + (i <= s ? ' on' : '') + (i === T.pass ? ' mark' : '') + '" style="--k:' + i + '"></i>';
     var bands = T.levels.map(function (l, k) { return '<span class="b' + k + (k === li ? ' now' : '') + '"><b>' + l.range + '</b>' + l.name + '</span>'; }).join('');
-    var btn = pass ? '<a class="btn" href="' + BOT + '" target="_blank" rel="noopener noreferrer" data-bot="test_result"><span>' + UI.botBtn + '</span><i class="arr">' + PLANE + '</i></a>'
+    var btn = pass ? '<a class="btn" href="' + botLink() + '" target="_blank" rel="noopener noreferrer" data-bot="test_result"><span>' + UI.botBtn + '</span><i class="arr">' + PLANE + '</i></a>'
                    : '<a class="btn" href="' + MANAGER + '" target="_blank" rel="noopener noreferrer" data-manager="test_result"><span>' + UI.mgrBtn + '</span><i class="arr">' + PLANE + '</i></a>';
     res.className = 't-res tr-' + (pass ? 'pass' : 'fail') + ' lv' + li;
     res.innerHTML =

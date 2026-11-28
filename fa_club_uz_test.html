@@ -790,6 +790,12 @@ html.tm-lock,html.tm-lock body{overflow:hidden}
 }
 @media (max-height:560px) and (min-width:601px){.tm{padding:10px}.tm-box{max-height:calc(100dvh - 20px)}}
 @media (prefers-reduced-motion:reduce){.tm,.tm-box{transition:none}}
+/* итог «не набрали баллы» с курсом: приписка и вторая (спокойная) кнопка «Задать вопрос» */
+.tr-ask{margin:18px 2px 10px;font:500 14.5px/1.5 var(--body);color:var(--ink2)}
+.t-res .btn.btn-q{background:rgba(217,181,108,.07);color:var(--gold-l);border:1px solid var(--line-g);box-shadow:none}
+.t-res .btn.btn-q::after{display:none}
+.t-res .btn.btn-q:hover{background:rgba(217,181,108,.14);border-color:var(--gold);box-shadow:none}
+.t-res .btn.btn-q .arr{background:rgba(217,181,108,.16);color:var(--gold-l)}
 
 </style>
 
@@ -1026,7 +1032,7 @@ html.tm-lock,html.tm-lock body{overflow:hidden}
   };
   // Имена для Google Analytics 4 (через GTM): отдельные от основной страницы, чтобы отчёты не склеивались
   var GA4_NAMES = {"PageView": "test_page_view", "TestOpen": "test_open", "TestClose": "test_close", "TestStart": "test_start", "TestAnswer": "test_answer", "TestComplete": "test_complete",
-    "TestPassed": "test_passed", "TestFailed": "test_failed", "BotClick": "test_bot_click", "ManagerClick": "test_manager_click",
+    "TestPassed": "test_passed", "TestFailed": "test_failed", "BotClick": "test_bot_click", "ManagerClick": "test_manager_click", "CourseClick": "test_course_click",
     "CTAClick": "test_cta_click", "Scroll50": "test_scroll_50", "Scroll90": "test_scroll_90"};
   var UTM = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
 
@@ -1151,7 +1157,7 @@ html.tm-lock,html.tm-lock body{overflow:hidden}
 // В файле вопросы открытые, поэтому для автоматической проверки каждый превращён в выбор из 4 вариантов: ok = верный ответ (по файлу), bad = неверные.
 // Тексты неверных вариантов придуманы для теста, их нужно показать носителю языка.
 window.TEST = {
-  pass: 7,   // проходной балл: по шкале из файла 7–8 «Klubga mos nomzod», 9–10 «Klub uchun tayyor treyder»
+  pass: 7,   // проходной балл (с него начинается уровень Kuchli)
   q: [
     { t: 'Grafikda bozor trendda ekanini qanday aniqlaysiz?',
       ok: 'Narx strukturasiga qarab: yuqoriroq maksimum va minimumlar yoki pastroq maksimum va minimumlar',
@@ -1183,17 +1189,17 @@ window.TEST = {
       ok: 'Strategiyani darhol oʻzgartirmayman: jurnal, kirishlar va riskni tekshirib, kerak boʻlsa savdoni toʻxtataman',
       bad: ['Riskni oshiraman va hajmni ikki barobar qilaman, shunda zararimni tezroq qaytarib olaman va davom etaman', 'Darhol boshqa strategiyaga oʻtaman, chunki 30 ta zarar bu strategiya ishlamasligini isbotlaydi', 'Hech narsani tekshirmayman va oʻzgartirmayman: xuddi shunday davom etaman, bozor albatta qaytadi'] }
   ],
-  // Шкала из файла: 0–3 Boshlovchi, 4–6 Oʻrta, 7–8 Yaxshi, 9–10 Kuchli
+  // Три уровня по возрастанию (как в русской версии, утверждено): Boshlangʻich 0–3, Oʻrta 4–6, Kuchli 7–10. Проходной балл 7. k = цвет сектора (0 красный, 1 оранжевый, 3 золотой)
   levels: [
-    { max: 3,  name: 'Boshlovchi', range: '0–3',  pass: false,
-      text: 'Bu safar yetarli ball toʻplamadingiz, lekin xafa boʻlmang. Tugmani bosib, Telegramda menejerga «KLUB» deb yozing: u sizga boshlangʻich bosqichdan (Basic kursdan) boshlash va qatʼiy poydevor qurish yechimini taklif qiladi.' },
-    { max: 6,  name: 'Oʻrta',      range: '4–6',  pass: false,
-      text: 'Bu safar yetarli ball toʻplamadingiz, lekin asos bor. Tugmani bosib, Telegramda menejerga «KLUB» deb yozing: u bilimdagi boʻshliqlarni toʻldirish va amaliyot orqali kuchliroq boʻlish yechimini taklif qiladi.' },
-    { max: 8,  name: 'Yaxshi',     range: '7–8',  pass: true,
-      text: 'Tabriklaymiz, testdan oʻtdingiz: bilimingiz klubga mos. Tugmani bosing: klub botiga oʻtasiz, u yerda klubga kirish uchun toʻlovni amalga oshirishingiz mumkin.' },
-    { max: 10, name: 'Kuchli',     range: '9–10', pass: true,
-      text: 'Ajoyib natija: siz klub uchun tayyor treydersiz. Tugmani bosing: klub botiga oʻtasiz, u yerda klubga kirish uchun toʻlovni amalga oshirishingiz mumkin.' }
+    { max: 3,  name: 'Boshlangʻich', range: '0–3',  pass: false, k: 0,
+      text: 'Afsuski, hozircha bilimingiz klubga kirish uchun yetarli emas, lekin buni osongina tuzatish mumkin. Kurs sizga treydingda kerakli poydevorni tez beradi va savdo natijalaringizni yaxshilashga yordam beradi. Oldinga yurish uchun uni oʻting.' },
+    { max: 6,  name: 'Oʻrta',        range: '4–6',  pass: false, k: 1,
+      text: 'Afsuski, hozircha bilimingiz klubga kirish uchun biroz yetmayapti, lekin asos sizda bor. Kurs boʻshliqlarni toʻldiradi, amaliyot qoʻshadi va savdo natijalaringizni yaxshilashga yordam beradi. Oldinga yurish uchun uni oʻting.' },
+    { max: 10, name: 'Kuchli',       range: '7–10', pass: true,  k: 3,
+      text: 'Ajoyib natija, siz klubga tayyorsiz! Siz kuchli treyder darajasini koʻrsatdingiz, oldinda esa hamfikrlar va professionallar hamjamiyati bor, u yerda hamma birga oʻsadi. Tugmani bosing va qoʻshiling: kuchlilar orasidagi oʻrningiz sizni kutmoqda.' }
   ],
+  // Блок для не сдавших: кнопка на курс, подпись и кнопка менеджера
+  course: { btn: 'Kursga kirish', ask: 'Savollaringiz qoldimi? Tugmani bosing va menejerga Telegramda yozing:', mgrBtn: 'Savol berish' },
   ui: { passed: 'Test topshirildi', failed: 'Test topshirilmadi', level: 'Daraja', score: 'ball', passMark: 'Oʻtish bali: 7',
         botBtn: 'Klub botiga oʻtish va toʻlov qilish', mgrBtn: 'Menejerga Telegramda yozish', back: 'Orqaga', q: 'Savol' }
 };
@@ -1204,6 +1210,7 @@ window.TEST = {
 (function () {
   var MANAGER = 'https://t.me/m/4Bx91XviMzRi';      // менеджер в Telegram (если тест не сдан)
   var BOT = 'https://t.me/feruzbekalievbot?start=club';         // бот клуба с оплатой (если тест сдан)
+  var COURSE = 'https://uranus.uz/marketplace/e81297eb-4b0e-4ebd-8e5e-e80317a38d61#qabul';        // страница курса (только если в вопросах задан блок course: кнопка «Попасть на курс» для не набравших баллы)
   var T = window.TEST, UI = T.ui;
   var tm = document.getElementById('tm'), box = tm && tm.querySelector('.tm-box'), tst = document.getElementById('tst');
   var run = document.getElementById('t-run'), res = document.getElementById('t-res');
@@ -1212,6 +1219,7 @@ window.TEST = {
   function track(n, p) { if (window.trackEvent) window.trackEvent(n, p); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function shuffle(a) { for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)), t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+  var ARROW = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>';
   var PLANE = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 4.4L2.9 11.6c-.9.4-.9 1.1-.2 1.3l4.7 1.5 1.8 5.6c.2.6.4.8.8.8.5 0 .7-.2 1-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3-14.5c.3-1.3-.5-1.9-1.5-1.5z" fill="currentColor" stroke="none"/></svg>';
 
   // Варианты каждого вопроса перемешиваем один раз за прохождение: верный ответ не всегда на одном месте
@@ -1238,22 +1246,26 @@ window.TEST = {
   }
 
   function score() { return answers.reduce(function (s, a, i) { return s + (orders[i][a] && orders[i][a].ok ? 1 : 0); }, 0); }
+  function kOf(li) { var k = T.levels[li].k; return k == null ? li : k; }   // номер цвета уровня (в уровне можно задать k, иначе по порядку)
   function levelOf(s) { for (var i = 0; i < T.levels.length; i++) if (s <= T.levels[i].max) return i; return T.levels.length - 1; }
 
   function showResult() {
     var s = score(), li = levelOf(s), L = T.levels[li], pass = s >= T.pass;
     var C = 2 * Math.PI * 52, off = C * (1 - s / N);
     var cells = '';
-    for (var i = 1; i <= N; i++) cells += '<i class="c' + (i <= 3 ? 0 : i <= 6 ? 1 : i <= 8 ? 2 : 3) + (i <= s ? ' on' : '') + (i === T.pass ? ' mark' : '') + '" style="--k:' + i + '"></i>';
+    for (var i = 1; i <= N; i++) cells += '<i class="c' + kOf(levelOf(i)) + (i <= s ? ' on' : '') + (i === T.pass ? ' mark' : '') + '" style="--k:' + i + '"></i>';
     var bands = T.levels.map(function (l, k) { return '<span class="b' + k + (k === li ? ' now' : '') + '"><b>' + l.range + '</b>' + l.name + '</span>'; }).join('');
-    var btn = pass ? '<a class="btn" href="' + botLink() + '" target="_blank" rel="noopener noreferrer" data-bot="test_result"><span>' + UI.botBtn + '</span><i class="arr">' + PLANE + '</i></a>'
-                   : '<a class="btn" href="' + MANAGER + '" target="_blank" rel="noopener noreferrer" data-manager="test_result"><span>' + UI.mgrBtn + '</span><i class="arr">' + PLANE + '</i></a>';
-    res.className = 't-res tr-' + (pass ? 'pass' : 'fail') + ' lv' + li;
+    var MGR = '<a class="btn" href="' + MANAGER + '" target="_blank" rel="noopener noreferrer" data-manager="test_result"><span>' + UI.mgrBtn + '</span><i class="arr">' + PLANE + '</i></a>';
+    var btn = pass ? '<a class="btn" href="' + botLink() + '" target="_blank" rel="noopener noreferrer" data-bot="test_result"><span>' + UI.botBtn + '</span><i class="arr">' + PLANE + '</i></a>' : MGR;
+    // не набрали баллы и задан блок course: сначала кнопка курса, ниже приписка и вторая кнопка «Задать вопрос» (менеджер)
+    if (!pass && T.course) btn = '<a class="btn" href="' + COURSE + '" target="_blank" rel="noopener noreferrer" data-course="test_result"><span>' + esc(T.course.btn) + '</span><i class="arr">' + ARROW + '</i></a>' +
+      '<p class="tr-ask">' + esc(T.course.ask) + '</p>' + '<a class="btn btn-q" href="' + MANAGER + '" target="_blank" rel="noopener noreferrer" data-manager="test_result"><span>' + esc(T.course.mgrBtn) + '</span><i class="arr">' + PLANE + '</i></a>';
+    res.className = 't-res tr-' + (pass ? 'pass' : 'fail') + ' lv' + kOf(li);
     res.innerHTML =
       '<div class="tr-top"><div class="tr-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="rg-bg" cx="60" cy="60" r="52"/><circle class="rg-fg" cx="60" cy="60" r="52" style="stroke-dasharray:' + C.toFixed(1) + ';stroke-dashoffset:' + C.toFixed(1) + '" data-off="' + off.toFixed(1) + '"/></svg>' +
       '<div class="rg-val"><b>' + s + '</b><span>/ ' + N + ' ' + UI.score + '</span></div></div>' +
       '<div class="tr-head"><span class="badge">' + (pass ? '✓ ' + UI.passed : '✕ ' + UI.failed) + '</span><p class="tr-lvl">' + UI.level + ': <b>' + L.name + '</b></p></div></div>' +
-      '<div class="scale" aria-hidden="true"><div class="cells">' + cells + '</div><div class="bands">' + bands + '</div><p class="pm"><i></i>' + UI.passMark + '</p></div>' +
+      '<div class="scale" aria-hidden="true"><div class="cells">' + cells + '</div><div class="bands" style="grid-template-columns:' + T.levels.map(function (l, k) { return (l.max - (k ? T.levels[k - 1].max : 0)) + 'fr'; }).join(' ') + '">' + bands + '</div><p class="pm"><i></i>' + UI.passMark + '</p></div>' +
       '<p class="tr-text">' + esc(L.text) + '</p>' + btn;
     run.hidden = true; res.hidden = false; tm.setAttribute('data-s', 'r'); tst.scrollTop = 0;
     res.classList.remove('show'); void res.offsetWidth; res.classList.add('show');
@@ -1326,7 +1338,8 @@ window.TEST = {
 
   // Переходы к менеджеру и в бота: главные целевые действия
   function click(e) {
-    var m = e.target.closest('[data-manager]'), b = e.target.closest('[data-bot]');
+    var m = e.target.closest('[data-manager]'), b = e.target.closest('[data-bot]'), c = e.target.closest('[data-course]');
+    if (c) track('CourseClick', { click_location: c.getAttribute('data-course'), destination: 'course page', score: score() });
     if (m) track('ManagerClick', { click_location: m.getAttribute('data-manager'), destination: 'telegram manager', score: score() });
     if (b) track('BotClick', { click_location: b.getAttribute('data-bot'), destination: 'telegram bot', score: score() });
   }

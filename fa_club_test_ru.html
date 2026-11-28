@@ -1156,7 +1156,7 @@ html.tm-lock,html.tm-lock body{overflow:hidden}
 // Вопросы теста клуба (русский) и шкала баллов: русская копия для утверждения текстов, потом переносим на узбекскую версию.
 // Вопросы и верные ответы взяты из русской части файла «Treyder uchun savol-javob uz-ru.docx». Неверные варианты придуманы (как и в узбекской версии).
 window.TEST = {
-  pass: 7,   // проходной балл: по шкале из файла 7–8 «Хороший», 9–10 «Сильный»
+  pass: 7,   // проходной балл: 7 и выше = уровень «Сильный»
   q: [
     { t: 'Как вы определяете, находится ли рынок в тренде на графике?',
       ok: 'По структуре цены: более высокие максимумы и минимумы или более низкие максимумы и минимумы',
@@ -1188,16 +1188,14 @@ window.TEST = {
       ok: 'Не буду сразу менять стратегию: проверю журнал, входы и риск, при необходимости остановлю торговлю',
       bad: ['Увеличу риск и удвою объём, чтобы быстрее вернуть убыток и продолжить', 'Сразу перейду на другую стратегию, ведь 30 убытков доказывают, что эта не работает', 'Ничего не буду проверять и менять, просто продолжу торговать'] }
   ],
-  // Шкала из файла: 0–3 Начинающий, 4–6 Средний, 7–8 Хороший, 9–10 Сильный
+  // Три уровня по возрастанию (утвердил Денис 28.11.2026): Начальный 0–3, Средний 4–6, Сильный 7–10 (7 и выше = проходной балл). k = номер цвета на шкале
   levels: [
-    { max: 3,  name: 'Начинающий', range: '0–3',  pass: false,
+    { max: 3,  name: 'Начальный', range: '0–3',  pass: false, k: 0,
       text: 'К сожалению, пока ваших знаний недостаточно, чтобы попасть в клуб, но это легко исправить. Курс быстро даст вам нужный фундамент в трейдинге и поможет улучшить результаты в торговле. Пройдите его, чтобы двигаться дальше.' },
-    { max: 6,  name: 'Средний',    range: '4–6',  pass: false,
+    { max: 6,  name: 'Средний',   range: '4–6',  pass: false, k: 1,
       text: 'К сожалению, пока ваших знаний немного не хватает, чтобы попасть в клуб, но основа у вас уже есть. Курс закроет пробелы, добавит практики и поможет улучшить результаты в торговле. Пройдите его, чтобы двигаться дальше.' },
-    { max: 8,  name: 'Хороший',    range: '7–8',  pass: true,
-      text: 'Поздравляем, тест пройден: ваших знаний достаточно для клуба. Нажмите на кнопку: вы перейдёте в бота клуба, где сможете оплатить вступление.' },
-    { max: 10, name: 'Сильный',    range: '9–10', pass: true,
-      text: 'Отличный результат: вы готовы к клубу. Нажмите на кнопку: вы перейдёте в бота клуба, где сможете оплатить вступление.' }
+    { max: 10, name: 'Сильный',   range: '7–10', pass: true,  k: 3,
+      text: 'Отличный результат, вы готовы к клубу! Вы показали уровень сильного трейдера, а впереди сообщество единомышленников и профессионалов, где растут вместе. Нажмите на кнопку и присоединяйтесь: ваше место среди сильных уже ждёт вас.' }
   ],
   // итог «не набрали баллы»: кнопка курса, приписка и кнопка менеджера
   course: { btn: 'Попасть на курс', ask: 'Остались вопросы? Нажмите на кнопку и напишите менеджеру в Telegram:', mgrBtn: 'Задать вопрос' },
@@ -1247,25 +1245,26 @@ window.TEST = {
   }
 
   function score() { return answers.reduce(function (s, a, i) { return s + (orders[i][a] && orders[i][a].ok ? 1 : 0); }, 0); }
+  function kOf(li) { var k = T.levels[li].k; return k == null ? li : k; }   // номер цвета уровня (в уровне можно задать k, иначе по порядку)
   function levelOf(s) { for (var i = 0; i < T.levels.length; i++) if (s <= T.levels[i].max) return i; return T.levels.length - 1; }
 
   function showResult() {
     var s = score(), li = levelOf(s), L = T.levels[li], pass = s >= T.pass;
     var C = 2 * Math.PI * 52, off = C * (1 - s / N);
     var cells = '';
-    for (var i = 1; i <= N; i++) cells += '<i class="c' + (i <= 3 ? 0 : i <= 6 ? 1 : i <= 8 ? 2 : 3) + (i <= s ? ' on' : '') + (i === T.pass ? ' mark' : '') + '" style="--k:' + i + '"></i>';
+    for (var i = 1; i <= N; i++) cells += '<i class="c' + kOf(levelOf(i)) + (i <= s ? ' on' : '') + (i === T.pass ? ' mark' : '') + '" style="--k:' + i + '"></i>';
     var bands = T.levels.map(function (l, k) { return '<span class="b' + k + (k === li ? ' now' : '') + '"><b>' + l.range + '</b>' + l.name + '</span>'; }).join('');
     var MGR = '<a class="btn" href="' + MANAGER + '" target="_blank" rel="noopener noreferrer" data-manager="test_result"><span>' + UI.mgrBtn + '</span><i class="arr">' + PLANE + '</i></a>';
     var btn = pass ? '<a class="btn" href="' + botLink() + '" target="_blank" rel="noopener noreferrer" data-bot="test_result"><span>' + UI.botBtn + '</span><i class="arr">' + PLANE + '</i></a>' : MGR;
     // не набрали баллы и задан блок course: сначала кнопка курса, ниже приписка и вторая кнопка «Задать вопрос» (менеджер)
     if (!pass && T.course) btn = '<a class="btn" href="' + COURSE + '" target="_blank" rel="noopener noreferrer" data-course="test_result"><span>' + esc(T.course.btn) + '</span><i class="arr">' + ARROW + '</i></a>' +
       '<p class="tr-ask">' + esc(T.course.ask) + '</p>' + '<a class="btn btn-q" href="' + MANAGER + '" target="_blank" rel="noopener noreferrer" data-manager="test_result"><span>' + esc(T.course.mgrBtn) + '</span><i class="arr">' + PLANE + '</i></a>';
-    res.className = 't-res tr-' + (pass ? 'pass' : 'fail') + ' lv' + li;
+    res.className = 't-res tr-' + (pass ? 'pass' : 'fail') + ' lv' + kOf(li);
     res.innerHTML =
       '<div class="tr-top"><div class="tr-ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle class="rg-bg" cx="60" cy="60" r="52"/><circle class="rg-fg" cx="60" cy="60" r="52" style="stroke-dasharray:' + C.toFixed(1) + ';stroke-dashoffset:' + C.toFixed(1) + '" data-off="' + off.toFixed(1) + '"/></svg>' +
       '<div class="rg-val"><b>' + s + '</b><span>/ ' + N + ' ' + UI.score + '</span></div></div>' +
       '<div class="tr-head"><span class="badge">' + (pass ? '✓ ' + UI.passed : '✕ ' + UI.failed) + '</span><p class="tr-lvl">' + UI.level + ': <b>' + L.name + '</b></p></div></div>' +
-      '<div class="scale" aria-hidden="true"><div class="cells">' + cells + '</div><div class="bands">' + bands + '</div><p class="pm"><i></i>' + UI.passMark + '</p></div>' +
+      '<div class="scale" aria-hidden="true"><div class="cells">' + cells + '</div><div class="bands" style="grid-template-columns:' + T.levels.map(function (l, k) { return (l.max - (k ? T.levels[k - 1].max : 0)) + 'fr'; }).join(' ') + '">' + bands + '</div><p class="pm"><i></i>' + UI.passMark + '</p></div>' +
       '<p class="tr-text">' + esc(L.text) + '</p>' + btn;
     run.hidden = true; res.hidden = false; tm.setAttribute('data-s', 'r'); tst.scrollTop = 0;
     res.classList.remove('show'); void res.offsetWidth; res.classList.add('show');
